@@ -5,17 +5,47 @@
     <script src="../load-components.js"></script>
     <script src="../load-head.js"></script>
     <script src="../load-components.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-dt@2.3.1/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/datatables.net@2.3.1/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
     <div id="header"></div>
 
     <main class="container py-3">
-      <div class="row">
-        <div class="col-12 mx-3">
-        <h1 style="text-align: center;text-transform: uppercase;"> Data Course dan Pengembang ICE Institute </h1>
-            <iframe src="https://script.google.com/macros/s/AKfycbxSjfZh82J_TERGOgVpoxBJ4qqpeoDc-uQGec1Wz643V0IRwPgea_wfb5Bn3rAYcZ4x/exec" height="1000" width="100%"></iframe>
-        </div>
-      </div>
+    <h1>Daftar Data</h1>
+    <table id="myTable" class="display" style="width:100%">
+      <thead>
+        <tr id="tableHead"></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+  <script>
+    const apiUrl = "https://script.google.com/macros/s/AKfycbxSjfZh82J_TERGOgVpoxBJ4qqpeoDc-uQGec1Wz643V0IRwPgea_wfb5Bn3rAYcZ4x/exec"; // ← ganti URL Web App kamu
+
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        if (data.length === 0) return;
+
+        // Buat header kolom dari kunci object
+        const headers = Object.keys(data[0]);
+        headers.forEach(key => {
+          $("#tableHead").append(`<th>${key}</th>`);
+        });
+
+        // Buat baris data
+        data.forEach(row => {
+          const rowHtml = headers.map(h => `<td>${row[h]}</td>`).join("");
+          $("#tableBody").append(`<tr>${rowHtml}</tr>`);
+        });
+
+        // Inisialisasi DataTable
+        $('#myTable').DataTable();
+      })
+      .catch(err => console.error("Gagal memuat data:", err));
+  </script>
     </main>
 
     <div id="footer"></div>
