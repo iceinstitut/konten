@@ -5,9 +5,9 @@
     <script src="../load-components.js"></script>
     <script src="../load-head.js"></script>
     <script src="../load-components.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-dt@2.3.1/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/datatables.net@2.3.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css">
+  <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.min.js"></script>
   </head>
   <body>
     <div id="header"></div>
@@ -21,33 +21,47 @@
       <tbody id="tableBody"></tbody>
     </table>
 
-  <script>
+    </main>
+
+    <div id="footer"></div>
+
+    <script>
     const apiUrl = "https://script.google.com/macros/s/AKfycbxSjfZh82J_TERGOgVpoxBJ4qqpeoDc-uQGec1Wz643V0IRwPgea_wfb5Bn3rAYcZ4x/exec"; // ← ganti URL Web App kamu
 
     fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
-        if (data.length === 0) return;
+        if (!data || data.length === 0) return;
 
-        // Buat header kolom dari kunci object
         const headers = Object.keys(data[0]);
+
+        // Buat header
+        const thead = document.getElementById("tableHead");
         headers.forEach(key => {
-          $("#tableHead").append(`<th>${key}</th>`);
+          const th = document.createElement("th");
+          th.textContent = key;
+          thead.appendChild(th);
         });
 
         // Buat baris data
+        const tbody = document.getElementById("tableBody");
         data.forEach(row => {
-          const rowHtml = headers.map(h => `<td>${row[h]}</td>`).join("");
-          $("#tableBody").append(`<tr>${rowHtml}</tr>`);
+          const tr = document.createElement("tr");
+          headers.forEach(h => {
+            const td = document.createElement("td");
+            td.textContent = row[h];
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
         });
 
-        // Inisialisasi DataTable
-        $('#myTable').DataTable();
+        // Inisialisasi DataTables (modern)
+        new DataTable("#myTable");
       })
       .catch(err => console.error("Gagal memuat data:", err));
   </script>
-    </main>
-
-    <div id="footer"></div>
+  <script>
+  console.log("DataTable available?", typeof DataTable);
+</script>
   </body>
 </html>
