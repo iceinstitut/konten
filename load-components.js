@@ -1,6 +1,5 @@
-
 function loadComponent(id, url) {
-  fetch(url)
+  fetch("/konten/" + url)
     .then(response => response.text())
     .then(data => {
       document.getElementById(id).innerHTML = data;
