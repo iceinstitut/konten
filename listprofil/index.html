@@ -5,12 +5,20 @@
     <script src="../load-components.js"></script>
     <script src="../load-head.js"></script>
     <script src="../load-components.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
- // <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
-  <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+  <style>
+    .placeholder-card {
+      height: 220px;
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+      background-color: #f8f9fa;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { background-color: #f8f9fa; }
+      50% { background-color: #e9ecef; }
+      100% { background-color: #f8f9fa; }
+    }
+  </style>
   
   
   </head>
@@ -18,55 +26,128 @@
     <div id="header"></div>
 
     <main class="container py-3">
-    <h1>Daftar Data</h1>
-    <table id="myTable" class="display" style="width:100%">
-      <thead>
-        <tr id="tableHead"></tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+    
+    <h2 class="text-center mb-4">Daftar Course dan Pengembang di ICE Institute</h2>
+
+    <div class="mb-3">
+      <input type="text" id="searchInput" class="form-control" placeholder="Cari course, dosen, atau institusi...">
+    </div>
+
+    <div class="mb-2 text-end text-muted" id="dataInfo"></div>
+
+    <div id="cardContainer" class="row g-4">
+      
+    </div>
+
+    <nav class="mt-4">
+      <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
+
 
     </main>
 
     <div id="footer"></div>
 
     <script>
-    const apiUrl = "https://script.google.com/macros/s/AKfycbxSjfZh82J_TERGOgVpoxBJ4qqpeoDc-uQGec1Wz643V0IRwPgea_wfb5Bn3rAYcZ4x/exec"; // ← ganti URL Web App kamu
+    const apiUrl = "https://script.google.com/macros/s/AKfycbxSjfZh82J_TERGOgVpoxBJ4qqpeoDc-uQGec1Wz643V0IRwPgea_wfb5Bn3rAYcZ4x/exec"; // Ganti dengan URL JSON kamu
+    let allData = [];
+    let filteredData = [];
+    const itemsPerPage = 12;
+    let currentPage = 1;
 
-    fetch(apiUrl)
-      .then(res => res.json())
-      .then(data => {
-        if (!data || data.length === 0) return;
+    async function fetchData() {
+      try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        allData = data;
+        filteredData = [...allData];
+        renderPage(1);
+      } catch (err) {
+        const container = document.getElementById("cardContainer");
+        container.innerHTML = "<p class='text-danger'>Gagal memuat data.</p>";
+        console.error(err);
+      }
+    }
 
-        const headers = Object.keys(data[0]);
+    function renderPage(page) {
+      currentPage = page;
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = filteredData.slice(start, end);
 
-        // Buat header
-        const thead = document.getElementById("tableHead");
-        headers.forEach(key => {
-          const th = document.createElement("th");
-          th.textContent = key;
-          thead.appendChild(th);
-        });
+      const container = document.getElementById("cardContainer");
+      container.innerHTML = pageItems.map(item => `
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">${item.nama_mk}</h5>
+              <p class="card-text"><strong>Kode:</strong> ${item.kode_mk}</p>
+              <p class="card-text"><strong>Partner:</strong> ${item.Partner}</p>
+              <p class="card-text"><strong>Dosen:</strong> ${item.nama_dosen}</p>
+              <p class="card-text"><strong>Institusi:</strong> ${item.institusi_dosen}</p>
+            </div>
+          </div>
+        </div>
+      `).join("");
 
-        // Buat baris data
-        const tbody = document.getElementById("tableBody");
-        data.forEach(row => {
-          const tr = document.createElement("tr");
-          headers.forEach(h => {
-            const td = document.createElement("td");
-            td.textContent = row[h];
-            tr.appendChild(td);
-          });
-          tbody.appendChild(tr);
-        });
+      renderPagination();
+      updateDataInfo(start, end, filteredData.length);
+    }
 
-        // Inisialisasi DataTables (modern)
-        new DataTable("#myTable");
-      })
-      .catch(err => console.error("Gagal memuat data:", err));
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = "";
+
+      const prevDisabled = currentPage === 1 ? "disabled" : "";
+      const nextDisabled = currentPage === totalPages ? "disabled" : "";
+
+      pagination.innerHTML += `
+        <li class="page-item ${prevDisabled}">
+          <a class="page-link" href="#" onclick="renderPage(${currentPage - 1})">Sebelumnya</a>
+        </li>
+      `;
+
+      pagination.innerHTML += `
+        <li class="page-item disabled">
+          <a class="page-link" href="#">${currentPage} / ${totalPages}</a>
+        </li>
+      `;
+
+      pagination.innerHTML += `
+        <li class="page-item ${nextDisabled}">
+          <a class="page-link" href="#" onclick="renderPage(${currentPage + 1})">Berikutnya</a>
+        </li>
+      `;
+    }
+
+    function updateDataInfo(start, end, total) {
+      const shownEnd = Math.min(end, total);
+      document.getElementById("dataInfo").textContent = `Menampilkan ${start + 1} - ${shownEnd} dari ${total} data`;
+    }
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const keyword = e.target.value.toLowerCase();
+      filteredData = allData.filter(item =>
+        item.nama_mk.toLowerCase().includes(keyword) ||
+        item.kode_mk.toLowerCase().includes(keyword) ||
+        item.Partner.toLowerCase().includes(keyword) ||
+        item.nama_dosen.toLowerCase().includes(keyword) ||
+        item.institusi_dosen.toLowerCase().includes(keyword)
+      );
+      renderPage(1);
+    });
+
+    // Tampilkan placeholder sebelum fetch
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("cardContainer");
+      container.innerHTML = Array.from({ length: 12 }).map(() => `
+        <div class="col-md-6 col-lg-4">
+          <div class="placeholder-card p-3"></div>
+        </div>
+      `).join("");
+      fetchData();
+    });
   </script>
-  <script>
-  console.log("DataTable available?", typeof DataTable);
-</script>
   </body>
 </html>
