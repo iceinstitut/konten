@@ -79,12 +79,19 @@
       container.innerHTML = pageItems.map(item => `
         <div class="col-md-6 col-lg-4">
           <div class="card h-100 shadow-sm">
+          <img src="${item.link_card || 'https://iceinstitut.github.io/image/aset/cover-default.jpg'}" class="card-img-top" alt="${item.nama_mk}" loading="lazy">
             <div class="card-body">
-              <h5 class="card-title">${item.nama_mk}</h5>
-              <p class="card-text"><strong>Kode:</strong> ${item.kode_mk}</p>
-              <p class="card-text"><strong>Partner:</strong> ${item.Partner}</p>
-              <p class="card-text"><strong>Dosen:</strong> ${item.nama_dosen}</p>
-              <p class="card-text"><strong>Institusi:</strong> ${item.institusi_dosen}</p>
+                <p class="card-text text-muted">${item.Partner}</p>
+                <h4 class="card-title">${item.nama_mk}</h4>
+                <p class="card-text"><strong>Kode:</strong> ${item.kode_mk}</p>
+                <div class="row">
+                  <div class="col-auto d-flex align-items-start flex-column">
+                      <img class="mb-auto" src="https://cdn-icons-png.flaticon.com/512/10307/10307911.png" width="50">
+                  </div>
+                  <div class="col">
+                      <p class="card-text"><strong> ${item.nama_dosen}</strong><br>${item.institusi_dosen}</p>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
