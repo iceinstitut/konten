@@ -1,23 +1,91 @@
-
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>Verifikasi Sertifikat Event ICE Institute</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="../load-components.js"></script>
     <script src="../load-head.js"></script>
     <script src="../load-components.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <div id="header"></div>
 
     <main class="container py-3">
-      <div class="row">
-        <div class="col-12 mx-3">
-        <h1 style="text-align: center;text-transform: uppercase;"> Verifikasi Sertifikat Event ICE Institute </h1>
-            <iframe src="https://script.google.com/macros/s/AKfycby2STVrnQLodMGzEMfM-vbGds016qEvUiwrn7gig_xsAegQlDC4ifK3ipmmjXgPu5lWPg/exec" height="1000" width="100%"></iframe>
+      <div class="px-4 py-5 my-5 text-center">
+        <!-- <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+        <h1 class="display-5 fw-bold text-body-emphasis">Certificate Verification</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Masukkan nomor sertifikat anda untuk memverifikasi jika sertifikat yang anda miliki berasal dari ICE Institute</p>
         </div>
+        <div class="input-group input-group-lg">
+            <input type="text" id="searchInput" class="form-control" placeholder="AA/00/ICEI/00000/A/0000">
+            <button class="btn btn-primary" onclick="searchData()">Cari</button>
+          </div>
       </div>
     </main>
 
     <div id="footer"></div>
+
+    <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzNYSM5pqiWewJVSSDn-F6qusMGRltn5dyux34E1M-rQpUthTPZouRWTKfAhNFqly_enQ/exec"; // Ganti dengan Web App URL
+
+    async function searchData() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (!query) {
+        Swal.fire("Harap masukkan No Sertifikat!");
+        return;
+      }
+
+      Swal.fire({
+        title: 'Mencari data...',
+        text: 'Mohon tunggu sebentar',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      try {
+        const response = await fetch(`${API_URL}?q=${encodeURIComponent(query)}`);
+        const result = await response.json();
+        Swal.close();
+
+        if (result.found) {
+          const data = result.data[0];
+
+          const detail = `
+            <b>No Sertifikat</b>: ${data["No_Sertifikat"]}<br>
+            <b>Nama</b>: ${data["Nama"]}<br>
+            <b>Instansi</b>: ${data["Instansi"]}<br>
+            <b>Sebagai</b>: ${data["Sebagai"]}<br>
+            <b>Tipe Kegiatan</b>: ${data["Tipe Kegiatan"]}<br>
+            <b>Bentuk Kegiatan</b>: ${data["Bentuk Kegiatan"]}<br>
+            <b>Nama Kegiatan</b>: ${data["Nama Kegiatan"]}<br>
+            <b>Tema</b>: ${data["tema"]}<br>
+            <b>Tanggal Kegiatan</b>: ${data["Tanggal Kegiatan"]}
+          `;
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Data Ditemukan',
+            html: detail,
+            confirmButtonText: 'OK'
+          });
+
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Data Tidak Ditemukan',
+            text: `Tidak ada data dengan No Sertifikat "${query}".`
+          });
+        }
+
+      } catch (error) {
+        Swal.close();
+        Swal.fire("Gagal mengambil data.", error.message, "error");
+      }
+    }
+  </script>
   </body>
 </html>
