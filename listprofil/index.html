@@ -26,11 +26,21 @@
     <div id="header"></div>
 
     <main class="container py-3">
-    
-    <h2 class="text-center mb-4">Daftar Course dan Pengembang di ICE Institute</h2>
+
+    <div class="col-10 px-4 py-5 my-5 text-center mx-auto">
+      <!-- <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+      <h1 class="display-5 fw-bold text-body-emphasis">Daftar Course dan Pengembang di<br>ICE Institute</h1>
+      <div class="col-12 mx-auto">
+        <p class="lead mb-4">Halaman ini menampilkan daftar mata kuliah beserta nama-nama pengembangnya, lengkap dengan fitur pencarian untuk memudahkan Anda menemukan informasi yang dibutuhkan. Jika Anda tidak menemukan nama mata kuliah yang Anda cari, silakan tambahkan data mata kuliah tersebut melalui tombol <strong>Add Course</strong>. Namun, apabila Anda menemukan nama mata kuliahnya tetapi tidak menemukan nama Anda tercantum sebagai pengembang, Anda juga dapat menambahkan nama Anda melalui tombol <strong>Add Course Dev</strong>. Pastikan data yang Anda masukkan akurat agar informasi tetap terjaga dan bermanfaat bagi semua pengguna.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a class="btn btn-primary btn-lg px-4 gap-3" href="https://iceinstitut.github.io/konten/profilmk/" target="_blank">Add Course</a>
+        <a class="btn btn-outline-secondary btn-lg px-4" href="https://iceinstitut.github.io/konten/profildev/" target="_blank">Add Course Dev</a>
+        </div>
+      </div>
+    </div>
 
     <div class="mb-3">
-      <input type="text" id="searchInput" class="form-control" placeholder="Cari course, dosen, atau institusi...">
+      <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari course, pengembang, atau institusi...">
     </div>
 
     <div class="mb-2 text-end text-muted" id="dataInfo"></div>
