@@ -1,11 +1,21 @@
 
 <html>
   <head>
-    <title>Verifikasi Sertifikat Event ICE Institute</title>
+    <title>Panduan</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../load-components.js"></script>
     <script src="../load-head.js"></script>
-    <script src="../load-components.js"></script>
+     <style>
+      /* Gaya dasar untuk menyembunyikan konten secara default */
+      .tab-konten {
+        display: none;
+      }
+
+      /* Gaya untuk konten yang aktif */
+      .tab-konten.active {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <div id="header"></div>
@@ -40,7 +50,7 @@
     <a class="text-decoration-none" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#panduan3">
       <div class="menuutama rounded p-3 h-100 shadow">
         <i class="text-primary bi bi-file-text" style="font-size:6rem"></i>
-        <h3 class="text-black">Panduan 3</h3>
+        <h3 class="text-black">Self Evaluation</h3>
       </div>
     </a>
   </div>
@@ -93,10 +103,106 @@
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content h-100">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="panduan3Label">Modal title 3</h1>
+        <h1 class="modal-title fs-5" id="panduan3Label">Self Evaluation</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body"> ... </div>
+      <div class="modal-body bg-body-tertiary">
+        <div class="card text-bg-primary mb-5">
+      <div class="card-body text-center">
+        <h1>Kelengkapan Course</h1>
+        <p>Berikut adalah daftar komponen wajib yang harus dilengkapi oleh para pengembang course. Klik pada setiap bagian untuk melihat detail lebih lengkap.</p>
+      </div>
+    </div>
+    <div class="card border-0 shadow-sm my-3">
+      <div class="card-body" style="border-left: 8px solid var(--bs-primary);border-radius:.5rem">
+        <h3>
+          <i class="bi bi-info-circle"></i> Informasi Course
+        </h3>
+        <button type="button" data-target="kontena1" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Video Trailer </button>
+        <button type="button" data-target="kontena2" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Deskripsi </button>
+        <button type="button" data-target="kontena3" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Short Deskripsi </button>
+        <button type="button" data-target="kontena4" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Capaian </button>
+        <button type="button" data-target="kontena5" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Total waktu penyelesaian seluruh Course </button>
+        <button type="button" data-target="kontena6" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Silabus </button>
+        <button type="button" data-target="kontena7" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Peta Konsep </button>
+        <button type="button" data-target="kontena8" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Alur Belajar </button>
+        <button type="button" data-target="kontena9" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Daftar Pustaka </button>
+        <button type="button" data-target="kontena10" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Komponen Penilaian </button>
+        <button type="button" data-target="kontena11" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Nilai Minimum </button>
+        <button type="button" data-target="kontena12" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Tanggal Mulai </button>
+        <button type="button" data-target="kontena13" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Tanggal Berakhir </button>
+        <button type="button" data-target="kontena14" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Bahasa Pengantar </button>
+        <button type="button" data-target="kontena15" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Course Card </button>
+        <button type="button" data-target="kontena16" class="tab-tombol btn btn-outline-primary me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Syarat (jika ada) </button>
+      </div>
+    </div>
+    <div id="kontena1" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Video Trailer </h5><hr><p>Ini adalah isi dari Video Trailer . Ketika Anda mengklik Tombol Video Trailer  konten ini akan muncul</p></div></div>
+<div id="kontena2" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Deskripsi </h5><hr><p>Ini adalah isi dari Deskripsi . Ketika Anda mengklik Tombol Deskripsi  konten ini akan muncul</p></div></div>
+<div id="kontena3" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Short Deskripsi </h5><hr><p>Ini adalah isi dari Short Deskripsi . Ketika Anda mengklik Tombol Short Deskripsi  konten ini akan muncul</p></div></div>
+<div id="kontena4" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Capaian </h5><hr><p>Ini adalah isi dari Capaian . Ketika Anda mengklik Tombol Capaian  konten ini akan muncul</p></div></div>
+<div id="kontena5" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Total waktu penyelesaian seluruh Course </h5><hr><p>Ini adalah isi dari Total waktu penyelesaian seluruh Course . Ketika Anda mengklik Tombol Total waktu penyelesaian seluruh Course  konten ini akan muncul</p></div></div>
+<div id="kontena6" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Silabus </h5><hr><p>Ini adalah isi dari Silabus . Ketika Anda mengklik Tombol Silabus  konten ini akan muncul</p></div></div>
+<div id="kontena7" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Peta Konsep </h5><hr><p>Ini adalah isi dari Peta Konsep . Ketika Anda mengklik Tombol Peta Konsep  konten ini akan muncul</p></div></div>
+<div id="kontena8" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Alur Belajar </h5><hr><p>Ini adalah isi dari Alur Belajar . Ketika Anda mengklik Tombol Alur Belajar  konten ini akan muncul</p></div></div>
+<div id="kontena9" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Daftar Pustaka </h5><hr><p>Ini adalah isi dari Daftar Pustaka . Ketika Anda mengklik Tombol Daftar Pustaka  konten ini akan muncul</p></div></div>
+<div id="kontena10" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Komponen Penilaian </h5><hr><p>Ini adalah isi dari Komponen Penilaian . Ketika Anda mengklik Tombol Komponen Penilaian  konten ini akan muncul</p></div></div>
+<div id="kontena11" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Nilai Minimum </h5><hr><p>Ini adalah isi dari Nilai Minimum . Ketika Anda mengklik Tombol Nilai Minimum  konten ini akan muncul</p></div></div>
+<div id="kontena12" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Tanggal Mulai </h5><hr><p>Ini adalah isi dari Tanggal Mulai . Ketika Anda mengklik Tombol Tanggal Mulai  konten ini akan muncul</p></div></div>
+<div id="kontena13" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Tanggal Berakhir </h5><hr><p>Ini adalah isi dari Tanggal Berakhir . Ketika Anda mengklik Tombol Tanggal Berakhir  konten ini akan muncul</p></div></div>
+<div id="kontena14" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Bahasa Pengantar </h5><hr><p>Ini adalah isi dari Bahasa Pengantar . Ketika Anda mengklik Tombol Bahasa Pengantar  konten ini akan muncul</p></div></div>
+<div id="kontena15" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Course Card </h5><hr><p>Ini adalah isi dari Course Card . Ketika Anda mengklik Tombol Course Card  konten ini akan muncul</p></div></div>
+<div id="kontena16" class="tab-konten card"><div class="card-body"><h5 class="card-title text-primary"><i class="bi bi-info-circle"></i> Syarat (jika ada) </h5><hr><p>Ini adalah isi dari Syarat (jika ada) . Ketika Anda mengklik Tombol Syarat (jika ada)  konten ini akan muncul</p></div></div>
+
+    
+    <div class="card border-0 shadow-sm my-3">
+      <div class="card-body" style="border-left: 8px solid var(--bs-success);border-radius:.5rem">
+        <h3>
+          <i class="bi bi-people-fill"></i> Informasi Pengembang
+        </h3>
+       <button type="button" data-target="kontenb1" class="tab-tombol btn btn-outline-success me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Nama Lengkap </button>
+<button type="button" data-target="kontenb2" class="tab-tombol btn btn-outline-success me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Foto </button>
+<button type="button" data-target="kontenb3" class="tab-tombol btn btn-outline-success me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Email </button>
+<button type="button" data-target="kontenb4" class="tab-tombol btn btn-outline-success me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Short Bio (150 kata) </button>
+        <figure>
+          <blockquote class="blockquote"></blockquote>
+          <figcaption class="blockquote-footer">
+            <cite title="Source Title">*Jika pengembang lebih dari 1, lengkapi untuk seluruh pengembang</cite>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <div id="kontenb1" class="tab-konten card"><div class="card-body"><h5 class="card-title text-success"><i class="bi bi-info-circle"></i> Nama Lengkap </h5><hr><p>Ini adalah isi dari Nama Lengkap . Ketika Anda mengklik Tombol Nama Lengkap  konten ini akan muncul</p></div></div>
+<div id="kontenb2" class="tab-konten card"><div class="card-body"><h5 class="card-title text-success"><i class="bi bi-info-circle"></i> Foto </h5><hr><p>Ini adalah isi dari Foto . Ketika Anda mengklik Tombol Foto  konten ini akan muncul</p></div></div>
+<div id="kontenb3" class="tab-konten card"><div class="card-body"><h5 class="card-title text-success"><i class="bi bi-info-circle"></i> Email </h5><hr><p>Ini adalah isi dari Email . Ketika Anda mengklik Tombol Email  konten ini akan muncul</p></div></div>
+<div id="kontenb4" class="tab-konten card"><div class="card-body"><h5 class="card-title text-success"><i class="bi bi-info-circle"></i> Short Bio (150 kata) </h5><hr><p>Ini adalah isi dari Short Bio (150 kata) . Ketika Anda mengklik Tombol Short Bio (150 kata)  konten ini akan muncul</p></div></div>
+
+    
+    <div class="card border-0 shadow-sm my-3">
+      <div class="card-body" style="border-left: 8px solid var(--bs-warning);border-radius:.5rem">
+        <h3>
+          <i class="bi bi-journal-richtext"></i> Informasi Materi/Topik
+        </h3>
+        <button type="button" data-target="kontenc1" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Pendahuluan di setiap topik </button>
+<button type="button" data-target="kontenc2" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Capaian di setiap topik </button>
+<button type="button" data-target="kontenc3" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Peta Konsep di setiap topik </button>
+<button type="button" data-target="kontenc4" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Kalimat Instruksi di setiap materi </button>
+<button type="button" data-target="kontenc5" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Materi Bacaan di setiap topik </button>
+<button type="button" data-target="kontenc6" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Materi Multimedia di setiap topik </button>
+<button type="button" data-target="kontenc7" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Asessment (disesuikan dengan course) </button>
+<button type="button" data-target="kontenc8" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Forum diskusi di setiap topik </button>
+<button type="button" data-target="kontenc9" class="tab-tombol btn btn-outline-warning me-2 mb-2"><i class="bi bi-check-circle-fill"></i> Kesimpulan di setiap topik </button>
+      </div>
+    </div>
+    <div id="kontenc1" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Pendahuluan di setiap topik </h5><hr><p>Ini adalah isi dari Pendahuluan di setiap topik . Ketika Anda mengklik Tombol Pendahuluan di setiap topik  konten ini akan muncul</p></div></div>
+<div id="kontenc2" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Capaian di setiap topik </h5><hr><p>Ini adalah isi dari Capaian di setiap topik . Ketika Anda mengklik Tombol Capaian di setiap topik  konten ini akan muncul</p></div></div>
+<div id="kontenc3" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Peta Konsep di setiap topik </h5><hr><p>Ini adalah isi dari Peta Konsep di setiap topik . Ketika Anda mengklik Tombol Peta Konsep di setiap topik  konten ini akan muncul</p></div></div>
+<div id="kontenc4" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Kalimat Instruksi di setiap materi </h5><hr><p>Ini adalah isi dari Kalimat Instruksi di setiap materi . Ketika Anda mengklik Tombol Kalimat Instruksi di setiap materi  konten ini akan muncul</p></div></div>
+<div id="kontenc5" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Materi Bacaan di setiap topik </h5><hr><p>Ini adalah isi dari Materi Bacaan di setiap topik . Ketika Anda mengklik Tombol Materi Bacaan di setiap topik  konten ini akan muncul</p></div></div>
+<div id="kontenc6" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Materi Multimedia di setiap topik </h5><hr><p>Ini adalah isi dari Materi Multimedia di setiap topik . Ketika Anda mengklik Tombol Materi Multimedia di setiap topik  konten ini akan muncul</p></div></div>
+<div id="kontenc7" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Asessment (disesuikan dengan course) </h5><hr><p>Ini adalah isi dari Asessment (disesuikan dengan course) . Ketika Anda mengklik Tombol Asessment (disesuikan dengan course)  konten ini akan muncul</p></div></div>
+<div id="kontenc8" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Forum diskusi di setiap topik </h5><hr><p>Ini adalah isi dari Forum diskusi di setiap topik . Ketika Anda mengklik Tombol Forum diskusi di setiap topik  konten ini akan muncul</p></div></div>
+<div id="kontenc9" class="tab-konten card"><div class="card-body"><h5 class="card-title text-warning"><i class="bi bi-info-circle"></i> Kesimpulan di setiap topik </h5><hr><p>Ini adalah isi dari Kesimpulan di setiap topik . Ketika Anda mengklik Tombol Kesimpulan di setiap topik  konten ini akan muncul</p></div></div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
@@ -123,5 +229,24 @@
     </main>
 
     <div id="footer"></div>
+    <script>
+  const buttons = document.querySelectorAll('.tab-tombol');
+  const contents = document.querySelectorAll('.tab-konten');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Reset semua tombol
+      buttons.forEach(b => b.classList.remove('active'));
+      // Reset semua konten
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Aktifkan tombol yang diklik
+      btn.classList.add('active');
+      // Aktifkan konten target
+      const targetId = btn.dataset.target;
+      document.getElementById(targetId).classList.add('active');
+    });
+  });
+</script>
   </body>
 </html>
