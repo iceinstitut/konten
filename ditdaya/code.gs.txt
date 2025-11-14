@@ -1,0 +1,191 @@
+const ROOT_UPLOAD_FOLDER_ID = "1svOJ0pDHDy8foeUwhKajrB3-QjPo8Qm5"; 
+const SHEET_NAME = "data";
+
+/**
+ * Handle POST (multipart/form-data)
+ */
+function doPost(e) {
+  try {
+    if (!e.postData || !e.postData.contents) {
+      return jsonResponse({ status: "error", message: "No POST data received" });
+    }
+
+    const data = parseMultipart(e);
+
+    // ========== DATA PT ==========
+    const ptName     = data.fields.pt_name || "";
+    const ptCode     = data.fields.pt_code || "";
+    const ptStatus   = data.fields.pt_status || "";
+    const ptAddress  = data.fields.pt_address || "";
+    const ptCity     = data.fields.pt_city || "";
+    const ptProvince = data.fields.pt_province || "";
+    const ptCountry  = data.fields.pt_country || "";
+
+    // folder PT
+    const ptFolder = getOrCreateFolder(ROOT_UPLOAD_FOLDER_ID, ptName);
+
+    // ========== Upload Rekomendasi PT ==========
+    let ptRecommendationLink = "";
+    if (data.files.pt_recommendation) {
+      ptRecommendationLink = saveFile(
+        data.files.pt_recommendation,
+        ptFolder,
+        "Rekomendasi_PT"
+      );
+    }
+
+    // ========== Spreadsheet ==========
+    const sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
+
+    // ========== Loop Tendik 1–7 ==========
+    for (let i = 1; i <= 7; i++) {
+      const prefix = `tendik[${i}]`;
+
+      if (!data.fields[`${prefix}[nama]`]) continue; // skip kosong
+
+      const bidang     = data.fields[`${prefix}[bidang]`] || "";
+      const nama       = data.fields[`${prefix}[nama]`] || "";
+      const nik        = data.fields[`${prefix}[nik]`] || "";
+      const jk         = data.fields[`${prefix}[jk]`] || "";
+      const tgl_lahir  = data.fields[`${prefix}[tgl_lahir]`] || "";
+      const whatsapp   = data.fields[`${prefix}[whatsapp]`] || "";
+      const email      = data.fields[`${prefix}[email]`] || "";
+      const jabatan    = data.fields[`${prefix}[jabatan]`] || "";
+      const nomor_sk   = data.fields[`${prefix}[nomor_sk]`] || "";
+      const tgl_sk     = data.fields[`${prefix}[tgl_sk]`] || "";
+      const course     = data.fields[`${prefix}[course]`] || "";
+
+      // Upload file SK jika ada
+      let fileLink = "";
+      if (data.files[`file_sk_${i}`]) {
+        fileLink = saveFile(data.files[`file_sk_${i}`], ptFolder, nama);
+      }
+
+      // Simpan ke sheet
+      sheet.appendRow([
+        new Date(),
+        ptName,
+        ptCode,
+        ptStatus,
+        ptAddress,
+        ptCity,
+        ptProvince,
+        ptCountry,
+        ptRecommendationLink,
+
+        bidang,
+        nama,
+        nik,
+        jk,
+        tgl_lahir,
+        whatsapp,
+        email,
+        jabatan,
+        nomor_sk,
+        tgl_sk,
+        course,
+        fileLink
+      ]);
+    }
+
+    return jsonResponse({ status: "success", message: "Data saved successfully" });
+
+  } catch (err) {
+    return jsonResponse({ status: "error", message: err.toString() });
+  }
+}
+
+
+/* ============================================================
+   UTIL: Save uploaded file
+   ============================================================ */
+function saveFile(file, folder, namePrefix) {
+  try {
+    const safePrefix = namePrefix.replace(/[^\w\s-]/g, "").replace(/\s+/g, "_");
+
+    const blob = Utilities.newBlob(
+      file.bytes,
+      file.type,
+      `${safePrefix}_${file.filename}`
+    );
+
+    const created = folder.createFile(blob);
+    created.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+    return "https://drive.google.com/open?id=" + created.getId();
+  } catch (e) {
+    return "";
+  }
+}
+
+
+/* ============================================================
+   UTIL: parseMultipart (PENTING)
+   ============================================================ */
+function parseMultipart(e) {
+  const raw = e.postData.contents;
+  const boundary = e.postData.type.match(/boundary=(.*)/)[1];
+  const parts = raw.split("--" + boundary);
+
+  const fields = {};
+  const files = {};
+
+  parts.forEach(part => {
+    if (part.includes('Content-Disposition')) {
+      const nameMatch = part.match(/name="([^"]+)"/);
+      if (!nameMatch) return;
+
+      const name = nameMatch[1];
+
+      // FILE
+      if (part.includes("filename=")) {
+        const filename = part.match(/filename="([^"]*)"/)[1];
+        const contentType = part.match(/Content-Type:\s*([^\n\r]+)/)[1].trim();
+
+        const fileContentMatch = part.split("\r\n\r\n")[1];
+        if (!fileContentMatch) return;
+
+        const trimmed = fileContentMatch.trim();
+        const bytes = Utilities.newBlob(trimmed).getBytes();
+
+        files[name] = {
+          filename: filename,
+          type: contentType,
+          bytes: bytes
+        };
+
+      } else {
+        // FIELD
+        const value = part.split("\r\n\r\n")[1];
+        if (value) fields[name] = value.trim();
+      }
+    }
+  });
+
+  return { fields, files };
+}
+
+
+/* ============================================================
+   UTIL: create/get folder
+   ============================================================ */
+function getOrCreateFolder(parentId, name) {
+  const parent = DriveApp.getFolderById(parentId);
+  const folders = parent.getFoldersByName(name);
+
+  return folders.hasNext() ? folders.next() : parent.createFolder(name);
+}
+
+
+/* ============================================================
+   UTIL: JSON response
+   ============================================================ */
+function jsonResponse(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet() {
+  return jsonResponse({ status: "ok", message: "API is running" });
+}

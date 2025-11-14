@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Form Pendaftaran Tendik</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f6f6;
+      padding: 30px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: #d22;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #333;
+      color: white;
+    }
+
+    .tendik-wrapper {
+      border: 2px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+
+    .remove-btn {
+      background: red;
+      color: white;
+      padding: 5px 10px;
+      float: right;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Form Pendaftaran Tendik</h2>
+
+  <!-- INFORMASI PT -->
+  <div class="card">
+    <h3>Informasi Perguruan Tinggi</h3>
+
+    <label>Nama Perguruan Tinggi</label>
+    <input type="text" id="pt_name" required>
+
+    <label>Kode Perguruan Tinggi</label>
+    <input type="text" id="pt_code">
+
+    <label>Status Perguruan Tinggi</label>
+    <input type="text" id="pt_status">
+
+    <label>Alamat Perguruan Tinggi</label>
+    <input type="text" id="pt_address">
+
+    <label>Kota Perguruan Tinggi</label>
+    <input type="text" id="pt_city">
+
+    <label>Provinsi Perguruan Tinggi</label>
+    <input type="text" id="pt_province">
+
+    <label>Negara Perguruan Tinggi</label>
+    <input type="text" id="pt_country">
+
+    <label>Upload Rekomendasi PT (PDF/JPG max 1MB)</label>
+    <input type="file" id="pt_recommendation" accept=".pdf,.jpg,.jpeg,.png">
+  </div>
+
+  <br>
+
+  <!-- DAFTAR TENDIK -->
+  <h3>Data Tendik (maksimal 7)</h3>
+  <button class="btn btn-secondary" onclick="addTendik()">Tambah Tendik</button>
+
+  <div id="tendikContainer"></div>
+
+  <br><br>
+
+  <button class="btn btn-primary" onclick="submitForm()">Submit</button>
+
+  <script>
+    let tendikCount = 0;
+    const MAX_TENDIK = 7;
+
+    // --------------------------
+    //   ADD TENDIK FORM
+    // --------------------------
+    function addTendik() {
+      if (tendikCount >= MAX_TENDIK) {
+        alert("Maksimal 7 tendik.");
+        return;
+      }
+
+      tendikCount++;
+
+      const id = "tendik_" + tendikCount;
+
+      const html = `
+        <div class="tendik-wrapper" id="${id}">
+          <button class="remove-btn" onclick="removeTendik('${id}')">X</button>
+
+          <h4>Tendik #${tendikCount}</h4>
+
+          <label>Bidang Tendik</label>
+          <select id="${id}_bidang">
+            <option value="humas">Humas</option>
+            <option value="laboran">Laboran</option>
+            <option value="arsip">Arsip</option>
+            <option value="prakom">Pranata Komputer</option>
+            <option value="pustakawan">Pustakawan</option>
+            <option value="sdm">SDM</option>
+            <option value="analiskebijakan">Analis Kebijakan</option>
+            <option value="service">Service Excellence</option>
+          </select>
+
+          <label>Nama Tendik</label>
+          <input type="text" id="${id}_nama">
+
+          <label>NIK Tendik</label>
+          <input type="text" id="${id}_nik">
+
+          <label>Jenis Kelamin</label>
+          <select id="${id}_jk">
+            <option>Laki-laki</option>
+            <option>Perempuan</option>
+          </select>
+
+          <label>Tanggal Lahir</label>
+          <input type="date" id="${id}_tgl_lahir">
+
+          <label>Whatsapp</label>
+          <input type="text" id="${id}_wa">
+
+          <label>Email</label>
+          <input type="email" id="${id}_email">
+
+          <label>Jabatan</label>
+          <input type="text" id="${id}_jabatan">
+
+          <label>Nomor SK</label>
+          <input type="text" id="${id}_nomor_sk">
+
+          <label>Tanggal SK</label>
+          <input type="date" id="${id}_tgl_sk">
+
+          <label>Course Pilihan</label>
+          <input type="text" id="${id}_course">
+
+          <label>Upload SK (PDF/JPG max 1 MB)</label>
+          <input type="file" id="${id}_file" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+      `;
+
+      document.getElementById("tendikContainer").insertAdjacentHTML("beforeend", html);
+    }
+
+    function removeTendik(id) {
+      document.getElementById(id).remove();
+      tendikCount--;
+    }
+
+    // --------------------------
+    //   FILE TO BASE64
+    // --------------------------
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // --------------------------
+    //   SUBMIT FORM
+    // --------------------------
+    async function submitForm() {
+  const apiUrl = "https://script.google.com/macros/s/AKfycbwKMh304794SOIqR5D3eG0XWrMrqrXlddpIokGNv1d1_8B_ZQHv3HhuisC6WFpV3Yp6/exec";
+
+  const formData = new FormData();
+
+  // ---------- PT DATA ----------
+  formData.append("pt_name", document.getElementById("pt_name").value);
+  formData.append("pt_code", document.getElementById("pt_code").value);
+  formData.append("pt_status", document.getElementById("pt_status").value);
+  formData.append("pt_address", document.getElementById("pt_address").value);
+  formData.append("pt_city", document.getElementById("pt_city").value);
+  formData.append("pt_province", document.getElementById("pt_province").value);
+  formData.append("pt_country", document.getElementById("pt_country").value);
+
+  // ---------- FILE REKOMENDASI PT ----------
+  const ptFile = document.getElementById("pt_recommendation").files[0];
+  if (ptFile) {
+    if (ptFile.size > 1024 * 1024) {
+      alert("File rekomendasi PT maksimal 1 MB");
+      return;
+    }
+    formData.append("pt_recommendation", ptFile);
+  }
+
+//validasi minimal 1 tendik//
+  let filled = 0;
+for (let i = 1; i <= MAX_TENDIK; i++) {
+  const block = document.getElementById("tendik_" + i);
+  if (block && document.getElementById("tendik_" + i + "_nama").value.trim() !== "") {
+    filled++;
+  }
+}
+if (filled === 0) {
+  alert("Minimal 1 tendik harus diisi.");
+  return;
+}
+
+  // ---------- LOOP TENDIK ----------
+  for (let i = 1; i <= MAX_TENDIK; i++) {
+    const id = "tendik_" + i;
+    const block = document.getElementById(id);
+    if (!block) continue;
+
+    const nama = document.getElementById(id + "_nama").value;
+    if (!nama) continue;
+
+    formData.append(`tendik[${i}][bidang]`, document.getElementById(id + "_bidang").value);
+    formData.append(`tendik[${i}][nama]`, nama);
+    formData.append(`tendik[${i}][nik]`, document.getElementById(id + "_nik").value);
+    formData.append(`tendik[${i}][jk]`, document.getElementById(id + "_jk").value);
+    formData.append(`tendik[${i}][tgl_lahir]`, document.getElementById(id + "_tgl_lahir").value);
+    formData.append(`tendik[${i}][whatsapp]`, document.getElementById(id + "_wa").value);
+    formData.append(`tendik[${i}][email]`, document.getElementById(id + "_email").value);
+    formData.append(`tendik[${i}][jabatan]`, document.getElementById(id + "_jabatan").value);
+    formData.append(`tendik[${i}][nomor_sk]`, document.getElementById(id + "_nomor_sk").value);
+    formData.append(`tendik[${i}][tgl_sk]`, document.getElementById(id + "_tgl_sk").value);
+    formData.append(`tendik[${i}][course]`, document.getElementById(id + "_course").value);
+
+    const file = document.getElementById(id + "_file").files[0];
+    if (file) {
+      if (file.size > 1024 * 1024) {
+        alert("File SK maksimal 1 MB");
+        return;
+      }
+      formData.append(`file_sk_${i}`, file);
+    }
+  }
+
+  // ---------- KIRIM ----------
+  try {
+    const res = await fetch(apiUrl, {
+      method: "POST",
+      body: formData
+      // ⚠️ TIDAK BOLEH ADA headers: { "Content-Type": ... }
+    });
+
+    const result = await res.json();
+    alert(result.message);
+
+  } catch (err) {
+    console.error(err);
+    alert("Gagal mengirim data");
+  }
+}
+  </script>
+
+</body>
+</html>
