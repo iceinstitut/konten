@@ -283,12 +283,12 @@ async function init() {
                 } else {
                     ptList = [];
                     console.warn("getPT response:", json);
-                    showError("Gagal memuat daftar Perguruan Tinggi");
+                    showError("Gagal memuat daftar Perguruan Tinggi, Tolong buka ulang halaman");
                 }
             } catch (err) {
                 ptList = [];
                 console.error("loadPTList error:", err);
-                showError("Gagal memuat daftar Perguruan Tinggi");
+                showError("Gagal memuat daftar Perguruan Tinggi, Tolong buka ulang halaman");
             }
 
             // populate #pt_name select and init select2
@@ -312,12 +312,12 @@ async function init() {
                 } else {
                     locationData = [];
                     console.warn("location response:", json);
-                    showError("Gagal memuat data lokasi");
+                    showError("Gagal memuat data lokasi, Tolong buka ulang halaman");
                 }
             } catch (err) {
                 locationData = [];
                 console.error("loadLocationData error:", err);
-                showError("Gagal memuat data lokasi");
+                showError("Gagal memuat data lokasi, Tolong buka ulang halaman");
             }
 
             // build country list and init select2 for country select
@@ -380,7 +380,7 @@ async function init() {
             wrapper.id = id;
 
             wrapper.innerHTML = `
-            
+
 								<button class="remove-btn" type="button"><i class="bi bi-x-lg"></i></button>
 								<h4>Tendik #${tendikCount}</h4>
 
