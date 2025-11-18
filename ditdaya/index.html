@@ -186,23 +186,72 @@ fetch("https://iceinstitut.github.io/konten/head.html")
             }
         });
 
+// Fungsi untuk menonaktifkan form selama loading
+function disableForm() {
+    const form = document.getElementById('mainForm');
+    const inputs = form.querySelectorAll('input, select, button');
+    inputs.forEach(input => {
+        input.disabled = true;
+    });
+    document.querySelector('button[onclick="addTendik()"]').disabled = true;
+    document.querySelector('button[onclick="submitForm()"]').disabled = true;
+}
+
+// Fungsi untuk mengaktifkan form setelah loading selesai
+function enableForm() {
+    const form = document.getElementById('mainForm');
+    const inputs = form.querySelectorAll('input, select, button');
+    inputs.forEach(input => {
+        input.disabled = false;
+    });
+    document.querySelector('button[onclick="addTendik()"]').disabled = false;
+    document.querySelector('button[onclick="submitForm()"]').disabled = false;
+}
+
         // INIT on DOM ready
         document.addEventListener("DOMContentLoaded", init);
 
-        async function init() {
-            try {
-                await loadPTList();
-                await loadLocationData();
-                await loadCourseData();
-
-                // Pre-add one tendik block for user convenience
-                addTendik();
-
-            } catch (err) {
-                console.error("Init error:", err);
-                showError("Gagal memuat data awal. Silakan refresh halaman.");
+async function init() {
+	// Langsung disable form saat mulai loading
+    disableForm();
+    try {
+        // Tampilkan loading sederhana
+        Swal.fire({
+            title: 'Loading...',
+            text: 'Tunggu Sebentar, Form Sedang di Persiapkan',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
             }
-        }
+        });
+
+        // Nonaktifkan form sementara
+        disableForm();
+
+        // Load data
+        await Promise.all([
+            loadPTList(),
+            loadLocationData(),
+            loadCourseData()
+        ]);
+
+        // Tutup loading dan aktifkan form
+        Swal.close();
+        enableForm();
+
+        // Pre-add one tendik block
+        addTendik();
+
+        // Notifikasi siap
+        showInfo("Form siap digunakan!");
+
+    } catch (err) {
+        Swal.close();
+        enableForm(); // Tetap enable form meski ada error
+        console.error("Init error:", err);
+        showError("Beberapa data gagal dimuat, tetapi form tetap dapat digunakan.");
+    }
+}
 
         // ------------- LOAD COURSE DATA -------------
         async function loadCourseData() {
@@ -331,75 +380,76 @@ fetch("https://iceinstitut.github.io/konten/head.html")
             wrapper.id = id;
 
             wrapper.innerHTML = `
-                    <button class="remove-btn" type="button"><i class="bi bi-x-lg"></i></button>
-                    <h4>Tendik #${tendikCount}</h4>
+            
+								<button class="remove-btn" type="button"><i class="bi bi-x-lg"></i></button>
+								<h4>Tendik #${tendikCount}</h4>
 
-	                <div class="row">
+								<div class="row">
 
-		                <div class="col-md-6 col-sm-12 mb-2">
-                    <label class="form-label">Modul Pilihan</label>
-                    <select class="form-select" id="${id}_course"><option value="">Pilih bidang dulu...</option></select>
-		                </div>
+								    <div class="col-md-6 col-sm-12 mb-2">
+								        <label class="form-label">Bidang Tendik</label>
+								        <select class="form-select" id="${id}_bidang"><option value="">-- pilih bidang --</option></select>
+								    </div>
 
-	                	<div class="col-md-6 col-sm-12 mb-2">
-	                	<label class="form-label">Bidang Tendik</label>
-                    <select class="form-select" id="${id}_bidang"><option value="">-- pilih bidang --</option></select>
-		                </div>
+								    <div class="col-md-6 col-sm-12 mb-2">
+								        <label class="form-label">Modul Pilihan</label>
+								        <select class="form-select" id="${id}_course"><option value="">Pilih bidang dulu...</option></select>
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-		                <label class="form-label">Nama Tendik</label>
-                    <input class="form-control" type="text" id="${id}_nama">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Nama Tendik</label>
+								        <input class="form-control" type="text" id="${id}_nama">
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-		                <label class="form-label">NIK Tendik</label>
-                    <input class="form-control" type="text" id="${id}_nik">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">NIK Tendik</label>
+								        <input class="form-control" type="text" id="${id}_nik">
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-                    <label class="form-label">Jenis Kelamin</label>
-                    <select class="form-select" id="${id}_jk">
-                        <option value="">-- pilih jenis kelamin --</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Jenis Kelamin</label>
+								        <select class="form-select" id="${id}_jk">
+								                        <option value="">-- pilih jenis kelamin --</option>
+								                        <option value="Laki-laki">Laki-laki</option>
+								                        <option value="Perempuan">Perempuan</option>
+								                    </select>
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-                    <label class="form-label">Tanggal Lahir</label>
-                    <input class="form-control" type="date" id="${id}_tgl_lahir">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Tanggal Lahir</label>
+								        <input class="form-control" type="date" id="${id}_tgl_lahir">
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-                    <label class="form-label">Whatsapp</label>
-                    <input class="form-control" type="text" id="${id}_wa">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Whatsapp</label>
+								        <input class="form-control" type="text" id="${id}_wa">
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-                    <label class="form-label">Email</label>
-                    <input class="form-control" type="email" id="${id}_email">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Email</label>
+								        <input class="form-control" type="email" id="${id}_email">
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-                    <label class="form-label">Jabatan</label>
-                    <input class="form-control" type="text" id="${id}_jabatan">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Jabatan</label>
+								        <input class="form-control" type="text" id="${id}_jabatan">
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-                    <label class="form-label">Nomor SK</label>
-                    <input class="form-control" type="text" id="${id}_nomor_sk">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Nomor SK</label>
+								        <input class="form-control" type="text" id="${id}_nomor_sk">
+								    </div>
 
-		                <div class="col-md-4 col-sm-12 mb-2">
-                    <label class="form-label">Tanggal SK</label>
-                    <input class="form-control" type="date" id="${id}_tgl_sk">
-		                </div>
+								    <div class="col-md-4 col-sm-12 mb-2">
+								        <label class="form-label">Tanggal SK</label>
+								        <input class="form-control" type="date" id="${id}_tgl_sk">
+								    </div>
 
-		                <div class="col-md-12 col-sm-12 mb-2">
-                    <label class="form-label">Link SK Tendik (Google Drive/URL)</label>
-                    <input class="form-control" type="url" id="${id}_link" placeholder="https://drive.google.com/...">
-		                </div>
-	                </div>   
+								    <div class="col-md-12 col-sm-12 mb-2">
+								        <label class="form-label">Link SK Tendik (Google Drive/URL)</label>
+								        <input class="form-control" type="url" id="${id}_link" placeholder="https://drive.google.com/...">
+								    </div>
+								</div>  
                 `;
 
             container.appendChild(wrapper);
