@@ -1,0 +1,241 @@
+// Konfigurasi
+var CONFIG = {
+  sheetId: '1l4Jefy5_Tr24VCzJvUFVP0AMY6wu806CRjiZA5pqaUw',
+  sheetName: 'data'
+};
+
+// Struktur data yang fleksibel
+var FORM_STRUCTURE = {
+  "timestamp": "Timestamp",
+  "email": "email",
+  "username": "username", 
+  "nama": "nama",
+  "program": "Program",
+  "institusiMk": "institusiMk",
+  "namaMk": "namaMk",
+  "tanggalPenyelesaian": "Tanggal Penyelesaian",
+  "knowledgeSatisfaction": "how-satisfied-are-you-with-the-knowledge-you-gained-throughout-the-course",
+  "learningResources": "the-learning-resources-videos-articles-supported-my-understanding",
+  "instructionalMaterials": "how-effective-were-the-instructional-materials-used-in-the-course",
+  "quizzesAssignments": "quizzes-and-assignments-helped-reinforce-my-understanding-of-the-material",
+  "learningActivities": "how-effective-were-the-learning-activities-used-in-this-course",
+  "achievedOutcome": "do-you-feel-you-achieved-your-desired-learning-outcome",
+  "metExpectation": "did-the-course-meet-your-expectation",
+  "recommendationLikelihood": "how-likely-are-you-to-recommend-this-course-to-a-friend-or-classmate",
+  "platformUsability": "the-mooc-platform-was-easy-to-use-and-access",
+  "technicalIssues": "i-did-not-experience-significant-technical-issues-during-the-course",
+  "technicalSupport": "technical-support-was-responsive-and-helpful-if-any-issues-arose",
+  "courseImpressions": "tell-us-your-impressions-of-this-course",
+  "biggestChallenge": "what-was-the-biggest-challenge-you-faced-during-the-course",
+  "additionalMaterials": "do-you-feel-any-additional-materials-or-support-features-are-needed-if-yes-please-explain",
+  "saran": "saran"
+};
+
+// Inisialisasi sheet
+function initializeSheet() {
+  var sheet = getSheet();
+  var headers = Object.values(FORM_STRUCTURE);
+  
+  // Set header jika sheet kosong
+  if (sheet.getLastRow() === 0) {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    Logger.log('Sheet initialized with headers');
+  }
+}
+
+// Dapatkan sheet
+function getSheet() {
+  var spreadsheet = SpreadsheetApp.openById(CONFIG.sheetId);
+  return spreadsheet.getSheetByName(CONFIG.sheetName);
+}
+
+// Helper function untuk response dengan CORS headers
+function createResponse(statusCode, data) {
+  // Tambahkan status code ke dalam response body
+  var responseBody = {
+    status: statusCode,
+    data: data
+  };
+  
+  return ContentService
+    .createTextOutput(JSON.stringify(responseBody))
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    });
+}
+
+// Handle CORS preflight request
+function handleCors() {
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '3600'
+    });
+}
+
+// API untuk submit evaluasi
+function doPost(e) {
+  try {
+    // Handle OPTIONS request untuk CORS preflight
+    if (e.postData && e.postData.type === "application/json" && (!e.postData.contents || e.postData.contents === "")) {
+      return handleCors();
+    }
+
+    var data = JSON.parse(e.postData.contents);
+    var result = submitEvaluation(data);
+    
+    return createResponse(200, {
+      success: true, 
+      message: 'Evaluasi berhasil disimpan',
+      id: result.id
+    });
+  } catch (error) {
+    return createResponse(400, {
+      success: false,
+      error: error.toString()
+    });
+  }
+}
+
+// API untuk mendapatkan data evaluasi
+function doGet(e) {
+  try {
+    // Handle OPTIONS request untuk CORS preflight
+    if (e.parameter && e.parameter._preflight) {
+      return handleCors();
+    }
+
+    var data = getEvaluations(e.parameter);
+    return createResponse(200, {
+      success: true,
+      total: data.total,
+      data: data.data
+    });
+  } catch (error) {
+    return createResponse(400, {
+      success: false,
+      error: error.toString()
+    });
+  }
+}
+
+// Submit evaluasi baru
+function submitEvaluation(data) {
+  initializeSheet();
+  var sheet = getSheet();
+  
+  // Validasi data required
+  if (!data.email) {
+    throw new Error('Email wajib diisi');
+  }
+  
+  // Siapkan row data sesuai struktur
+  var rowData = [];
+  var headers = Object.keys(FORM_STRUCTURE);
+  
+  for (var i = 0; i < headers.length; i++) {
+    var key = headers[i];
+    if (key === 'timestamp') {
+      rowData.push(new Date());
+    } else {
+      rowData.push(data[key] || '');
+    }
+  }
+  
+  // Tambahkan data ke sheet
+  sheet.appendRow(rowData);
+  
+  return { 
+    id: sheet.getLastRow()
+  };
+}
+
+// Dapatkan data evaluasi dengan filter opsional
+function getEvaluations(params) {
+  var sheet = getSheet();
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+  
+  var result = [];
+  
+  // Konversi data rows ke JSON
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    var item = {};
+    
+    for (var j = 0; j < headers.length; j++) {
+      var key = getKeyFromHeader(headers[j]);
+      item[key] = row[j];
+    }
+    
+    // Apply filters jika ada parameter
+    if (params.email && item.email !== params.email) continue;
+    if (params.program && item.program !== params.program) continue;
+    if (params.username && item.username !== params.username) continue;
+    
+    result.push(item);
+  }
+  
+  return {
+    total: result.length,
+    data: result
+  };
+}
+
+// Helper function untuk mendapatkan key dari header
+function getKeyFromHeader(header) {
+  for (var key in FORM_STRUCTURE) {
+    if (FORM_STRUCTURE[key] === header) {
+      return key;
+    }
+  }
+  return header;
+}
+
+// Update struktur form (untuk maintenance)
+function updateFormStructure(newStructure) {
+  if (typeof newStructure === 'object') {
+    FORM_STRUCTURE = newStructure;
+    
+    // Update headers di sheet juga
+    initializeSheet();
+    
+    return { success: true, message: 'Struktur form diperbarui' };
+  }
+  throw new Error('Struktur tidak valid');
+}
+
+// Dapatkan struktur form saat ini
+function getFormStructure() {
+  return FORM_STRUCTURE;
+}
+
+// Test function
+function testSubmit() {
+  var testData = {
+    email: "test@example.com",
+    username: "testuser",
+    nama: "Test User",
+    program: "Programming Course",
+    knowledgeSatisfaction: "4",
+    achievedOutcome: "yes",
+    metExpectation: "yes",
+    recommendationLikelihood: "9"
+  };
+  
+  var result = submitEvaluation(testData);
+  Logger.log(result);
+}
+
+// Test get data
+function testGet() {
+  var result = getEvaluations({});
+  Logger.log(result);
+}
