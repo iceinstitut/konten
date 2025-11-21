@@ -2,6 +2,12 @@
 <html>
 <head>
     <title>Panduan Test</title>
+    <script>
+// Redirect jika diakses tanpa index.html
+if(window.location.pathname === '/konten/panduan/') {
+    window.location.href = '/konten/panduan/index.html';
+}
+</script>
 </head>
 <body>
     <h1>Panduan Berhasil Load!</h1>
