@@ -1,283 +1,353 @@
 <html>
-<head></head>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Pendaftaran Program Kemdiktisaintek Tendik Berdampak: Penguatan Kompetensi dan Profesionalisme - Buat Akun
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script>
+        function loadComponent(id, url) {
+    fetch("https://iceinstitut.github.io/konten/" + url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById(id).innerHTML = data;
+        });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    loadComponent("header", "header.html");
+    loadComponent("footer", "footer.html");
+});
+
+fetch("https://iceinstitut.github.io/konten/head.html")
+    .then(response => response.text())
+    .then(data => {
+        const temp = document.createElement("div");
+        temp.innerHTML = data;
+
+        // Proses <link> langsung
+        temp.querySelectorAll("link").forEach(link => {
+            document.head.appendChild(link);
+        });
+
+        // Proses <script> manual
+        temp.querySelectorAll("script").forEach(oldScript => {
+            const newScript = document.createElement("script");
+            newScript.src = oldScript.src;
+            if (oldScript.defer) newScript.defer = true;
+            document.head.appendChild(newScript);
+        });
+    });
+    </script>
+</head>
+
 <body>
-<h3>
-    <strong>Panduan Mempelajari Modul</strong>
-</h3>
-<p>
-    &nbsp;
-</p>
-<h4>
-    Pada panduan ini terdapat 2 langkah yang harus diikuti untuk mempelajari Modul
-</h4>
-<h4>
-    A.Membuat Akun
-</h4>
-<h4>
-    B.Mulai Belajar
-</h4>
-<h4>
-    C.Masuk Kembali ke Modul
-</h4>
-<p>
-    &nbsp;
-</p>
-<p>
-    &nbsp;
-</p>
-<h3>
-    A. Membuat Akun
-</h3>
-<p>
-    Dalam proses pembuatan akun, Anda harus memperhatikan alamat email Anda. Alamat email yang Anda gunakan saat membuat akun harus sama dengan alamat email yang didaftarkan oleh perguruan tinggi Anda saat mendaftar pada Pendaftaran Program Kemdiktisaintek Tendik Berdampak: Penguatan Kompetensi dan Profesionalisme. Berikut ini langkah-langkah membuat akun:
-</p>
-<p>
-    1. Klik Url berikut <a target="_blank" rel="noopener noreferrer" href="https://coursera.org/programs/ice-program-international-course-mvmcn" target="_blank"><strong>Go to Modul</strong></a>. Kemudian Anda akan diarahkan ke halaman baru seperti gambar dibawah ini (Gambar1)
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;">Gambar1</span><br>
-    &nbsp;
-</p>
-<figure class="image">
-    <img style="display:block;margin-left:auto;margin-right:auto;text-align:center;" src="1.jpg" alt="c9" width="100%">
-</figure>
-<p>
-    &nbsp;
-</p>
-<p>
-    2. Klik tombol <strong>Log In </strong>(Gambar 2).
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;">Gambar 2</span>
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;"><img src="2.jpg" alt="Log In" width="100%"></span>
-</p>
-<p>
-    Kemudian akan muncul tampilan seperti di bawah ini.. (Gambar 3)
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;">Gambar 3</span>
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;"><img src="3.jpg" alt="Log In" width="100%"></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    3. Pilih Menu <strong>Sign Up</strong>, dan isi data anda. Lalu klik tombol <strong>join for free </strong>seperti di bawah ini.. (Gambar 3.1)
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;">Gambar 3.1.Sign Up</span><br>
-    <img src="4.png" alt="Sign Up" width="100%">
-</p>
-<p>
-    Catatan : Alamat email yang Anda gunakan pada Kolom Email, harus sama dengan alamat email yang didaftarkan oleh Peguruan Tinggi Anda saat mendaftar pada Pendaftaran Program Kemdiktisaintek Tendik Berdampak: Penguatan Kompetensi dan Profesionalisme
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    4. Anda akan diperlihatkan halaman untuk mengaktifkan akun Anda dengan mengonfirmasi alamat email Anda seperti yang ditunjukkan pada gambar di bawah ini (Gambar 4)
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;">Gambar 4.Verifiy Email</span>
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;"><img src="5.png" alt="Verifiy Email" width="100%"></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    5. Selanjutnya Anda harus mengaktifkan akun yang baru saja Anda buat dengan membuka email Anda dan melihat pesan baru seperti gambar di bawah ini (Figure 5)
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;">Figure 5.Email Confirmation</span>
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;"><img src="6.png" alt="Email Confirmation" width="100%"></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    5. Klik tombol Konfirmasikan email saya untuk melanjutkan proses aktivasi akun. Setelah berhasil, Anda akan diperlihatkan gambar seperti di bawah ini (Figure 6)
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span style="text-align:center;">Figure 6.Confirmation Success</span>
-</p>
-<p style="text-align:center;">
-    <img src="7.png" alt="1" width="100%">
-</p>
-<p>
-    &nbsp;
-</p>
-<h3>
-    B. Mulai Belajar
-</h3>
-<p>
-    Pada tahap ini, Anda dapat mulai mempelajari Modul.
-</p>
-<p>
-    Pastikan Anda telah membuat akun. Jika belum, Anda dapat kembali ke tahap ini <strong>A. Buat Akun</strong>.
-</p>
-<p>
-    Langkah-langkah untuk memulai belajar:
-</p>
-<p>
-    <i>PERHATIAN ANDA &nbsp;AKAN MENERIMA EMAIL DARI ICE INSTITUTE YANG BERISI 2 LINK.</i>
-</p>
-<ol>
-    <li class="ck-list-marker-italic" data-list-item-id="e03a25adf27f4f605e6e4171d32c4e534">
-        <i>LINK JOIN</i>
-    </li>
-    <li class="ck-list-marker-italic" data-list-item-id="e4898afdfe7f8c3462dfabb650a553cec">
-        <i>LINK AKSES MODUL</i>
-    </li>
-</ol>
-<p>
-    PASTIKAN ANDA MENGECEK FOLDER INBOX, JUNK, SPAM, PROMOSI PADA EMAIL ANDA
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    <strong>Baca dan pahami Panduan dibawa ini dengan seksama dan teliti agar anda sukses mengakses Modul</strong>
-</p>
-<p>
-    1. Klik <i><strong>LINK JOIN</strong></i> yang diberikan melalui email Anda, hingga terbuka halaman join program seperti gambar dibawa ini (figure 7).
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    Figure 7
-</p>
-<p style="text-align:center;">
-    <img src="10.png" alt="Figure 2. After Access Moduls" width="100%">
-</p>
-<p style="text-align:center;">
-    &nbsp;
-</p>
-<p>
-    2. Klik tombol <strong>Log In.</strong> Kemudian akan muncul tampilan seperti di bawah ini.. (Gambar 9)&nbsp;</span></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span>Figure 9</span>
-</p>
-<p style="text-align:center;">
-    <span><img src="9.png" alt="sign in" width="100%"></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    3. Masukkan<strong> Email</strong> and <strong>Password</strong> anda yang telah berhasil anda buat sebelumnya,&nbsp;lalu klik tombol&nbsp;<strong>Log In</strong>
-</p>
-<p>
-    4. Saat melihat tampilan Join the learning program, klik Tombol Join untuk konfirmasi seperti gambar dibawa ini (Figure 10)
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span>Figure 10</span>
-</p>
-<p style="text-align:center;">
-    <span><img src="10.png" alt="sign in" width="100%"></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    11. Setelah berhasil lalu kembali lagi ke Email Anda dan Klik <i><strong>LINK AKSES MODUL</strong></i>, hingga terbuka halaman modul anda seperti gambar dibawa ini (Figure 11)
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span>Figure 11</span>
-</p>
-<p style="text-align:center;">
-    <span><img src="11.png" alt="sign in" width="100%"></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    12 Klik tombol <strong>Enroll</strong>. maka Anda akan langsung diarahkan masuk sedalam Modul Anda seperti gambar dibawah ini. (Figure 12)
-</p>
-<p>
-    &nbsp;
-</p>
-<p style="text-align:center;">
-    <span>Figure 12</span>
-</p>
-<p style="text-align:center;">
-    <span><img src="12.png" alt="sign in" width="100%"></span>
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    13. Klik Tombol Get Started untuk memulai pembelajaran Modul
-</p>
-<p>
-    &nbsp;
-</p>
-<p>
-    Catatan :
-</p>
-<ol>
-    <li>
-        Anda harus menyelesaikan Modul Anda tepat waktu hingga mendapatkan sertifikat
-    </li>
-    <li>
-        Menu Grade yang berada disebelah kiri pada halaman Modul merupakan informasi Assigment yang harus Anda kerjakan di Modul tersebut
-    </li>
-    <li>
-        Menu Course Infor yang berada disebelah kiri pada halaman Modul merupakan informasi dari Modul Anda
-    </li>
-    <li>
-        Saat Anda berhasil menyelesaikan Modul, Anda akan melihat tampilan seperti gambar dibawa ini<br>
-        <span><img src="13.png" alt="sign in" width="100%"></span>
-    </li>
-    <li>
-        Klik tombol Verify my name untuk melakukan Verifikasi Nama Anda.
-    </li>
-    <li>
-        Pada halaman Verifikasi Nama, Isi nama Lengkap Anda. Lalu Klil Check List. dan setelah memastikan Nama Anda sesuai klik Tombol Submit. seperti gambar dibawa ini<br>
-        <span><img src="14.png" alt="sign in" width="100%"></span>
-    </li>
-    <li>
+    <div id="header"></div>
+    <div class="container">
+        <h3>
+            <strong>Panduan Mempelajari Modul</strong>
+        </h3>
         <p>
-            Setelah berhasil Klik Menu Accomplisment yang berada di sudut kanan Atas. atau Klik<a target="_blank" rel="noopener noreferrer" href="https://www.coursera.org/accomplishments"> Link berikut</a>. Untuk mengakses sertifikat Anda. dan Anda akan di perlihatkan Halaman Sertifikat Anda seperti gambar dibawa ini<br>
-            <span><img src="15.png" alt="sign in" width="100%"></span>
+            &nbsp;
+        </p>
+        <h4>
+            Pada panduan ini terdapat 2 langkah yang harus diikuti untuk mempelajari Modul
+        </h4>
+        <h4>
+            A.Membuat Akun
+        </h4>
+        <h4>
+            B.Mulai Belajar
+        </h4>
+        <h4>
+            C.Masuk Kembali ke Modul
+        </h4>
+        <p>
+            &nbsp;
         </p>
         <p>
             &nbsp;
         </p>
-    </li>
-</ol>
-<script>
-// Fungsi untuk mendapatkan parameter dari URL
+        <h3>
+            A. Membuat Akun
+        </h3>
+        <p>
+            Dalam proses pembuatan akun, Anda harus memperhatikan alamat email Anda. Alamat email yang Anda gunakan saat
+            membuat akun harus sama dengan alamat email yang didaftarkan oleh perguruan tinggi Anda saat mendaftar pada
+            Pendaftaran Program Kemdiktisaintek Tendik Berdampak: Penguatan Kompetensi dan Profesionalisme. Berikut ini
+            langkah-langkah membuat akun:
+        </p>
+        <p>
+            1. Klik Url berikut <a target="_blank" rel="noopener noreferrer"
+                href="https://coursera.org/programs/ice-program-international-course-mvmcn"
+                target="_blank"><strong>Go to Modul</strong></a>. Kemudian Anda akan diarahkan ke halaman baru seperti
+            gambar dibawah ini (Gambar1)
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;">Gambar1</span><br>
+    &nbsp;
+        </p>
+            <img style="display:block;margin-left:auto;margin-right:auto;text-align:center;" src="1.JPG" alt="c9" width="100%">
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            2. Klik tombol <strong>Log In </strong>(Gambar 2).
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;">Gambar 2</span>
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;"><img src="2.JPG" alt="Log In" width="100%"></span>
+        </p>
+        <p>
+            Kemudian akan muncul tampilan seperti di bawah ini.. (Gambar 3)
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;">Gambar 3</span>
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;"><img src="3.JPG" alt="Log In" width="100%"></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            3. Pilih Menu <strong>Sign Up</strong>, dan isi data anda. Lalu klik tombol
+            <strong>join for free </strong>seperti di bawah ini.. (Gambar 3.1)
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;">Gambar 3.1.Sign Up</span><br>
+            <img src="4.png" alt="Sign Up" width="100%">
+        </p>
+        <p>
+            Catatan : Alamat email yang Anda gunakan pada Kolom Email, harus sama dengan alamat email yang didaftarkan
+            oleh Peguruan Tinggi Anda saat mendaftar pada Pendaftaran Program Kemdiktisaintek Tendik Berdampak:
+            Penguatan Kompetensi dan Profesionalisme
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            4. Anda akan diperlihatkan halaman untuk mengaktifkan akun Anda dengan mengonfirmasi alamat email Anda
+            seperti yang ditunjukkan pada gambar di bawah ini (Gambar 4)
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;">Gambar 4.Verifiy Email</span>
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;"><img src="5.png" alt="Verifiy Email" width="100%"></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            5. Selanjutnya Anda harus mengaktifkan akun yang baru saja Anda buat dengan membuka email Anda dan melihat
+            pesan baru seperti gambar di bawah ini (Gambar 5)
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;">Gambar 5.Email Confirmation</span>
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;"><img src="6.png" alt="Email Confirmation" width="100%"></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            5. Klik tombol Konfirmasikan email saya untuk melanjutkan proses aktivasi akun. Setelah berhasil, Anda akan
+            diperlihatkan gambar seperti di bawah ini (Gambar 6)
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span style="text-align:center;">Gambar 6.Confirmation Success</span>
+        </p>
+        <p style="text-align:center;">
+            <img src="7.png" alt="1" width="100%">
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <h3>
+            B. Mulai Belajar
+        </h3>
+        <p>
+            Pada tahap ini, Anda dapat mulai mempelajari Modul.
+        </p>
+        <p>
+            Pastikan Anda telah membuat akun. Jika belum, Anda dapat kembali ke tahap ini <strong>A. Buat Akun</strong>.
+        </p>
+        <p>
+            Langkah-langkah untuk memulai belajar:
+        </p>
+        <p>
+            <i>PERHATIAN ANDA &nbsp;AKAN MENERIMA EMAIL DARI ICE INSTITUTE YANG BERISI 2 LINK.</i>
+        </p>
+        <ol>
+            <li class="ck-list-marker-italic" data-list-item-id="e03a25adf27f4f605e6e4171d32c4e534">
+                <i>LINK JOIN</i>
+            </li>
+            <li class="ck-list-marker-italic" data-list-item-id="e4898afdfe7f8c3462dfabb650a553cec">
+                <i>LINK AKSES MODUL</i>
+            </li>
+        </ol>
+        <p>
+            PASTIKAN ANDA MENGECEK FOLDER INBOX, JUNK, SPAM, PROMOSI PADA EMAIL ANDA
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            <strong>Baca dan pahami Panduan dibawa ini dengan seksama dan teliti agar anda sukses mengakses Modul</strong>
+        </p>
+        <p>
+            1. Klik <i><strong>LINK JOIN</strong></i> yang diberikan melalui email Anda, hingga terbuka halaman join
+            program seperti gambar dibawa ini (Gambar 7).
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            Gambar 7
+        </p>
+        <p style="text-align:center;">
+            <img src="10.png" alt="Gambar 2. After Access Moduls" width="100%">
+        </p>
+        <p style="text-align:center;">
+            &nbsp;
+        </p>
+        <p>
+            2. Klik tombol <strong>Log In.</strong> Kemudian akan muncul tampilan seperti di bawah ini.. (Gambar
+            9)&nbsp;</span></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span>Gambar 9</span>
+        </p>
+        <p style="text-align:center;">
+            <span><img src="9.png" alt="sign in" width="100%"></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            3. Masukkan<strong> Email</strong> and <strong>Password</strong> anda yang telah berhasil anda buat
+            sebelumnya,&nbsp;lalu klik tombol&nbsp;<strong>Log In</strong>
+        </p>
+        <p>
+            4. Saat melihat tampilan Join the learning program, klik Tombol Join untuk konfirmasi seperti gambar dibawa
+            ini (Gambar 10)
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span>Gambar 10</span>
+        </p>
+        <p style="text-align:center;">
+            <span><img src="10.png" alt="sign in" width="100%"></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            11. Setelah berhasil lalu kembali lagi ke Email Anda dan Klik <i><strong>LINK AKSES MODUL</strong></i>,
+            hingga terbuka halaman modul anda seperti gambar dibawa ini (Gambar 11)
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span>Gambar 11</span>
+        </p>
+        <p style="text-align:center;">
+            <span><img src="11.png" alt="sign in" width="100%"></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            12 Klik tombol <strong>Enroll</strong>. maka Anda akan langsung diarahkan masuk sedalam Modul Anda seperti
+            gambar dibawah ini. (Gambar 12)
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p style="text-align:center;">
+            <span>Gambar 12</span>
+        </p>
+        <p style="text-align:center;">
+            <span><img src="12.png" alt="sign in" width="100%"></span>
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            13. Klik Tombol Get Started untuk memulai pembelajaran Modul
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            Catatan :
+        </p>
+        <ol>
+            <li>
+                Anda harus menyelesaikan Modul Anda tepat waktu hingga mendapatkan sertifikat
+            </li>
+            <li>
+                Menu Grade yang berada disebelah kiri pada halaman Modul merupakan informasi Assigment yang harus Anda
+                kerjakan di Modul tersebut
+            </li>
+            <li>
+                Menu Course Infor yang berada disebelah kiri pada halaman Modul merupakan informasi dari Modul Anda
+            </li>
+            <li>
+                Saat Anda berhasil menyelesaikan Modul, Anda akan melihat tampilan seperti gambar dibawa ini<br>
+                <span><img src="13.png" alt="sign in" width="100%"></span>
+            </li>
+            <li>
+                Klik tombol Verify my name untuk melakukan Verifikasi Nama Anda.
+            </li>
+            <li>
+                Pada halaman Verifikasi Nama, Isi nama Lengkap Anda. Lalu Klil Check List. dan setelah memastikan Nama
+                Anda sesuai klik Tombol Submit. seperti gambar dibawa ini<br>
+                <span><img src="14.png" alt="sign in" width="100%"></span>
+            </li>
+            <li>
+                <p>
+                    Setelah berhasil Klik Menu Accomplisment yang berada di sudut kanan Atas. atau Klik<a
+                        target="_blank" rel="noopener noreferrer" href="https://www.coursera.org/accomplishments"> Link
+                        berikut</a>. Untuk mengakses sertifikat Anda. dan Anda akan di perlihatkan Halaman Sertifikat
+                    Anda seperti gambar dibawa ini<br>
+                    <span><img src="15.png" alt="sign in" width="100%"></span>
+                </p>
+                <p>
+                    &nbsp;
+                </p>
+            </li>
+        </ol>
+    </div>
+    <script>
+        // Fungsi untuk mendapatkan parameter dari URL
 function getUrlParameter(name) {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -297,6 +367,8 @@ document.addEventListener('DOMContentLoaded', function() {
         element.innerHTML = element.innerHTML.replace(/Modul/g, modulName);
     });
 });
-</script>
+    </script>
+    <div id="footer"></div>
 </body>
+
 </html>
