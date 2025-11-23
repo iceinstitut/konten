@@ -139,7 +139,8 @@ document.head.appendChild(newScript);
                         </div>
                         <div class="col-md-12 col-sm-12 mb-2">
                             <label class="form-label">Upload Rekomendasi PT (PDF max 1MB)</label>
-                            <input class="form-control" type="file" id="pt_recommendation" accept=".pdf,.jpg,.jpeg,.png">
+                            <input class="form-control" type="file" id="pt_recommendation" accept=".pdf">
+                            <div class="form-text">Template rekomendasi dapat di lihat lagi pada link berikut <a href="https://docs.google.com/document/d/1I0I-tYpV3rHRgukm0T3bTPubqpZPZpec/edit?usp=sharing&ouid=106962982427974500563&rtpof=true&sd=true">Template Rekomendasi</a></div>
                         </div>
                     </div>
                 </div>
@@ -449,8 +450,9 @@ async function init() {
                                     </div>
 
                                     <div class="col-md-12 col-sm-12 mb-2">
-                                        <label class="form-label">Link SK Tendik (Google Drive/URL)</label>
+                                        <label class="form-label">Link SK dan pernyataan Tendik (Google Drive/URL)</label>
                                         <input class="form-control" type="url" id="${id}_link" placeholder="https://drive.google.com/...">
+                                        <div class="form-text">Template pernytaan tendik dapat di cek lagi pada link berikut <a href="https://docs.google.com/document/d/1RJv4AtRJfGZ_nQLn62fAT3kqTDaLgQ0f/edit?usp=sharing&ouid=112509042425924528768&rtpof=true&sd=true">Template Pernytaan Tendik</a></div>
                                     </div>
                                 </div>  
                 `;
@@ -1190,3 +1192,4 @@ async function init() {
 </body>
 
 </html>
+
