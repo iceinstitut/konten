@@ -759,6 +759,119 @@
         });
     });
     </script>
+    <!-- Tambahkan script ini sebelum penutup </body> -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fungsi untuk membuka modal berdasarkan ID
+    function openModal(modalId) {
+        const modalElement = document.getElementById(modalId);
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+            
+            // Hapus hash dari URL saat modal ditutup
+            modalElement.addEventListener('hidden.bs.modal', function() {
+                if (window.location.hash === '#' + modalId) {
+                    // Hapus hash tanpa mengubah scroll position
+                    history.replaceState(null, null, ' ');
+                }
+            });
+        }
+    }
+    
+    // Fungsi untuk menangani perubahan hash
+    function handleHashChange() {
+        const hash = window.location.hash.substring(1); // Hapus karakter '#'
+        
+        // Daftar modal yang valid (sesuaikan dengan modal Anda)
+        const validModals = [
+            'panduan1', 'panduan2', 'panduan3', 'panduan4',
+            'panduan5', 'panduan6', 'panduan7', 'panduan8'
+            // Tambahkan ID modal lainnya di sini
+        ];
+        
+        // Cek apakah hash adalah modal yang valid
+        if (validModals.includes(hash)) {
+            // Tunggu sedikit untuk memastikan DOM siap
+            setTimeout(() => {
+                openModal(hash);
+            }, 100);
+        }
+    }
+    
+    // Tambahkan link/tombol yang bisa dibagikan di dalam modal
+    function addShareableLinks() {
+        // Temukan semua modal
+        document.querySelectorAll('.modal').forEach(modal => {
+            const modalId = modal.id;
+            const modalBody = modal.querySelector('.modal-body');
+            
+            if (modalBody && modalId) {
+                // Buat elemen untuk link yang bisa dibagikan
+                const shareLink = document.createElement('div');
+                shareLink.className = 'shareable-link mt-3 p-3 bg-light rounded';
+                shareLink.innerHTML = `
+                    <p class="mb-1"><small><strong>Link langsung ke panduan ini:</strong></small></p>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" id="share-url-${modalId}" 
+                               value="${window.location.origin + window.location.pathname}#${modalId}" readonly>
+                        <button class="btn btn-outline-primary" type="button" onclick="copyShareLink('${modalId}')">
+                            <i class="bi bi-clipboard"></i>
+                        </button>
+                    </div>
+                `;
+                modalBody.appendChild(shareLink);
+            }
+        });
+    }
+    
+    // Fungsi untuk menyalin link ke clipboard
+    window.copyShareLink = function(modalId) {
+        const input = document.getElementById(`share-url-${modalId}`);
+        input.select();
+        input.setSelectionRange(0, 99999); // Untuk mobile
+        
+        try {
+            navigator.clipboard.writeText(input.value).then(() => {
+                // Tampilkan feedback
+                const btn = input.nextElementSibling;
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check"></i>';
+                btn.classList.remove('btn-outline-primary');
+                btn.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-outline-primary');
+                }, 2000);
+            });
+        } catch (err) {
+            // Fallback untuk browser lama
+            document.execCommand('copy');
+        }
+    };
+    
+    // Jalankan saat halaman pertama kali dimuat
+    handleHashChange();
+    addShareableLinks();
+    
+    // Tambahkan event listener untuk perubahan hash (saat user klik link dengan hash)
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Handle ketika modal dibuka melalui klik biasa (tambahkan hash ke URL)
+    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetModal = this.getAttribute('data-bs-target');
+            if (targetModal && targetModal.startsWith('#')) {
+                const modalId = targetModal.substring(1);
+                // Update URL dengan hash tanpa reload
+                window.location.hash = modalId;
+            }
+        });
+    });
+});
+</script>
 </body>
 
 </html>
