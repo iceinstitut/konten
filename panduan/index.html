@@ -741,7 +741,11 @@
     </main>
     <div id="footer"></div>
     <script>
-        const buttons = document.querySelectorAll('.tab-tombol');
+document.addEventListener('DOMContentLoaded', function() {
+    // ========================
+    // 1. FUNGSI UNTUK TAB-TOMBOL
+    // ========================
+    const buttons = document.querySelectorAll('.tab-tombol');
     const contents = document.querySelectorAll('.tab-konten');
 
     buttons.forEach(btn => {
@@ -755,13 +759,17 @@
             btn.classList.add('active');
             // Aktifkan konten target
             const targetId = btn.dataset.target;
-            document.getElementById(targetId).classList.add('active');
+            const targetContent = document.getElementById(targetId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
         });
     });
-    </script>
-    <!-- Tambahkan script ini sebelum penutup </body> -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
+
+    // ========================
+    // 2. FUNGSI UNTUK MODAL DENGAN HASH
+    // ========================
+    
     // Fungsi untuk membuka modal berdasarkan ID
     function openModal(modalId) {
         const modalElement = document.getElementById(modalId);
@@ -783,12 +791,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleHashChange() {
         const hash = window.location.hash.substring(1); // Hapus karakter '#'
         
-        // Daftar modal yang valid (sesuaikan dengan modal Anda)
-        const validModals = [
-            'panduan1', 'panduan2', 'panduan3', 'panduan4',
-            'panduan5', 'panduan6', 'panduan7', 'panduan8'
-            // Tambahkan ID modal lainnya di sini
-        ];
+        // Daftar modal yang valid berdasarkan modal yang ada di halaman
+        const validModals = [];
+        document.querySelectorAll('.modal').forEach(modal => {
+            if (modal.id) {
+                validModals.push(modal.id);
+            }
+        });
         
         // Cek apakah hash adalah modal yang valid
         if (validModals.includes(hash)) {
@@ -799,35 +808,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Tambahkan link/tombol yang bisa dibagikan di dalam modal
-    function addShareableLinks() {
-        // Temukan semua modal
-        document.querySelectorAll('.modal').forEach(modal => {
-            const modalId = modal.id;
-            const modalBody = modal.querySelector('.modal-body');
-            
-            if (modalBody && modalId) {
-                // Buat elemen untuk link yang bisa dibagikan
-                const shareLink = document.createElement('div');
-                shareLink.className = 'shareable-link mt-3 p-3 bg-light rounded';
-                shareLink.innerHTML = `
-                    <p class="mb-1"><small><strong>Link langsung ke panduan ini:</strong></small></p>
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" id="share-url-${modalId}" 
-                               value="${window.location.origin + window.location.pathname}#${modalId}" readonly>
-                        <button class="btn btn-outline-primary" type="button" onclick="copyShareLink('${modalId}')">
-                            <i class="bi bi-clipboard"></i>
-                        </button>
-                    </div>
-                `;
-                modalBody.appendChild(shareLink);
-            }
-        });
-    }
-    
     // Fungsi untuk menyalin link ke clipboard
-    window.copyShareLink = function(modalId) {
+    function copyShareLink(modalId) {
         const input = document.getElementById(`share-url-${modalId}`);
+        if (!input) return;
+        
         input.select();
         input.setSelectionRange(0, 99999); // Untuk mobile
         
@@ -835,6 +820,8 @@ document.addEventListener('DOMContentLoaded', function() {
             navigator.clipboard.writeText(input.value).then(() => {
                 // Tampilkan feedback
                 const btn = input.nextElementSibling;
+                if (!btn) return;
+                
                 const originalHTML = btn.innerHTML;
                 btn.innerHTML = '<i class="bi bi-check"></i>';
                 btn.classList.remove('btn-outline-primary');
@@ -850,14 +837,37 @@ document.addEventListener('DOMContentLoaded', function() {
             // Fallback untuk browser lama
             document.execCommand('copy');
         }
-    };
+    }
     
-    // Jalankan saat halaman pertama kali dimuat
-    handleHashChange();
-    addShareableLinks();
-    
-    // Tambahkan event listener untuk perubahan hash (saat user klik link dengan hash)
-    window.addEventListener('hashchange', handleHashChange);
+    // Tambahkan link/tombol yang bisa dibagikan di dalam modal
+    function addShareableLinks() {
+        // Temukan semua modal
+        document.querySelectorAll('.modal').forEach(modal => {
+            const modalId = modal.id;
+            if (!modalId) return;
+            
+            const modalBody = modal.querySelector('.modal-body');
+            if (!modalBody) return;
+            
+            // Cek apakah sudah ada shareable link
+            if (modalBody.querySelector('.shareable-link')) return;
+            
+            // Buat elemen untuk link yang bisa dibagikan
+            const shareLink = document.createElement('div');
+            shareLink.className = 'shareable-link mt-3 p-3 bg-light rounded';
+            shareLink.innerHTML = `
+                <p class="mb-1"><small><strong>Link langsung ke panduan ini:</strong></small></p>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" id="share-url-${modalId}" 
+                           value="${window.location.origin + window.location.pathname}#${modalId}" readonly>
+                    <button class="btn btn-outline-primary" type="button" onclick="copyShareLink('${modalId}')">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
+                </div>
+            `;
+            modalBody.appendChild(shareLink);
+        });
+    }
     
     // Handle ketika modal dibuka melalui klik biasa (tambahkan hash ke URL)
     document.querySelectorAll('[data-bs-toggle="modal"]').forEach(link => {
@@ -870,6 +880,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Ekspos fungsi ke global scope untuk onclick
+    window.copyShareLink = copyShareLink;
+    
+    // Jalankan saat halaman pertama kali dimuat
+    handleHashChange();
+    addShareableLinks();
+    
+    // Tambahkan event listener untuk perubahan hash (saat user klik link dengan hash)
+    window.addEventListener('hashchange', handleHashChange);
 });
 </script>
 </body>
