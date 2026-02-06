@@ -1,65 +1,116 @@
-
 <html>
   <head>
+    <link rel="icon" href="https://iceinstitut.github.io/image/aset/favicon_icei.png" type="image/png">
+    </script>
     <title>Konten ICE Institute</title>
-    <script src="load-components.js"></script>
-    <script src="load-head.js"></script>
-    <script src="load-components.js"></script>
+    <script>
+      function loadComponent(id, url) {
+        fetch("https://iceinstitut.github.io/konten/" + url).then(response => response.text()).then(data => {
+          document.getElementById(id).innerHTML = data;
+        });
+      }
+      document.addEventListener("DOMContentLoaded", function() {
+        loadComponent("header", "header.html");
+        loadComponent("footer", "footer.html");
+      });
+      fetch("https://iceinstitut.github.io/konten/head.html").then(response => response.text()).then(data => {
+        const temp = document.createElement("div");
+        temp.innerHTML = data;
+        // Proses <link> langsung
+        temp.querySelectorAll("link").forEach(link => {
+          document.head.appendChild(link);
+        });
+        // Proses <script> manual
+        temp.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          newScript.src = oldScript.src;
+          if (oldScript.defer) newScript.defer = true;
+          document.head.appendChild(newScript);
+        });
+      });
+    </script>
+    <style>
+      .menuutama {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .menuutama:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+      }
+
+      .menuutama h3 {
+        font-size: 1.05rem;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
     <div id="header"></div>
-
     <main class="container py-3">
-      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
-  <div class="col p-lg-5 mx-auto my-5">
-    <h1 class="display-3 fw-bold">TIM KONTEN</h1>
-    <h3 class="fw-normal text-muted mb-3">Selamat datang dihalaman tim Konten ICE Institute. Halaman ini berisi informasi dari Tim Konten ICE Institute</h3>
-  </div>
-</div>
-<div class="row row-cols-2 row-cols-lg-4 g-4 text-center">
-  <div class="col">
-      <a class="text-decoration-none" href="./panduan/">
-          <div class="menuutama rounded p-3 h-100 shadow">
-              <i class="text-primary bi bi-book" style="font-size:6rem"></i>
-                  <h3 class="text-black">Panduan</h3>
+      <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold text-body-emphasis">Tim Konten ICE Institute</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Selamat datang dihalaman tim Konten ICE Institute. Halaman ini berisi informasi dari Tim Konten ICE Institute</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"></div>
+        </div>
+      </div>
+      <!-- Awal trigger modal -->
+      <div class="row row-cols-2 row-cols-lg-4 g-4 text-center">
+        <!-- Awal Tombol URL Eksternal Panduan-->
+        <div class="col">
+          <a class="text-decoration-none" style="cursor: pointer;" href="./panduan/">
+            <div class="menuutama rounded p-3 h-100 shadow">
+              <i class="text-primarybi bi bi-book mb-2" style="font-size:6rem"></i>
+              <h3 class="mt-2 text-black">Panduan</h3>
             </div>
-      </a>
-  </div>
-  <div class="col">
-    <a class="text-decoration-none" href="./verifyeventserti/">
-    <div class="menuutama rounded p-3 h-100 shadow">
-      <i class="text-primary bi bi-upc-scan" style="font-size:6rem"></i>
-        <h3 class="text-black">Verifikasi Sertifikat</h3>
-    </div>
-  </a>
-  </div>
-  <div class="col">
-    <a class="text-decoration-none" href="./listprofil/">
-      <div class="menuutama rounded p-3 h-100 shadow">
-      <i class="text-primary bi bi-card-list" style="font-size:6rem"></i>
-        <h3 class="text-black">Data Profil Course</h3>
-    </div>
-    </a>    
-  </div>
-  <div class="col">
-    <a class="text-decoration-none" href="./profildev/">
-      <div class="menuutama rounded p-3 h-100 shadow">
-      <i class="text-primary bi bi-person-vcard" style="font-size:6rem"></i>
-        <h3 class="text-black">Form Profil Pengembang</h3>
-    </div>
-    </a>    
-  </div>
-  <div class="col">
-    <a class="text-decoration-none" href="javascript:void(0)" onclick="loadContent('about')">
-      <div class="menuutama rounded p-3 h-100 shadow">
-      <i class="text-primary bi bi-people" style="font-size:6rem"></i>
-        <h3 class="text-black">TIM</h3>
-    </div>
-    </a>    
-  </div>
-</div>
+          </a>
+        </div>
+        <!-- Awal Tombol URL Eksternal Verifikasi Sertifikat-->
+        <div class="col">
+          <a class="text-decoration-none" style="cursor: pointer;" href="./verifyeventserti/">
+            <div class="menuutama rounded p-3 h-100 shadow">
+              <i class="text-primarybi bi bi-upc-scan mb-2" style="font-size:6rem"></i>
+              <h3 class="mt-2 text-black">Verifikasi Sertifikat</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Awal Tombol URL Eksternal Data Profil Course-->
+        <div class="col">
+          <a class="text-decoration-none" style="cursor: pointer;" href="./listprofil/">
+            <div class="menuutama rounded p-3 h-100 shadow">
+              <i class="text-primarybi bi bi-card-list mb-2" style="font-size:6rem"></i>
+              <h3 class="mt-2 text-black">Data Profil Course</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Awal Tombol URL Eksternal Form Profil Pengembang-->
+        <div class="col">
+          <a class="text-decoration-none" style="cursor: pointer;" href="./profildev/">
+            <div class="menuutama rounded p-3 h-100 shadow">
+              <i class="text-primarybi bi bi-person-vcard mb-2" style="font-size:6rem"></i>
+              <h3 class="mt-2 text-black">Form Profil Pengembang</h3>
+            </div>
+          </a>
+        </div>
+        <!-- Awal Tombol URL Eksternal TIM-->
+        <div class="col">
+          <a class="text-decoration-none" style="cursor: pointer;" href="#">
+            <div class="menuutama rounded p-3 h-100 shadow">
+              <i class="text-primarybi bi bi-people mb-2" style="font-size:6rem"></i>
+              <h3 class="mt-2 text-black">TIM</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!-- Akhir trigger modal -->
     </main>
-
     <div id="footer"></div>
-  </body>
+</body>
 </html>
