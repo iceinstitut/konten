@@ -1,170 +1,759 @@
-
 <html>
   <head>
-    <title>Form Profil Pengembang</title>
-    <script src="../load-components.js"></script>
-    <script src="../load-head.js"></script>
-    <script src="../load-components.js"></script>
+    <link rel="icon" href="https://iceinstitut.github.io/image/aset/favicon_icei.png" type="image/png">
+    </script>
+    <title>Daftar Course dan Pengembang di ICE Institute</title>
+    <script>
+      function loadComponent(id, url) {
+        fetch("https://iceinstitut.github.io/konten/" + url).then(response => response.text()).then(data => {
+          document.getElementById(id).innerHTML = data;
+        });
+      }
+      document.addEventListener("DOMContentLoaded", function() {
+        loadComponent("header", "header.html");
+        loadComponent("footer", "footer.html");
+      });
+      fetch("https://iceinstitut.github.io/konten/head.html").then(response => response.text()).then(data => {
+        const temp = document.createElement("div");
+        temp.innerHTML = data;
+        // Proses <link> langsung
+        temp.querySelectorAll("link").forEach(link => {
+          document.head.appendChild(link);
+        });
+        // Proses <script> manual
+        temp.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          newScript.src = oldScript.src;
+          if (oldScript.defer) newScript.defer = true;
+          document.head.appendChild(newScript);
+        });
+      });
+    </script>
   <style>
-    .placeholder-card {
-      height: 220px;
-      border: 1px solid #dee2e6;
-      border-radius: 0.5rem;
-      background-color: #f8f9fa;
-      animation: pulse 1.5s infinite;
+    /* ============================================================
+      MK FRONTEND — Scoped CSS (NO gradient)
+      Semua style hanya berlaku di dalam .mkAppScope
+      Branding: #ee1522
+    ============================================================ */
+    .mkAppScope{
+      --brand:#ee1522;
+      --bg:#ffffff;
+      --surface:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --soft:#f9fafb;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(17,24,39,.08);
+      --shadow-sm:0 6px 16px rgba(17,24,39,.08);
+      --focus:0 0 0 4px rgba(238,21,34,.18);
+
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:var(--bg);
     }
-    @keyframes pulse {
-      0% { background-color: #f8f9fa; }
-      50% { background-color: #e9ecef; }
-      100% { background-color: #f8f9fa; }
+    .mkAppScope *{ box-sizing:border-box; }
+    .mkAppScope a{ color:inherit; text-decoration:none; }
+    .mkAppScope img{ max-width:100%; display:block; }
+
+    .mkAppScope .container{
+      width:min(1100px, 100%);
+      margin:0 auto;
+      padding:24px 18px 48px;
+    }
+
+    /* Hero (solid) */
+    .mkAppScope .hero{
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:20px;
+      background:#ffffff;
+      box-shadow:var(--shadow);
+    }
+    .mkAppScope .heroRow{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .mkAppScope .heroTitle{
+      font-size:28px;
+      line-height:1.15;
+      margin:0 0 8px;
+      letter-spacing:-.02em;
+    }
+    .mkAppScope .heroTitle span{ color:var(--brand); }
+    .mkAppScope .heroDesc{
+      margin:0;
+      color:var(--muted);
+      max-width:112ch;
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .mkAppScope .heroStats{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .mkAppScope .pill{
+      border:1px solid var(--line);
+      background:#ffffff;
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:12px;
+      color:var(--text);
+      display:flex;
+      gap:8px;
+      align-items:center;
+      box-shadow:var(--shadow-sm);
+    }
+    .mkAppScope .dot{
+      width:10px;height:10px;border-radius:99px;
+      background:var(--brand);
+      box-shadow:0 0 0 4px rgba(238,21,34,.12);
+    }
+
+    /* Toolbar */
+    .mkAppScope .toolbar{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .mkAppScope .search{
+      flex: 1 1 320px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px 12px;
+      background:#fff;
+      box-shadow:var(--shadow-sm);
+      min-width:260px;
+    }
+    .mkAppScope .search input{
+      border:none;
+      outline:none;
+      width:100%;
+      font-size:14px;
+      background:transparent;
+      color:var(--text);
+    }
+    .mkAppScope .search input::placeholder{ color:#9ca3af; }
+
+    .mkAppScope .btn{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:14px;
+      padding:10px 12px;
+      font-size:13px;
+      cursor:pointer;
+      box-shadow:var(--shadow-sm);
+      transition:transform .06s ease, border-color .15s ease, opacity .15s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .mkAppScope .btn:active{ transform:translateY(1px); }
+    .mkAppScope .btnPrimary{ background-color: rgba(238,21,34,1); color: #ffffff; }
+    .mkAppScope .btnPrimary:hover{ background-color: rgba(238,21,34,.7); color: #ffffff;}
+    .mkAppScope .btn:focus{ outline:none; box-shadow: var(--shadow-sm), var(--focus); }
+    .mkAppScope .btn[disabled]{ opacity:.55; cursor:not-allowed; }
+
+    /* Pagination bar */
+    .mkAppScope .pager{
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .mkAppScope .pagerInfo{
+      font-size:12px;
+      color:var(--muted);
+    }
+    .mkAppScope .pagerControls{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    /* Grid */
+    .mkAppScope .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .mkAppScope .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 640px){
+      .mkAppScope .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Course Card */
+    .mkAppScope .card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:var(--surface);
+      box-shadow:var(--shadow-sm);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 290px;
+    }
+    .mkAppScope .cardMedia{
+      height:132px;
+      background:#fff;
+      position:relative;
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+    }
+    .mkAppScope .cardMedia img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .mkAppScope .cardBody{
+      padding:12px 12px 10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    /* Partner logo ABOVE name */
+    .mkAppScope .partnerRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-height:28px;
+    }
+    .mkAppScope .partnerLogoInline{
+      width:28px; height:28px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      background:#fff;
+      overflow:hidden;
+      padding:4px;
+      box-shadow:0 4px 12px rgba(17,24,39,.08);
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .mkAppScope .partnerLogoInline img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+    .mkAppScope .partnerName{
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* Name & code layout */
+    .mkAppScope .courseName{
+      margin:0;
+      font-size:15px;
+      line-height:1.35;
+      letter-spacing:-.01em;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .mkAppScope .courseCode{
+      font-size:12px;
+      color:var(--brand);
+      font-weight:700;
+      letter-spacing:.02em;
+      margin-top:-4px;
+    }
+
+    .mkAppScope .metaRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+    .mkAppScope .tag{
+      border:1px solid var(--line);
+      background:var(--soft);
+      border-radius:999px;
+      padding:6px 8px;
+      font-size:12px;
+      color:#374151;
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+    }
+    .mkAppScope .tag strong{ color:#111827; font-weight:600; }
+
+    .mkAppScope .cardActions{
+      margin-top:2px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 12px 12px;
+    }
+    .mkAppScope .mutedSmall{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* Collapse area */
+    .mkAppScope .collapse{
+      border-top:1px solid var(--line);
+      background:#fff;
+      padding:10px 12px 12px;
+      display:none;
+    }
+    .mkAppScope .collapse.open{ display:block; }
+
+    .mkAppScope .lecturerList{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+    .mkAppScope .lecturerItem{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--soft);
+    }
+    .mkAppScope .avatar{
+      width:40px; height:40px; border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .mkAppScope .avatar img{
+      width:100%; height:100%; object-fit:cover;
+    }
+    .mkAppScope .lecturerInfo{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .mkAppScope .lecturerName{
+      font-size:13px;
+      font-weight:650;
+      line-height:1.2;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .mkAppScope .lecturerInst{
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* Skeleton (solid) */
+    .mkAppScope .skeleton{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px;
+      background:#f3f4f6;
+    }
+
+    .mkAppScope .empty, .mkAppScope .error{
+      margin-top:14px;
+      border:1px dashed var(--line);
+      border-radius:18px;
+      padding:16px;
+      color:var(--muted);
+      background:var(--soft);
+      line-height:1.6;
+    }
+    .mkAppScope .error{
+      border-style:solid;
+      border-color: rgba(238,21,34,.25);
+      background:#fff5f5;
+      color:#7f1d1d;
+    }
+    .mkAppScope .brandLink{
+      color:var(--brand);
+      font-weight:650;
+    }
+    .mkAppScope .none{
+      display: none;
     }
   </style>
-  
-  
-  </head>
-  <body>
-    <div id="header"></div>
+</head>
 
-    <main class="container py-3">
+<body>
+<div id="header"></div>
+  <div class="mkAppScope">
+    <div class="container">
 
-    <div class="col-10 px-4 py-5 my-5 text-center mx-auto">
-      <!-- <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-      <h1 class="display-5 fw-bold text-body-emphasis">Daftar Course dan Pengembang di<br>ICE Institute</h1>
-      <div class="col-12 mx-auto">
-        <p class="lead mb-4">Halaman ini menampilkan daftar mata kuliah beserta nama-nama pengembangnya, lengkap dengan fitur pencarian untuk memudahkan Anda menemukan informasi yang dibutuhkan. Jika Anda tidak menemukan nama mata kuliah yang Anda cari, silakan tambahkan data mata kuliah tersebut melalui tombol <strong>Add Course</strong>. Namun, apabila Anda menemukan nama mata kuliahnya tetapi tidak menemukan nama Anda tercantum sebagai pengembang, Anda juga dapat menambahkan nama Anda melalui tombol <strong>Add Course Dev</strong>. Pastikan data yang Anda masukkan akurat agar informasi tetap terjaga dan bermanfaat bagi semua pengguna.</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <a class="btn btn-primary btn-lg px-4 gap-3" href="https://iceinstitut.github.io/konten/profilmk/" target="_blank">Add Course</a>
-        <a class="btn btn-outline-secondary btn-lg px-4" href="https://iceinstitut.github.io/konten/profildev/" target="_blank">Add Course Dev</a>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="heroRow">
+          <div>
+            <h1 class="heroTitle">Daftar Course dan Pengembang di <span>ICE Institute</span></h1>
+            <p class="heroDesc">
+              Halaman ini menampilkan daftar mata kuliah beserta nama-nama pengembangnya, lengkap dengan fitur pencarian untuk memudahkan Anda menemukan informasi yang dibutuhkan. Jika Anda tidak menemukan nama mata kuliah yang Anda cari, silakan tambahkan data mata kuliah tersebut melalui tombol <strong>Add Course</strong>. Namun, apabila Anda menemukan nama mata kuliahnya tetapi tidak menemukan nama Anda tercantum sebagai pengembang, Anda juga dapat menambahkan nama Anda melalui tombol <strong>Add Course Dev</strong>. Pastikan data yang Anda masukkan akurat agar informasi tetap terjaga dan bermanfaat bagi semua pengguna.
+              <div style="margin-top:8px;">
+                <a class="btn btnPrimary" href="https://iceinstitut.github.io/konten/profilmk/" target="_blank">Add Course</a>
+                <a class="btn" href="https://iceinstitut.github.io/konten/profildev/" target="_blank">Add Course Dev</a>
+              </div>
+            </p>
+          </div>
+
+          <div class="heroStats">
+            <div class="pill none"><span class="dot"></span><span id="statCourses">–</span> mata kuliah</div>
+            <div class="pill none"><span class="dot"></span><span id="statLecturers">–</span> dosen</div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search">
+            <span style="color:#9ca3af">⌕</span>
+            <input id="q" type="search" placeholder="Cari nama MK, kode, partner, program..." autocomplete="off" />
+          </div>
+          <button class="btn btnPrimary" id="btnReload">Muat ulang</button>
+          <button class="btn none" id="btnHelp">Endpoint</button>
+        </div>
+
+        <!-- Pagination (top) -->
+        <div class="pager">
+          <div class="pagerInfo" id="pagerInfoTop">–</div>
+          <div class="pagerControls">
+            <button class="btn" id="btnPrevTop">← Prev</button>
+            <button class="btn" id="btnNextTop">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <div id="status"></div>
+
+      <!-- GRID -->
+      <section class="grid" id="grid"></section>
+
+      <!-- Pagination (bottom) -->
+      <div class="pager">
+        <div class="pagerInfo" id="pagerInfoBottom">–</div>
+        <div class="pagerControls">
+          <button class="btn" id="btnPrevBottom">← Prev</button>
+          <button class="btn" id="btnNextBottom">Next →</button>
         </div>
       </div>
+
+      <div style="margin-top:16px" class="mutedSmall none">
+        Endpoint collapse: <span class="brandLink">?path=course_lecturers&course_id=...</span>
+      </div>
     </div>
+  </div>
+  <div id="footer"></div>
 
-    <div class="mb-3">
-      <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari course, pengembang, atau institusi...">
-    </div>
+  <script>
+    /*************************************************************
+      CONFIG — ganti dengan URL Web App Apps Script kamu (/exec)
+    *************************************************************/
+    const API_BASE_URL = "https://script.google.com/macros/s/AKfycbw4IMphcjYL-0_YdTs8_r_MDUDRh49N0aTI0xgDfsQc8imv-yiXeUwmDb18itcEfwQwNA/exec";
 
-    <div class="mb-2 text-end text-muted" id="dataInfo"></div>
+    /*************************************************************
+      Pagination settings
+    *************************************************************/
+    const PAGE_SIZE = 12;
+    let page = 1;
+    let total = 0;
+    let q = "";
 
-    <div id="cardContainer" class="row g-4">
-      
-    </div>
+    const elGrid = document.getElementById("grid");
+    const elStatus = document.getElementById("status");
+    const elQ = document.getElementById("q");
+    const elStatCourses = document.getElementById("statCourses");
+    const elPagerInfoTop = document.getElementById("pagerInfoTop");
+    const elPagerInfoBottom = document.getElementById("pagerInfoBottom");
+    const btnPrevTop = document.getElementById("btnPrevTop");
+    const btnNextTop = document.getElementById("btnNextTop");
+    const btnPrevBottom = document.getElementById("btnPrevBottom");
+    const btnNextBottom = document.getElementById("btnNextBottom");
 
-    <nav class="mt-4">
-      <ul class="pagination justify-content-center" id="pagination"></ul>
-    </nav>
+    document.getElementById("btnReload").addEventListener("click", () => init());
 
+    [btnPrevTop, btnPrevBottom].forEach(b => b.addEventListener("click", () => goPage(page - 1)));
+    [btnNextTop, btnNextBottom].forEach(b => b.addEventListener("click", () => goPage(page + 1)));
 
-    </main>
+    let tSearch;
+    elQ.addEventListener("input", () => {
+      clearTimeout(tSearch);
+      tSearch = setTimeout(() => {
+        q = (elQ.value || "").trim();
+        page = 1;
+        loadPage();
+      }, 250);
+    });
 
-    <div id="footer"></div>
+    function setStatus(type, html){
+      if(!html){ elStatus.innerHTML = ""; return; }
+      elStatus.innerHTML = `<div class="${type === "error" ? "error" : "empty"}">${html}</div>`;
+    }
 
-    <script>
-    const apiUrl = "https://script.google.com/macros/s/AKfycbxSjfZh82J_TERGOgVpoxBJ4qqpeoDc-uQGec1Wz643V0IRwPgea_wfb5Bn3rAYcZ4x/exec"; // Ganti dengan URL JSON kamu
-    let allData = [];
-    let filteredData = [];
-    const itemsPerPage = 12;
-    let currentPage = 1;
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;").replaceAll("<","&lt;")
+        .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
 
-    async function fetchData() {
-      try {
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        allData = data;
-        filteredData = [...allData];
-        renderPage(1);
-      } catch (err) {
-        const container = document.getElementById("cardContainer");
-        container.innerHTML = "<p class='text-danger'>Gagal memuat data.</p>";
-        console.error(err);
+    function placeholderCourseCard(){
+      const svg = encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600">
+          <rect width="100%" height="100%" fill="#ffffff"/>
+          <text x="60" y="330" font-family="system-ui,Segoe UI" font-size="44" fill="#111827" font-weight="700">Course Card</text>
+          <text x="60" y="390" font-family="system-ui,Segoe UI" font-size="22" fill="#6b7280">Gambar tidak tersedia</text>
+        </svg>`);
+      return `data:image/svg+xml;charset=utf-8,${svg}`;
+    }
+    function placeholderLogo(){
+      const svg = encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+          <rect width="100%" height="100%" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="62" fill="#ee1522" opacity="0.12"/>
+          <text x="100" y="112" text-anchor="middle" font-family="system-ui,Segoe UI" font-size="22" fill="#111827" font-weight="700">Logo</text>
+        </svg>`);
+      return `data:image/svg+xml;charset=utf-8,${svg}`;
+    }
+
+    function courseCardUrl(c){
+      const u = c.course_card_url || c.course_card || "";
+      return (String(u || "").trim()) ? u : placeholderCourseCard();
+    }
+    function partnerLogoUrl(c){
+      const u = c.logo_partner_url || c.logo_partner || "";
+      return (String(u || "").trim()) ? u : "";
+    }
+
+    function totalPages(){
+      return Math.max(1, Math.ceil(total / PAGE_SIZE));
+    }
+    function goPage(next){
+      const tp = totalPages();
+      page = Math.max(1, Math.min(tp, next));
+      loadPage(true);
+    }
+    function renderPager(){
+      const tp = totalPages();
+      const start = total === 0 ? 0 : ((page - 1) * PAGE_SIZE) + 1;
+      const end = Math.min(page * PAGE_SIZE, total);
+
+      const info = total === 0
+        ? "Tidak ada data"
+        : `Menampilkan ${start}–${end} dari ${total} • Halaman ${page}/${tp}`;
+
+      elPagerInfoTop.textContent = info;
+      elPagerInfoBottom.textContent = info;
+
+      const prevDisabled = page <= 1;
+      const nextDisabled = page >= tp || total === 0;
+      [btnPrevTop, btnPrevBottom].forEach(b => b.disabled = prevDisabled);
+      [btnNextTop, btnNextBottom].forEach(b => b.disabled = nextDisabled);
+    }
+
+    function renderCourses(items){
+      elGrid.innerHTML = "";
+      if(!items.length){
+        setStatus("empty", "Tidak ada mata kuliah yang cocok dengan pencarian kamu.");
+        return;
+      }
+      setStatus("", "");
+      const frag = document.createDocumentFragment();
+      items.forEach(c => frag.appendChild(renderCourseCard(c)));
+      elGrid.appendChild(frag);
+    }
+
+    function renderCourseCard(c){
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const courseImg = courseCardUrl(c);
+      const logoUrl = partnerLogoUrl(c);
+
+      const partner = escapeHtml(c.partner || "");
+      const program = escapeHtml(c.program || "");
+      const institusi = escapeHtml(c.institusi_mk || "");
+      const kode = escapeHtml(c.kode_mk || "");
+      const nama = escapeHtml(c.nama_mk || "");
+      const cid = escapeHtml(c.course_id || "");
+      const dosenCount = Number(c.dosen_count ?? 0);
+
+      card.innerHTML = `
+        <div class="cardMedia">
+          <img src="${courseImg}" alt="Course card ${nama}" onerror="this.onerror=null; this.src='${placeholderCourseCard()}';" />
+        </div>
+
+        <div class="cardBody">
+          <div class="partnerRow" title="${partner}">
+            ${logoUrl ? `
+              <div class="partnerLogoInline">
+                <img src="${logoUrl}" alt="Logo partner ${partner}" onerror="this.onerror=null; this.src='${placeholderLogo()}';" />
+              </div>
+            ` : `
+              <div class="partnerLogoInline" aria-hidden="true">
+                <img src="${placeholderLogo()}" alt="" />
+              </div>
+            `}
+            <div class="partnerName">${partner || "Partner"}</div>
+          </div>
+
+          <h3 class="courseName" title="${nama}">${nama || "(Tanpa nama)"}</h3>
+          <div class="courseCode" title="Kode MK">${kode || cid}</div>
+
+          <div class="metaRow">
+            ${program ? `<span class="tag"><strong>Program</strong> ${program}</span>` : ""}
+            ${institusi ? `<span class="tag"><strong>Institusi</strong> ${institusi}</span>` : ""}
+          </div>
+        </div>
+
+        <div class="cardActions">
+          <button class="btn btnPrimary jsToggle" type="button" aria-expanded="false">
+            Lihat dosen (${dosenCount})
+          </button>
+          <span class="mutedSmall none" title="course_id">${cid}</span>
+        </div>
+
+        <div class="collapse" aria-hidden="true">
+          <div class="mutedSmall">Daftar dosen pengampu</div>
+          <div class="lecturerList jsLecturerList"></div>
+        </div>
+      `;
+
+      const btn = card.querySelector(".jsToggle");
+      const collapse = card.querySelector(".collapse");
+      const list = card.querySelector(".jsLecturerList");
+
+      btn.addEventListener("click", async () => {
+        const open = collapse.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        collapse.setAttribute("aria-hidden", open ? "false" : "true");
+
+        if(open && !collapse.dataset.loaded){
+          list.innerHTML = `<div class="skeleton" style="height:62px"></div><div class="skeleton" style="height:62px"></div>`;
+          try{
+            const lecturers = await fetchLecturersForCourse(c.course_id);
+            collapse.dataset.loaded = "1";
+            renderLecturers(list, lecturers);
+          }catch(err){
+            list.innerHTML = `<div class="error">Gagal memuat dosen: ${escapeHtml(err.message || err)}</div>`;
+          }
+        }
+      });
+
+      return card;
+    }
+
+    function renderLecturers(container, lecturers){
+      if(!lecturers || !lecturers.length){
+        container.innerHTML = `<div class="empty">Belum ada data dosen untuk mata kuliah ini.</div>`;
+        return;
+      }
+      container.innerHTML = lecturers.map(d => {
+        const fotoRaw = (d.foto_url || d.foto || "").trim();
+        const foto = fotoRaw ? fotoRaw : placeholderLogo();
+        const nama = escapeHtml(d.nama_dosen || "");
+        const inst = escapeHtml(d.institusi_dosen || "");
+        return `
+          <div class="lecturerItem">
+            <div class="avatar">
+              <img src="${foto}" alt="Foto ${nama}" onerror="this.onerror=null; this.src='${placeholderLogo()}';" />
+            </div>
+            <div>
+              <div class="lecturerName" title="${nama}">${nama || "(Tanpa nama)"}</div>
+              <div class="lecturerInst" title="${inst}">${inst || ""}</div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function fetchJson(url){
+      const res = await fetch(url, { method:"GET" });
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    }
+
+    async function fetchCoursesPage(){
+      const offset = (page - 1) * PAGE_SIZE;
+      const qp = q ? `&q=${encodeURIComponent(q)}` : "";
+      const url = `${API_BASE_URL}?path=courses&limit=${PAGE_SIZE}&offset=${offset}${qp}`;
+      const data = await fetchJson(url);
+      if(!data.ok) throw new Error(data.error || "API error");
+      total = Number(data.paging?.total ?? 0);
+      return data.data || [];
+    }
+
+    async function fetchTotalCoursesAll(){
+      // total global (tanpa search)
+      const url = `${API_BASE_URL}?path=courses&limit=1&offset=0`;
+      const data = await fetchJson(url);
+      if(!data.ok) return null;
+      return Number(data.paging?.total ?? null);
+    }
+
+    async function fetchLecturersForCourse(courseId){
+      const url = `${API_BASE_URL}?path=course_lecturers&course_id=${encodeURIComponent(courseId)}`;
+      const data = await fetchJson(url);
+      if(!data.ok) throw new Error(data.error || "API error");
+      return data.data || [];
+    }
+
+    async function loadPage(scroll){
+      setStatus("empty", "Memuat data...");
+      elGrid.innerHTML = "";
+      try{
+        const items = await fetchCoursesPage();
+        renderPager();
+        renderCourses(items);
+        if(scroll) elGrid.scrollIntoView({ behavior:"smooth", block:"start" });
+      }catch(err){
+        renderPager();
+        setStatus("error", `Gagal memuat data.<br/><div style="margin-top:8px;font-family:ui-monospace,monospace;font-size:12px;">${escapeHtml(err.message||err)}</div>`);
       }
     }
 
-    function renderPage(page) {
-      currentPage = page;
-      const start = (page - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageItems = filteredData.slice(start, end);
+    async function init(){
+      if(!API_BASE_URL || API_BASE_URL.includes("PASTE_WEB_APP_EXEC_URL_DI_SINI")){
+        setStatus("error", `API_BASE_URL belum diisi. Paste URL Web App Apps Script kamu ke variabel <b>API_BASE_URL</b>.`);
+        return;
+      }
+      // total global untuk hero
+      const totalAll = await fetchTotalCoursesAll();
+      elStatCourses.textContent = (totalAll === null) ? "–" : String(totalAll);
 
-      const container = document.getElementById("cardContainer");
-      container.innerHTML = pageItems.map(item => `
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
-          <img src="${item.link_card || 'https://iceinstitut.github.io/image/aset/cover-default.jpg'}" class="card-img-top" alt="${item.nama_mk}" loading="lazy">
-            <div class="card-body">
-                <p class="card-text text-muted">${item.Partner}</p>
-                <h4 class="card-title">${item.nama_mk}</h4>
-                <p class="card-text"><strong>Kode:</strong> ${item.kode_mk}</p>
-                <div class="row">
-                  <div class="col-auto d-flex align-items-start flex-column">
-                      <img class="mb-auto" src="https://cdn-icons-png.flaticon.com/512/10307/10307911.png" width="50">
-                  </div>
-                  <div class="col">
-                      <p class="card-text"><strong> ${item.nama_dosen}</strong><br>${item.institusi_dosen}</p>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      `).join("");
-
-      renderPagination();
-      updateDataInfo(start, end, filteredData.length);
+      page = 1; total = 0; q = "";
+      elQ.value = "";
+      await loadPage(false);
     }
 
-    function renderPagination() {
-      const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-      const pagination = document.getElementById("pagination");
-      pagination.innerHTML = "";
-
-      const prevDisabled = currentPage === 1 ? "disabled" : "";
-      const nextDisabled = currentPage === totalPages ? "disabled" : "";
-
-      pagination.innerHTML += `
-        <li class="page-item ${prevDisabled}">
-          <a class="page-link" href="#" onclick="renderPage(${currentPage - 1})">Sebelumnya</a>
-        </li>
-      `;
-
-      pagination.innerHTML += `
-        <li class="page-item disabled">
-          <a class="page-link" href="#">${currentPage} / ${totalPages}</a>
-        </li>
-      `;
-
-      pagination.innerHTML += `
-        <li class="page-item ${nextDisabled}">
-          <a class="page-link" href="#" onclick="renderPage(${currentPage + 1})">Berikutnya</a>
-        </li>
-      `;
-    }
-
-    function updateDataInfo(start, end, total) {
-      const shownEnd = Math.min(end, total);
-      document.getElementById("dataInfo").textContent = `Menampilkan ${start + 1} - ${shownEnd} dari ${total} data`;
-    }
-
-    document.getElementById("searchInput").addEventListener("input", (e) => {
-      const keyword = e.target.value.toLowerCase();
-      filteredData = allData.filter(item =>
-        item.nama_mk.toLowerCase().includes(keyword) ||
-        item.kode_mk.toLowerCase().includes(keyword) ||
-        item.Partner.toLowerCase().includes(keyword) ||
-        item.nama_dosen.toLowerCase().includes(keyword) ||
-        item.institusi_dosen.toLowerCase().includes(keyword)
-      );
-      renderPage(1);
-    });
-
-    // Tampilkan placeholder sebelum fetch
-    document.addEventListener("DOMContentLoaded", () => {
-      const container = document.getElementById("cardContainer");
-      container.innerHTML = Array.from({ length: 12 }).map(() => `
-        <div class="col-md-6 col-lg-4">
-          <div class="placeholder-card p-3"></div>
-        </div>
-      `).join("");
-      fetchData();
-    });
+    init();
   </script>
-  </body>
+</body>
 </html>
