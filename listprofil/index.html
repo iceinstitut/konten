@@ -241,12 +241,12 @@
       min-height:28px;
     }
     .mkAppScope .partnerLogoInline{
-      width:28px; height:28px;
+      height:45px;
       border-radius:10px;
       border:1px solid var(--line);
       background:#fff;
       overflow:hidden;
-      padding:4px;
+      padding:5px 10px;
       box-shadow:0 4px 12px rgba(17,24,39,.08);
       flex:0 0 auto;
       display:flex;
@@ -404,6 +404,37 @@
     .mkAppScope .none{
       display: none;
     }
+    .mkAppScope .loader {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      position: relative;
+      display: inline-block; /* Tambahkan ini agar aman di dalam span */
+      animation: rotate 1s linear infinite;
+    }
+
+    .mkAppScope .loader::before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      inset: 0px;
+      border-radius: 50%;
+      /* GANTI #FFF ke warna yang kontras, misal biru atau abu-abu gelap */
+      border: 5px solid #ee1522;
+      animation: prixClipFix 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes prixClipFix {
+      0% { clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0); }
+      25% { clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0); }
+      50% { clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%); }
+      75% { clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%); }
+      100% { clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0); }
+    }
   </style>
 </head>
 
@@ -435,7 +466,7 @@
         <div class="toolbar">
           <div class="search">
             <span style="color:#9ca3af">⌕</span>
-            <input id="q" type="search" placeholder="Cari nama MK, kode, partner, program..." autocomplete="off" />
+            <input id="q" type="search" placeholder="Cari nama Mata Kuliah, kode, partner, program..." autocomplete="off" />
           </div>
           <button class="btn btnPrimary" id="btnReload">Muat ulang</button>
           <button class="btn none" id="btnHelp">Endpoint</button>
@@ -581,7 +612,7 @@
     function renderCourses(items){
       elGrid.innerHTML = "";
       if(!items.length){
-        setStatus("empty", "Tidak ada mata kuliah yang cocok dengan pencarian kamu.");
+        setStatus("empty", '<div style="text-align: center; width: 100%; overflow: hidden;"><p style="font-size: 13vw; font-weight: bold; margin: 0; white-space: nowrap;">NO DATA</p></div>');
         return;
       }
       setStatus("", "");
@@ -607,18 +638,18 @@
 
       card.innerHTML = `
         <div class="cardMedia">
-          <img src="${courseImg}" alt="Course card ${nama}" onerror="this.onerror=null; this.src='${placeholderCourseCard()}';" />
+          <img src="${courseImg}" alt="Course card ${nama}" onerror="this.onerror=null; this.src='${placeholderCourseCard()}';" loading="lazy"/>
         </div>
 
         <div class="cardBody">
           <div class="partnerRow" title="${partner}">
             ${logoUrl ? `
               <div class="partnerLogoInline">
-                <img src="${logoUrl}" alt="Logo partner ${partner}" onerror="this.onerror=null; this.src='${placeholderLogo()}';" />
+                <img src="${logoUrl}" alt="Logo partner ${partner}" onerror="this.onerror=null; this.src='${placeholderLogo()}';" loading="lazy"/>
               </div>
             ` : `
               <div class="partnerLogoInline" aria-hidden="true">
-                <img src="${placeholderLogo()}" alt="" />
+                <img src="${placeholderLogo()}" alt="" loading="lazy"/>
               </div>
             `}
             <div class="partnerName">${partner || "Partner"}</div>
@@ -683,7 +714,7 @@
         return `
           <div class="lecturerItem">
             <div class="avatar">
-              <img src="${foto}" alt="Foto ${nama}" onerror="this.onerror=null; this.src='${placeholderLogo()}';" />
+              <img src="${foto}" alt="Foto ${nama}" onerror="this.onerror=null; this.src='${placeholderLogo()}';" loading="lazy"/>
             </div>
             <div>
               <div class="lecturerName" title="${nama}">${nama || "(Tanpa nama)"}</div>
@@ -726,7 +757,7 @@
     }
 
     async function loadPage(scroll){
-      setStatus("empty", "Memuat data...");
+      setStatus("empty", '<div style="text-align: center; padding: 20px;"><span class="loader"></span><br>Loading...</div>');
       elGrid.innerHTML = "";
       try{
         const items = await fetchCoursesPage();
@@ -744,6 +775,7 @@
         setStatus("error", `API_BASE_URL belum diisi. Paste URL Web App Apps Script kamu ke variabel <b>API_BASE_URL</b>.`);
         return;
       }
+      setStatus("empty", '<div style="text-align: center; padding: 20px;"><span class="loader"></span><br>Loading...</div>');
       // total global untuk hero
       const totalAll = await fetchTotalCoursesAll();
       elStatCourses.textContent = (totalAll === null) ? "–" : String(totalAll);
