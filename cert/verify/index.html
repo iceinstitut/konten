@@ -381,7 +381,20 @@
     }
 
     async function init() {
-      // Validasi querystring
+      // --- Legacy redirect handler (opsional tapi disarankan) ---
+      // Jika ada URL lama pakai ?p=cert, arahkan ke halaman cert baru.
+      const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+      if (P === "cert") {
+        const u = new URL("https://iceinstitut.github.io/konten/cert/");
+        const id = CERT_ID || qs("id").trim();
+        const t  = TOKEN   || qs("t").trim();
+        if (id) u.searchParams.set("id", id);
+        if (t)  u.searchParams.set("t", t);
+        location.replace(u.toString());
+        return;
+      }
+    
+      // --- Validasi querystring ---
       if (!CERT_ID) {
         showAlert(
           "ID Sertifikat tidak ada",
@@ -397,15 +410,17 @@
         );
         return;
       }
-
-      // Loading state
+    
+      // --- Loading state ---
       showAlert("Memuat...", "Sedang mengambil data verifikasi dari server.", "id=" + CERT_ID);
-
+    
       try {
         const res = await apiVerify();
-
+    
         if (!res || !res.ok) {
-          const mode = mapErrorToMode(res && (res.message || res.error?.message));
+          const msg = (res && (res.message || res.error?.message)) ? String(res.message || res.error?.message) : "";
+          const mode = mapErrorToMode(msg);
+    
           if (mode === "invalid_token") {
             showAlert(
               "Token tidak valid",
@@ -422,15 +437,15 @@
             );
             return;
           }
-
+    
           showAlert(
             "Terjadi kesalahan",
-            (res && (res.message || res.error?.message)) ? String(res.message || res.error?.message) : "Gagal memuat data.",
+            msg || "Gagal memuat data.",
             "id=" + CERT_ID
           );
           return;
         }
-
+    
         const view = res.view || {};
         setBadge(view);
         fill(view);
@@ -452,17 +467,9 @@
       back.href = u.toString();
     }
 
-    const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
-    if (P === "cert") {
-      const u = new URL("https://iceinstitut.github.io/konten/cert/");
-      u.searchParams.set("id", CERT_ID);
-      u.searchParams.set("t", TOKEN);
-      location.replace(u.toString());
-      return;
-    }
-
     init();
   </script>
 </body>
 </html>
+
 
