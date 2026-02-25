@@ -328,44 +328,55 @@
         btnVerify.href = u.toString();
       }
 
-      async function init(){
-        // validasi param
-        if (!CERT_ID) {
-          showState("ID Sertifikat tidak ada", 'Pastikan Anda membuka URL yang diberikan Admin (parameter <b>id</b>).');
-          return;
-        }
-        if (!TOKEN) {
-          showState("Token tidak ada", 'Pastikan Anda membuka URL lengkap dari Admin (parameter <b>t</b>).');
-          return;
-        }
+async function init() {
+  // --- Legacy redirect handler (opsional tapi sangat disarankan) ---
+  // Jika ada URL lama pakai ?p=verify, arahkan ke halaman verify baru.
+  const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+  if (P === "verify") {
+    const u = new URL("https://iceinstitut.github.io/konten/cert/verify/");
+    const id = CERT_ID || qs("id").trim();
+    const t  = TOKEN   || qs("t").trim();
+    if (id) u.searchParams.set("id", id);
+    if (t)  u.searchParams.set("t", t);
+    location.replace(u.toString());
+    return;
+  }
 
-        // tampilkan layout utama
-        showMain();
-        initVerifyLink();
+  // --- Validasi param ---
+  if (!CERT_ID) {
+    showState(
+      "ID Sertifikat tidak ada",
+      'Pastikan Anda membuka URL yang diberikan Admin (parameter <b>id</b>).'
+    );
+    return;
+  }
+  if (!TOKEN) {
+    showState(
+      "Token tidak ada",
+      'Pastikan Anda membuka URL lengkap dari Admin (parameter <b>t</b>).'
+    );
+    return;
+  }
 
-        btnDownload.addEventListener("click", ensurePdf);
+  // --- tampilkan layout utama ---
+  showMain();
+  initVerifyLink();
 
-        try {
-          // preview dulu (paling penting untuk user)
-          await loadPreview();
-          // detail bisa menyusul
-          loadDetail().catch(()=>{});
-        } catch (err) {
-          // biasanya invalid token / revoked / not found akan muncul dari message backend preview
-          showState("Gagal memuat sertifikat", escapeHtml(err?.message || String(err)));
-        }
-      }
+  btnDownload.addEventListener("click", ensurePdf);
 
-      const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
-      if (P === "verify") {
-        const u = new URL("https://iceinstitut.github.io/konten/cert/verify/");
-        u.searchParams.set("id", CERT_ID);
-        u.searchParams.set("t", TOKEN);
-        location.replace(u.toString());
-        return;
-      }
+  try {
+    // preview dulu (paling penting untuk user)
+    await loadPreview();
+    // detail bisa menyusul
+    loadDetail().catch(() => {});
+  } catch (err) {
+    // biasanya invalid token / revoked / not found akan muncul dari message backend preview
+    showState("Gagal memuat sertifikat", escapeHtml(err?.message || String(err)));
+  }
+}
 
       init();
     </script>
   </body>
 </html>
+
