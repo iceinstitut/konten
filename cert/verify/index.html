@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Verifikasi Sertifikat</title>
+  <title>Verifikasi Sertifikat Kegiatan ICE Institute</title>
 
   <style>
     :root{
@@ -449,6 +449,15 @@
       u.searchParams.set("id", CERT_ID);
       u.searchParams.set("t", TOKEN);
       back.href = u.toString();
+    }
+
+    const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+    if (P === "cert") {
+      const u = new URL("https://iceinstitut.github.io/konten/cert/");
+      u.searchParams.set("id", CERT_ID);
+      u.searchParams.set("t", TOKEN);
+      location.replace(u.toString());
+      return;
     }
 
     init();
