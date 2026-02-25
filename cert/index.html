@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Sertifikat</title>
+    <title>Sertifikat Kegiatan ICE Institute</title>
+    <link rel="icon" href="https://iceinstitut.github.io/image/aset/favicon_icei.png" type="image/png">
 
     <!-- Scoped CSS (hanya untuk halaman ini) -->
     <style>
@@ -353,6 +354,15 @@
           // biasanya invalid token / revoked / not found akan muncul dari message backend preview
           showState("Gagal memuat sertifikat", escapeHtml(err?.message || String(err)));
         }
+      }
+
+      const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+      if (P === "verify") {
+        const u = new URL("https://iceinstitut.github.io/konten/cert/verify/");
+        u.searchParams.set("id", CERT_ID);
+        u.searchParams.set("t", TOKEN);
+        location.replace(u.toString());
+        return;
       }
 
       init();
