@@ -848,168 +848,92 @@
     </main>
     <div id="footer"></div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // ========================
-  // 1. FUNGSI UNTUK TAB-TOMBOL
-  // ========================
-  const buttons = document.querySelectorAll('.tab-tombol');
-  const contents = document.querySelectorAll('.tab-konten');
+document.addEventListener("DOMContentLoaded", function () {
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Reset semua tombol
-      buttons.forEach(b => b.classList.remove('active'));
-      // Reset semua konten
-      contents.forEach(c => c.classList.remove('active'));
+  function waitForBootstrap(callback) {
+    if (typeof bootstrap !== "undefined") {
+      callback();
+    } else {
+      setTimeout(function() {
+        waitForBootstrap(callback);
+      }, 50);
+    }
+  }
 
-      // Aktifkan tombol yang diklik
-      btn.classList.add('active');
-      // Aktifkan konten target
-      const targetId = btn.dataset.target;
-      const targetContent = document.getElementById(targetId);
-      if (targetContent) {
-        targetContent.classList.add('active');
+  waitForBootstrap(function () {
+
+    // =========================
+    // BUKA MODAL DARI HASH
+    // =========================
+    function openModalFromHash() {
+
+      const hash = window.location.hash.replace("#","");
+
+      if (!hash) return;
+
+      const modalElement = document.getElementById(hash);
+
+      if (modalElement && modalElement.classList.contains("modal")) {
+
+        const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+        modalInstance.show();
       }
+
+    }
+
+    // =========================
+    // UPDATE HASH SAAT MODAL DIBUKA
+    // =========================
+    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(trigger => {
+
+      trigger.addEventListener("click", function () {
+
+        const target = this.getAttribute("data-bs-target");
+
+        if (!target) return;
+
+        const modalId = target.replace("#","");
+
+        history.replaceState(null,null,"#"+modalId);
+
+      });
+
     });
-  });
 
-  // ========================
-  // 2. FUNGSI UNTUK MODAL DENGAN HASH
-  // ========================
+    // =========================
+    // HAPUS HASH SAAT MODAL TUTUP
+    // =========================
+    document.querySelectorAll(".modal").forEach(modal => {
 
-  // Fungsi untuk membuka modal berdasarkan ID
-  function openModal(modalId) {
-    const modalElement = document.getElementById(modalId);
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
+      modal.addEventListener("hidden.bs.modal", function () {
 
-      // Hapus hash dari URL saat modal ditutup
-      modalElement.addEventListener('hidden.bs.modal', function() {
-        if (window.location.hash === '#' + modalId) {
-          // Hapus hash tanpa mengubah scroll position
-          history.replaceState(null, null, ' ');
+        if (window.location.hash === "#" + modal.id) {
+
+          history.replaceState(
+            "",
+            document.title,
+            window.location.pathname + window.location.search
+          );
+
         }
+
       });
-    }
-  }
 
-  // Fungsi untuk menangani perubahan hash
-  function handleHashChange() {
-    const hash = window.location.hash.substring(1); // Hapus karakter '#'
-
-    // Daftar modal yang valid berdasarkan modal yang ada di halaman
-    const validModals = [];
-    document.querySelectorAll('.modal').forEach(modal => {
-      if (modal.id) {
-        validModals.push(modal.id);
-      }
     });
 
-    // Cek apakah hash adalah modal yang valid
-    if (validModals.includes(hash)) {
-      // Tunggu sedikit untuk memastikan DOM siap
-      setTimeout(() => {
-        openModal(hash);
-      }, 100);
-    }
-  }
+    // =========================
+    // HASH CHANGE
+    // =========================
+    window.addEventListener("hashchange", openModalFromHash);
 
-  // Fungsi untuk menyalin link ke clipboard
-  function copyShareLink(modalId) {
-    const input = document.getElementById(`share-url-${modalId}`);
-    if (!input) return;
+    // =========================
+    // FIRST LOAD
+    // =========================
+    openModalFromHash();
 
-    input.select();
-    input.setSelectionRange(0, 99999); // Untuk mobile
-
-    try {
-      navigator.clipboard.writeText(input.value).then(() => {
-        // Tampilkan feedback
-        const btn = input.nextElementSibling;
-        if (!btn) return;
-
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = '<i class="bi bi-check"></i>';
-        btn.classList.remove('btn-outline-primary');
-        btn.classList.add('btn-success');
-
-        setTimeout(() => {
-          btn.innerHTML = originalHTML;
-          btn.classList.remove('btn-success');
-          btn.classList.add('btn-outline-primary');
-        }, 2000);
-      });
-    } catch (err) {
-      // Fallback untuk browser lama
-      document.execCommand('copy');
-    }
-  }
-
-  // Tambahkan link/tombol yang bisa dibagikan di dalam modal
-  function addShareableLinks() {
-    // Temukan semua modal
-    document.querySelectorAll('.modal').forEach(modal => {
-      const modalId = modal.id;
-      if (!modalId) return;
-
-      const modalBody = modal.querySelector('.modal-body');
-      if (!modalBody) return;
-
-      // Cek apakah sudah ada shareable link
-      if (modalBody.querySelector('.shareable-link')) return;
-
-      // Buat elemen untuk link yang bisa dibagikan
-      const shareLink = document.createElement('div');
-      shareLink.className = 'shareable-link mt-3 p-3 bg-light rounded';
-      shareLink.innerHTML = `
-<p class="mb-1"><small><strong>Link langsung ke panduan ini:</strong></small></p>
-<div class="input-group input-group-sm">
-<input type="text" class="form-control" id="share-url-${modalId}" 
-value="${window.location.origin + window.location.pathname}#${modalId}" readonly>
-<button class="btn btn-outline-primary" type="button" onclick="copyShareLink('${modalId}')">
-<i class="bi bi-clipboard"></i>
-</button>
-</div>
-`;
-      modalBody.appendChild(shareLink);
-    });
-  }
-
-  // Handle ketika modal dibuka melalui klik biasa (tambahkan hash ke URL)
-  document.querySelectorAll('[data-bs-toggle="modal"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-      const targetModal = this.getAttribute('data-bs-target');
-      if (targetModal && targetModal.startsWith('#')) {
-        const modalId = targetModal.substring(1);
-        // Update URL dengan hash tanpa reload
-        window.location.hash = modalId;
-      }
-    });
   });
 
-  // Ekspos fungsi ke global scope untuk onclick
-  window.copyShareLink = copyShareLink;
-
-  // Jalankan saat halaman pertama kali dimuat
-  handleHashChange();
-  addShareableLinks();
-
-  // Tambahkan event listener untuk perubahan hash (saat user klik link dengan hash)
-  window.addEventListener('hashchange', handleHashChange);
-});
-
-// Bersihkan backdrop yang tertinggal setelah modal ditutup
-document.addEventListener('hidden.bs.modal', function() {
-  // hapus semua backdrop yang tersisa
-  document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-
-  // hapus class modal-open kalau masih nyangkut
-  document.body.classList.remove('modal-open');
-
-  // reset style yang kadang diset bootstrap
-  document.body.style.removeProperty('overflow');
-  document.body.style.removeProperty('padding-right');
 });
 </script>
 
