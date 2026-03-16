@@ -848,6 +848,19 @@
     </main>
     <div id="footer"></div>
     <script>
+
+document.querySelectorAll('.tab-tombol').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        const target = btn.dataset.target;
+
+        document.querySelectorAll('.tab-konten').forEach(el=>{
+            el.classList.remove('active');
+        });
+
+        document.getElementById(target).classList.add('active');
+    });
+});
+
       document.addEventListener("DOMContentLoaded", function() {
 
           function waitForBootstrap(callback) {
