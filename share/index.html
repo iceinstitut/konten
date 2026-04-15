@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+
+<!-- ✅ OG META (INI YANG DIBACA LINKEDIN) -->
+<meta property="og:title" content="Saya telah menyelesaikan course di ICE Institute 🎓">
+<meta property="og:description" content="Perjalanan belajar yang luar biasa 🚀">
+<meta property="og:image" content="https://iceinstitut.github.io/assets/certificate.png">
+<meta property="og:type" content="website">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share</title>
+
+<script>
+window.onload = function () {
+  const params = new URLSearchParams(window.location.search);
+
+  const link = params.get("link");
+
+  if (link) {
+    const linkedin = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(link);
+
+    // redirect otomatis
+    window.location.href = linkedin;
+  }
+};
+</script>
+
+</head>
+<body>
+<p>Redirecting to LinkedIn...</p>
+</body>
+</html>
