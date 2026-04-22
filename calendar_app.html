@@ -193,9 +193,9 @@
   .day-num-inner { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
 
   .event-pill {
-    font-size: 10.5px;
-    padding: 2px 7px 2px 5px;
-    border-radius: 4px;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
     margin-bottom: 2px;
     cursor: pointer;
     display: block;
@@ -530,12 +530,17 @@ const API_URL = "https://script.google.com/macros/s/AKfycbw990hsHmPgNmx2xziOlwht
 
 // Warna per Tim — tambahkan tim baru di sini
 const TEAM_COLORS = {
+  "Kepala UPPDJI":      { bg: "#FFF0F1", border: "#FDA4AF", text: "#EE1522" },
   "Konten":      { bg: "#E8F2FF", border: "#3B82F6", text: "#1D4ED8" },
-  "Teknologi":   { bg: "#ECFDF5", border: "#10B981", text: "#065F46" },
-  "Manajemen":   { bg: "#FFF7ED", border: "#F59E0B", text: "#92400E" },
-  "Komunikasi":  { bg: "#F5F3FF", border: "#8B5CF6", text: "#5B21B6" },
-  "Desain":      { bg: "#FFF1F2", border: "#F43F5E", text: "#9F1239" },
-  "Keuangan":    { bg: "#ECFEFF", border: "#06B6D4", text: "#164E63" },
+  "Prof. Paulina":   { bg: "#ECFDF5", border: "#10B981", text: "#065F46" },
+  "Proses Bisnis":   { bg: "#FFF7ED", border: "#F59E0B", text: "#92400E" },
+  "Mitra":  { bg: "#F5F3FF", border: "#8B5CF6", text: "#5B21B6" },
+  "Tata Usaha":      { bg: "#FFF1F2", border: "#F43F5E", text: "#9F1239" },
+  "Undangan":    { bg: "#ECFEFF", border: "#06B6D4", text: "#164E63" },
+  "CEF":    { bg: "#EBFAEF", border: "#A3E4BE", text: "#27AE60" },
+  "PMGD":    { bg: "#FEF9E7", border: "#F9E79F", text: "#F1C40F" },
+  "Oranye":    { bg: "#FDF2E9", border: "#F5CBA7", text: "#E67E22" },
+  "Ungu":    { bg: "#D7BDE2", border: "#F5EEF8", text: "#8E44AD" },
 };
 const DEFAULT_COLOR = { bg: "#F4F4F5", border: "#A1A1AA", text: "#3F3F46" };
 
@@ -633,24 +638,129 @@ async function fetchEvents() {
   renderAll();
 }
 
+// PERBAIKAN UTAMA: Multi-day event seperti Google Calendar
+// GANTI fungsi eventsForDate dan renderCalendar dengan ini
+
+function normalizeEvent(ev) {
+  const start = new Date(ev.Mulai);
+  const end = new Date(ev.Akhir || ev.Mulai);
+
+  // convert ke local (WIB)
+  const s = new Date(start.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+  const e = new Date(end.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+
+  return { ...ev, _start: s, _end: e };
+}
+
+function isSameDay(d1, d2) {
+  return d1.getFullYear() === d2.getFullYear() &&
+         d1.getMonth() === d2.getMonth() &&
+         d1.getDate() === d2.getDate();
+}
+
+function isBetween(date, start, end) {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const s = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const e = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  return d >= s && d <= e;
+}
+
+function eventsForDateRange(y, m, d) {
+  const date = new Date(y, m, d);
+  return events.map(normalizeEvent).filter(ev => isBetween(date, ev._start, ev._end));
+}
+
+// TRACK posisi bar agar tidak tabrakan
+function buildEventMatrix(cells) {
+  const matrix = {};
+
+  // NORMALIZE + SORT berdasarkan start date (paling awal dulu)
+  const sortedEvents = events
+    .map(normalizeEvent)
+    .sort((a, b) => a._start - b._start);
+
+  sortedEvents.forEach(ev => {
+    cells.forEach((c, idx) => {
+      const date = new Date(c.y, c.m, c.d);
+      if (!isBetween(date, ev._start, ev._end)) return;
+
+      if (!matrix[idx]) matrix[idx] = [];
+
+      // cari row kosong TANPA override existing
+      let row = 0;
+      while (matrix[idx][row]) row++;
+
+      matrix[idx][row] = ev;
+    });
+  });
+
+  return matrix;
+}
+
+// OPTIONAL: jaga konsistensi posisi antar hari (biar tidak lompat-lompat)
+function getEventRow(matrix, idx, ev) {
+  const col = matrix[idx] || [];
+  return col.findIndex(e => e && e.ID === ev.ID);
+}
+
+function assignEventRows(events) {
+  const sorted = events
+    .map(normalizeEvent)
+    .sort((a, b) => a._start - b._start);
+
+  const eventRows = {};
+
+  sorted.forEach(ev => {
+    let row = 0;
+
+    while (true) {
+      const conflict = sorted.some(other => {
+        if (other.ID === ev.ID) return false;
+        if (eventRows[other.ID] !== row) return false;
+
+        return !(ev._end < other._start || ev._start > other._end);
+      });
+
+      if (!conflict) break;
+      row++;
+    }
+
+    eventRows[ev.ID] = row;
+  });
+
+  return eventRows;
+}
+
+
 // ─────────────────────────────────────────────
 //  RENDER CALENDAR
 // ─────────────────────────────────────────────
 function renderCalendar() {
   document.getElementById("month-label").textContent =
-    new Date(curYear, curMonth, 1).toLocaleDateString("id-ID", { month: "long", year: "numeric" });
+    new Date(curYear, curMonth, 1).toLocaleDateString("id-ID", {
+      month: "long",
+      year: "numeric"
+    });
 
   const firstDay = new Date(curYear, curMonth, 1).getDay();
   const daysInMonth = new Date(curYear, curMonth + 1, 0).getDate();
   const daysInPrev = new Date(curYear, curMonth, 0).getDate();
 
   let cells = [];
+
+  // prev month
   for (let i = firstDay - 1; i >= 0; i--) {
     const pm = curMonth === 0 ? 11 : curMonth - 1;
     const py = curMonth === 0 ? curYear - 1 : curYear;
     cells.push({ d: daysInPrev - i, m: pm, y: py, other: true });
   }
-  for (let d = 1; d <= daysInMonth; d++) cells.push({ d, m: curMonth, y: curYear, other: false });
+
+  // current month
+  for (let d = 1; d <= daysInMonth; d++) {
+    cells.push({ d, m: curMonth, y: curYear, other: false });
+  }
+
+  // next month filler
   while (cells.length % 7 !== 0) {
     const last = cells[cells.length - 1];
     const nm = curMonth === 11 ? 0 : curMonth + 1;
@@ -661,50 +771,113 @@ function renderCalendar() {
   const weeksEl = document.getElementById("weeks");
   weeksEl.innerHTML = "";
 
+  // ✅ normalize + global row
+  const normalizedEvents = events.map(normalizeEvent);
+  const eventRows = assignEventRows(events);
+
+  // ===============================
+  // LOOP PER MINGGU
+  // ===============================
   for (let w = 0; w < cells.length / 7; w++) {
+
+    // ✅ ambil 1 minggu
+    const weekCells = cells.slice(w * 7, w * 7 + 7);
+
+    // ✅ event yang muncul di minggu ini
+    const weekEvents = normalizedEvents.filter(ev => {
+      return weekCells.some(c => {
+        const date = new Date(c.y, c.m, c.d);
+        return isBetween(date, ev._start, ev._end);
+      });
+    });
+
+    // ✅ cari row max di minggu ini
+    const weekMaxRow = Math.max(
+      ...weekEvents.map(ev => eventRows[ev.ID] || 0),
+      0
+    );
+
+    // ✅ tinggi dinamis (min 60px)
+    const stackHeight = Math.max(60, (weekMaxRow + 1) * 26);
+
     const row = document.createElement("div");
     row.className = "week-row";
 
+    // ===============================
+    // LOOP PER HARI
+    // ===============================
     for (let i = 0; i < 7; i++) {
-      const c = cells[w * 7 + i];
-      const isToday = !c.other && c.y === today.getFullYear() && c.m === today.getMonth() && c.d === today.getDate();
-      const isWeekend = (i === 0 || i === 6);
+      const idx = w * 7 + i;
+      const c = cells[idx];
 
       const cell = document.createElement("div");
-      cell.className = "day-cell" +
-        (c.other ? " other-month" : "") +
-        (isToday ? " today" : "") +
-        (isWeekend ? " weekend" : "");
+      cell.className = "day-cell" + (c.other ? " other-month" : "");
 
-      const numWrap = document.createElement("div");
-      numWrap.className = "day-num";
-      const numInner = document.createElement("span");
-      numInner.className = "day-num-inner";
-      numInner.textContent = c.d;
-      numWrap.appendChild(numInner);
-      cell.appendChild(numWrap);
+      // tanggal
+      const num = document.createElement("div");
+      num.className = "day-num";
+      num.innerHTML = `<span class="day-num-inner">${c.d}</span>`;
+      cell.appendChild(num);
 
-      const evs = eventsForDate(c.y, c.m, c.d);
-      evs.forEach(ev => {
+      // container event
+      const stack = document.createElement("div");
+      stack.style.position = "relative";
+      stack.style.height = stackHeight + "px";
+
+      // ===============================
+      // LOOP EVENT
+      // ===============================
+      normalizedEvents.forEach(ev => {
         const col = getColor(ev.Tim);
+
+        const startIdx = cells.findIndex(c2 =>
+          isSameDay(new Date(c2.y, c2.m, c2.d), ev._start)
+        );
+
+        const endIdx = cells.findIndex(c2 =>
+          isSameDay(new Date(c2.y, c2.m, c2.d), ev._end)
+        );
+
+        // hanya render di hari pertama
+        if (idx !== startIdx) return;
+
+        const rowIndex = eventRows[ev.ID] || 0;
+
+        const span = Math.min(endIdx - startIdx + 1, 7 - i);
+
         const pill = document.createElement("div");
         pill.className = "event-pill";
+
+        pill.style.position = "absolute";
+        pill.style.top = (rowIndex * 26) + "px";
+        pill.style.left = "0";
+        pill.style.width = `calc(${span * 100}% + ${(span - 1)}px)`;
+        pill.style.zIndex = 5;
+
         pill.style.background = col.bg;
         pill.style.color = col.text;
         pill.style.borderLeftColor = col.border;
-        pill.title = ev.Title;
+
         pill.textContent = ev.Title;
-        pill.addEventListener("click", e => { e.stopPropagation(); openModal(ev); });
-        cell.appendChild(pill);
+
+        pill.onclick = (e) => {
+          e.stopPropagation();
+          openModal(ev);
+        };
+
+        stack.appendChild(pill);
       });
 
+      cell.appendChild(stack);
       row.appendChild(cell);
     }
+
     weeksEl.appendChild(row);
   }
 
   renderLegend();
 }
+
 
 // ─────────────────────────────────────────────
 //  RENDER LEGEND
