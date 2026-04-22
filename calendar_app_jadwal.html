@@ -614,13 +614,22 @@ async function fetchEvents() {
   try {
     const res = await fetch(API_URL);
     if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
-    events = Array.isArray(data) ? data : [];
+
+    const resJson = await res.json();
+
+    if (resJson.status === "success" && Array.isArray(resJson.data)) {
+      events = resJson.data;
+    } else {
+      throw new Error("Format data tidak valid");
+    }
+
     if (events.length === 0) events = SAMPLE_DATA;
+
   } catch (e) {
-    console.warn("API tidak dapat diakses, menggunakan data sampel:", e.message);
+    console.warn("API tidak dapat diakses:", e.message);
     events = SAMPLE_DATA;
   }
+
   renderAll();
 }
 
