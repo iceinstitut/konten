@@ -1,4 +1,54 @@
 <style>
+:root,
+[data-bs-theme=light] {
+
+  /* PRIMARY (BRANDING) */
+  --bs-primary: #ee1522;
+  --bs-primary-rgb: 238, 21, 34;
+  --bs-primary-text-emphasis: #7a0b12;
+  --bs-primary-bg-subtle: #fbd0d3;
+  --bs-primary-border-subtle: #f5a1a6;
+
+  /* DANGER (PINK) */
+  --bs-danger: #d63384;
+  --bs-danger-rgb: 214, 51, 132;
+  --bs-danger-text-emphasis: #6f1a43;
+  --bs-danger-bg-subtle: #f8d7e6;
+  --bs-danger-border-subtle: #f1a6c8;
+
+  /* LINK ikut branding */
+  --bs-link-color: #ee1522;
+  --bs-link-color-rgb: 238, 21, 34;
+  --bs-link-hover-color: #b80f1a;
+  --bs-link-hover-color-rgb: 184, 15, 26;
+
+  /* FOCUS RING (biar konsisten) */
+  --bs-focus-ring-color: rgba(238, 21, 34, 0.25);
+
+  /* FORM VALID/INVALID */
+  --bs-form-invalid-color: #d63384;
+  --bs-form-invalid-border-color: #d63384;
+}
+[data-bs-theme=dark] {
+
+  /* PRIMARY (BRANDING) */
+  --bs-primary-text-emphasis: #ff6b74;
+  --bs-primary-bg-subtle: #3a0a0d;
+  --bs-primary-border-subtle: #a10f18;
+
+  /* DANGER (PINK) */
+  --bs-danger-text-emphasis: #f29ac2;
+  --bs-danger-bg-subtle: #3a0d25;
+  --bs-danger-border-subtle: #a02863;
+
+  /* LINK */
+  --bs-link-color: #ff6b74;
+  --bs-link-hover-color: #ff8a92;
+
+  /* FORM */
+  --bs-form-invalid-color: #f29ac2;
+  --bs-form-invalid-border-color: #f29ac2;
+}
       body { font-family: Inter !important; }
         .menuutama {
             cursor: pointer;
