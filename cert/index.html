@@ -321,9 +321,21 @@ title: Sertifikat di ICE Institute
         btnVerify.href = u.toString();
       }
 
+
 async function init() {
-  // --- Legacy redirect handler (opsional tapi sangat disarankan) ---
-  // Jika ada URL lama pakai ?p=verify, arahkan ke halaman verify baru.
+
+  // --- tampilkan loading GLOBAL di awal ---
+  showState(
+    "Memuat Sertifikat...",
+    `
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="spinner-border text-danger" role="status"></div>
+      <span>Mohon tunggu, sedang mengambil data...</span>
+    </div>
+    `
+  );
+
+  // --- Legacy redirect handler ---
   const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
   if (P === "verify") {
     const u = new URL("https://iceinstitut.github.io/konten/cert/verify/");
@@ -343,6 +355,7 @@ async function init() {
     );
     return;
   }
+
   if (!TOKEN) {
     showState(
       "Token tidak ada",
@@ -351,20 +364,24 @@ async function init() {
     return;
   }
 
-  // --- tampilkan layout utama ---
-  showMain();
   initVerifyLink();
-
   btnDownload.addEventListener("click", ensurePdf);
 
   try {
-    // preview dulu (paling penting untuk user)
-    await loadPreview();
-    // detail bisa menyusul
+    // --- LOAD DATA ---
+    await loadPreview();     // ⬅️ ini yang paling lama (~5s)
+
+    // tampilkan UI setelah preview siap
+    showMain();
+
+    // detail tidak perlu blocking (biar terasa cepat)
     loadDetail().catch(() => {});
+
   } catch (err) {
-    // biasanya invalid token / revoked / not found akan muncul dari message backend preview
-    showState("Gagal memuat sertifikat", escapeHtml(err?.message || String(err)));
+    showState(
+      "Gagal memuat sertifikat",
+      escapeHtml(err?.message || String(err))
+    );
   }
 }
 
