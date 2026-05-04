@@ -550,7 +550,7 @@
     color: var(--text-muted);
     overflow: hidden;
   }
-  .member-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .member-avatar  { width: 100%; height: 100%; object-fit: cover; display: block; }
   .member-info-name { font-size: 13px; font-weight: 500; color: var(--text); }
   .member-info-email { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
 
@@ -717,7 +717,7 @@
 
 <header role="banner">
   <div class="brand" aria-label="Kalender Jadwal">
-    <span class="brand-dot" aria-hidden="true" style="display: none;"></span><img src="https://iceinstitut.github.io/image/aset/favicon_icei.png">
+    <span class="brand-dot" aria-hidden="true" style="display: none;"></span>< src="https://iceinstitut.github.io/image/aset/favicon_icei.png">
     Kalender ICE Institute
   </div>
   <div class="header-nav" role="navigation" aria-label="Navigasi bulan">
@@ -762,7 +762,7 @@
       <div class="sidebar-day" id="sidebar-day"></div>
     </div>
     <div class="sidebar-list" id="sidebar-list" role="list">
-      <div class="no-events"><div class="no-events-icon" aria-hidden="true"><img src="https://iceinstitut.github.io/image/aset/olli_noevent_happy.png" alt="no_event" width="100%" loading="lazy"></div>Memuat...</div>
+      <div class="no-events"><div class="no-events-icon" aria-hidden="true"><img src="https://iceinstitut.github.io/image/aset/olli_tampan_nobg.png" alt="no_event" width="100%" loading="lazy"></div>Memuat...</div>
     </div>
   </aside>
 </div>
@@ -1249,7 +1249,7 @@ function _renderEventList(container, y, m, d, onClickEv) {
 
   if (dayEvs.length === 0) {
     container.innerHTML = `<div class="no-events">
-      <div class="no-events-icon"><img src="https://iceinstitut.github.io/image/aset/olli_noevent.png" alt="no_event" width="100%" loading="lazy"></div>
+      <div class="no-events-icon"><img src="https://iceinstitut.github.io/image/aset/olli_noevent_happy.png" alt="no_event" width="100%" loading="lazy"></div>
       Tidak ada jadwal<br>untuk hari ini
     </div>`;
     return;
