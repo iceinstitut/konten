@@ -1,0 +1,394 @@
+---
+layout: default
+title: Feedback Course ICE Institute
+---
+
+<style>
+/* ===== SCOPE ===== */
+.feedback-app {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.feedback-app h2 {
+  color: #ee1522;
+}
+
+.feedback-app .field {
+  margin-bottom: 16px;
+}
+
+.feedback-app label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.feedback-app input,
+.feedback-app textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.feedback-app input[readonly] {
+  background: #f5f5f5;
+}
+
+.feedback-app .error {
+  border-color: red;
+}
+
+.feedback-app .error-text {
+  color: red;
+  font-size: 12px;
+}
+
+/* ===== BUTTON ===== */
+.feedback-app button {
+  background: #ee1522;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.feedback-app button:disabled {
+  opacity: 0.6;
+}
+
+/* ===== RATING STAR ===== */
+.rating {
+  display: flex;
+  gap: 6px;
+}
+
+.star {
+  font-size: 24px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.star.active {
+  color: #ee1522;
+}
+
+/* ===== LOVE ===== */
+.love {
+  font-size: 20px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.love.active {
+  color: #ee1522;
+}
+
+/* ===== RADIO CUSTOM ===== */
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-item {
+  cursor: pointer;
+}
+
+.radio-item input {
+  display: none;
+}
+
+.radio-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ee1522;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.radio-item input:checked + .radio-custom::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #ee1522;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+/* ===== SUCCESS ===== */
+.success {
+  text-align: center;
+  padding: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="feedback-app">
+  <h2>Course Feedback</h2>
+
+  <form id="form">
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="email">
+    </div>
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="username">
+    </div>
+
+    <div class="field">
+      <label>Nama</label>
+      <input type="text" id="nama">
+    </div>
+
+    <div class="field">
+      <label>Program</label>
+      <input type="text" id="program" readonly>
+    </div>
+
+    <div class="field">
+      <label>Institusi MK</label>
+      <input type="text" id="institusi_mk" readonly>
+    </div>
+
+    <div class="field">
+      <label>Nama MK</label>
+      <input type="text" id="nama_mk" readonly>
+    </div>
+
+    <div class="field">
+      <label>Tanggal Penyelesaian</label>
+      <input type="date" id="tanggal">
+    </div>
+
+    <!-- STAR RATINGS -->
+    <div class="field">
+      <label>Knowledge Gain</label>
+      <div class="rating" data-name="knowledge_gain"></div>
+    </div>
+
+    <div class="field">
+      <label>Learning Resources</label>
+      <div class="rating" data-name="learning_resources"></div>
+    </div>
+
+    <div class="field">
+      <label>Instructional Materials</label>
+      <div class="rating" data-name="instructional_materials"></div>
+    </div>
+
+    <div class="field">
+      <label>Assignments Effectiveness</label>
+      <div class="rating" data-name="assignments_effectiveness"></div>
+    </div>
+
+    <div class="field">
+      <label>Learning Activities</label>
+      <div class="rating" data-name="learning_activities"></div>
+    </div>
+
+    <!-- RADIO -->
+    <div class="field">
+      <label>Learning Outcome Achieved</label>
+      <div class="radio-group" data-name="learning_outcome_achieved">
+        <label class="radio-item">
+          <input type="radio" value="true">
+          <span class="radio-custom"></span> Yes
+        </label>
+        <label class="radio-item">
+          <input type="radio" value="false">
+          <span class="radio-custom"></span> No
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Expectation Met</label>
+      <div class="radio-group" data-name="expectation_met">
+        <label class="radio-item">
+          <input type="radio" value="true">
+          <span class="radio-custom"></span> Yes
+        </label>
+        <label class="radio-item">
+          <input type="radio" value="false">
+          <span class="radio-custom"></span> No
+        </label>
+      </div>
+    </div>
+
+    <!-- LOVE -->
+    <div class="field">
+      <label>Recommendation</label>
+      <div id="love"></div>
+    </div>
+
+    <!-- MORE RATINGS -->
+    <div class="field">
+      <label>Platform Usability</label>
+      <div class="rating" data-name="platform_usability"></div>
+    </div>
+
+    <div class="field">
+      <label>Technical Experience</label>
+      <div class="rating" data-name="technical_experience"></div>
+    </div>
+
+    <div class="field">
+      <label>Technical Support</label>
+      <div class="rating" data-name="technical_support"></div>
+    </div>
+
+    <!-- TEXT -->
+    <div class="field">
+      <label>Impression</label>
+      <textarea id="impression"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Biggest Challenge</label>
+      <textarea id="challenge"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Additional Support Needed</label>
+      <textarea id="support"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Saran</label>
+      <textarea id="saran"></textarea>
+    </div>
+
+    <button type="submit" id="submitBtn">Submit</button>
+  </form>
+
+  <div id="success" class="success" style="display:none;">
+    <h2>Terima kasih 🎉</h2>
+    <p>Feedback Anda sudah kami terima.</p>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzXcAop9PV1_k-8K5vfICPrR1Sqa14EOC4EeG7SIo9f5h8F9o3Y0e_bD4YCfA_Zy9b1/exec";
+
+// ===== GET URL PARAM =====
+const params = new URLSearchParams(window.location.search);
+document.getElementById("program").value = params.get("program") || "";
+document.getElementById("institusi_mk").value = params.get("institusi_mk") || "";
+document.getElementById("nama_mk").value = params.get("nama_mk") || "";
+
+// ===== CREATE STAR =====
+let ratings = {};
+document.querySelectorAll(".rating").forEach(el => {
+  const name = el.dataset.name;
+  for (let i=1;i<=4;i++){
+    const star = document.createElement("span");
+    star.innerHTML="★";
+    star.className="star";
+    star.onclick=()=>{
+      ratings[name]=i;
+      [...el.children].forEach((s,idx)=>{
+        s.classList.toggle("active", idx<i);
+      });
+    };
+    el.appendChild(star);
+  }
+});
+
+// ===== LOVE =====
+let loveScore=0;
+const loveEl=document.getElementById("love");
+for(let i=1;i<=10;i++){
+  const l=document.createElement("span");
+  l.innerHTML="❤";
+  l.className="love";
+  l.onclick=()=>{
+    loveScore=i;
+    [...loveEl.children].forEach((e,idx)=>{
+      e.classList.toggle("active", idx<i);
+    });
+  };
+  loveEl.appendChild(l);
+}
+
+// ===== VALIDATION =====
+function validate(){
+  let valid=true;
+  document.querySelectorAll("input,textarea").forEach(el=>{
+    el.classList.remove("error");
+    if(!el.value){
+      el.classList.add("error");
+      valid=false;
+    }
+  });
+
+  if(Object.keys(ratings).length < 8) valid=false;
+  if(!loveScore) valid=false;
+
+  if(!valid){
+    document.querySelector(".error")?.scrollIntoView({behavior:"smooth"});
+  }
+  return valid;
+}
+
+// ===== SUBMIT =====
+document.getElementById("form").onsubmit=async(e)=>{
+  e.preventDefault();
+
+  if(!validate()) return;
+
+  const btn=document.getElementById("submitBtn");
+  btn.disabled=true;
+  btn.innerText="Mengirim...";
+
+  const payload={
+    meta:{
+      email:email.value,
+      username:username.value,
+      nama:nama.value,
+      program:program.value,
+      institusi_mk:institusi_mk.value,
+      nama_mk:nama_mk.value,
+      tanggal_penyelesaian:tanggal.value
+    },
+    feedback:{
+      ...ratings,
+      learning_outcome_achieved:document.querySelector('[data-name="learning_outcome_achieved"] input:checked').value==="true",
+      expectation_met:document.querySelector('[data-name="expectation_met"] input:checked').value==="true",
+      recommendation_score:loveScore,
+      impression:impression.value,
+      biggest_challenge:challenge.value,
+      additional_support_needed:support.value,
+      saran:saran.value
+    }
+  };
+
+  try{
+    await fetch(API_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    document.getElementById("form").style.display="none";
+    document.getElementById("success").style.display="block";
+
+  }catch(err){
+    alert("Gagal mengirim");
+    btn.disabled=false;
+    btn.innerText="Submit";
+  }
+};
+</script>
