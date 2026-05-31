@@ -1,230 +1,256 @@
 ---
 layout: default
-title: Admin Preview - Sertifikat (Multi-Page)
+title: Admin Preview - Sertifikat
 ---
+
 <style>
-  .admin-preview-root { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; color: #111; min-height: 100vh; background: #f5f5f5; }
-  .admin-preview-root * { box-sizing: border-box; }
-  .admin-wrap { max-width: 1400px; margin: 0 auto; padding: 20px; }
+  .admin-cert-app {
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background: #fafafa;
+    color: #111;
+    min-height: 100vh;
+  }
   
-  .admin-header { background: linear-gradient(135deg, #ee1522 0%, #cc0f19 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-  .admin-header h1 { margin: 0; font-size: 24px; }
-  .admin-header p { margin: 5px 0 0; font-size: 13px; opacity: 0.9; }
+  .admin-cert-app * {
+    box-sizing: border-box;
+  }
   
-  .admin-controls { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-  .admin-controls button { padding: 8px 12px; border: 1px solid #ddd; background: #fff; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; }
-  .admin-controls button:hover { background: #f5f5f5; border-color: #999; }
-  .admin-controls button.active { background: #ee1522; color: white; border-color: #ee1522; }
-  .admin-controls .spacer { flex: 1; }
-  .admin-controls .info { font-size: 12px; color: #999; }
+  .admin-cert-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 14px 40px;
+  }
   
-  .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+  .admin-cert-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 8px 0 16px;
+  }
   
-  .page-card { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-  .page-card h2 { margin: 0 0 10px; font-size: 16px; color: #ee1522; }
-  .page-card .status { font-size: 11px; color: #999; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+  .admin-cert-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   
-  .preview-viewport { background: #fafafa; border: 1px solid #ddd; border-radius: 4px; overflow: auto; display: flex; align-items: center; justify-content: center; min-height: 300px; }
+  .admin-cert-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #ee1522;
+    display: inline-block;
+  }
   
-  .preview-page { position: relative; width: 297mm; height: 210mm; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-  .page-bg { position: absolute; inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; }
-  .page-layer { position: absolute; inset: 0; }
-  .page-el { position: absolute; word-break: break-word; }
-  .page-el img { display: block; }
+  .admin-cert-title {
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
   
-  .state-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
-  .state-title { font-size: 14px; font-weight: 700; margin: 0 0 10px; }
-  .state-msg { font-size: 13px; color: #666; }
-  
-  .hidden { display: none !important; }
-  
-  @media (max-width: 900px) {
-    .admin-grid { grid-template-columns: 1fr; }
+  .admin-cert-sub {
+    color: #666;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  .admin-cert-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03);
+  }
+
+  .admin-cert-card h2 {
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+  .admin-cert-muted {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .admin-cert-preview {
+    border: 1px dashed #ddd;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    padding: 12px;
+  }
+
+  .admin-cert-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    align-items: center;
+  }
+
+  .admin-cert-btn {
+    border: 1px solid #eee;
+    background: #fff;
+    color: #111;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .admin-cert-btn:hover {
+    background: #f5f5f5;
+    border-color: #ddd;
+  }
+
+  .admin-cert-btn.active {
+    background: #ee1522;
+    border-color: #ee1522;
+    color: #fff;
+  }
+
+  .admin-cert-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .admin-cert-spacer {
+    flex: 1;
+  }
+
+  .admin-cert-page-info {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .admin-cert-alert {
+    border-radius: 14px;
+    border: 1px solid #eee;
+    background: #fff;
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .admin-cert-alert h2 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .admin-cert-alert p {
+    margin: 0;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  #certViewport {
+    background: #fff;
+  }
+
+  .hidden {
+    display: none !important;
   }
 </style>
 
-<div class="admin-preview-root">
-  <div class="admin-wrap">
+<div class="admin-cert-app">
+  <div class="admin-cert-wrap">
+
     <!-- Header -->
-    <div class="admin-header">
-      <h1>🔍 Admin Preview - Sertifikat (Multi-Page)</h1>
-      <p>Preview halaman 1 dan halaman 2 sertifikat peserta</p>
-    </div>
-
-    <!-- State -->
-    <div id="stateCard" class="state-card hidden">
-      <div class="state-title" id="stateTitle">Loading...</div>
-      <div class="state-msg" id="stateMsg"></div>
-    </div>
-
-    <!-- Controls -->
-    <div class="admin-controls" id="controlsCard" style="display: none;">
-      <button class="active" onclick="switchView('grid')">📊 Grid View</button>
-      <button onclick="switchView('single')">📄 Single View</button>
-      <div class="spacer"></div>
-      <div class="info" id="pageInfo"></div>
-      <button id="prevBtn" onclick="prevPage()" style="display: none;">← Prev</button>
-      <button id="nextBtn" onclick="nextPage()" style="display: none;">Next →</button>
-    </div>
-
-    <!-- Grid View -->
-    <div id="gridView">
-      <div class="admin-grid">
-        <!-- Page 1 -->
-        <div class="page-card">
-          <h2>Page 1 - Sertifikat Utama</h2>
-          <div class="status">Halaman 1</div>
-          <div class="preview-viewport">
-            <div class="preview-page" id="preview1">
-              <div class="page-layer"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Page 2 -->
-        <div class="page-card" id="page2Card" style="display: none;">
-          <h2>Page 2 - Detail Tambahan</h2>
-          <div class="status">Halaman 2</div>
-          <div class="preview-viewport">
-            <div class="preview-page" id="preview2">
-              <div class="page-layer"></div>
-            </div>
-          </div>
+    <div class="admin-cert-header">
+      <div class="admin-cert-brand">
+        <span class="admin-cert-badge"></span>
+        <div>
+          <div class="admin-cert-title">Admin Preview - Sertifikat</div>
+          <div class="admin-cert-sub">Preview sertifikat peserta (1 atau 2 halaman)</div>
         </div>
       </div>
+      <div class="admin-cert-muted" id="hdrId"></div>
     </div>
 
-    <!-- Single View -->
-    <div id="singleView" style="display: none;">
-      <div class="page-card">
-        <h2 id="singleTitle">Page 1</h2>
-        <div class="preview-viewport" style="min-height: 500px;">
-          <div class="preview-page" id="previewSingle">
-            <div class="page-layer"></div>
+    <!-- State/Alert -->
+    <div class="admin-cert-card admin-cert-alert" id="stateCard" style="display:none;">
+      <h2 id="stateTitle">Memuat...</h2>
+      <p id="stateMsg">Silakan tunggu.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainGrid" style="display:none;">
+      
+      <!-- Preview Card -->
+      <div class="admin-cert-card">
+        <h2>Preview Sertifikat</h2>
+        <div class="admin-cert-muted">
+          Pratinjau halaman 1 atau 2 (jika tersedia)
+        </div>
+
+        <!-- Preview Viewport -->
+        <div class="admin-cert-preview" style="margin-top:14px;">
+          <div id="certViewport" style="width:100%; overflow:hidden; border-radius:14px;">
+            <div id="certScaleWrap" style="transform-origin: top left;"></div>
           </div>
         </div>
+
+        <!-- Controls -->
+        <div class="admin-cert-controls">
+          <button class="admin-cert-btn active" id="btnPage1" onclick="showPage(1)">📄 Page 1</button>
+          <button class="admin-cert-btn" id="btnPage2" onclick="showPage(2)" style="display:none;">📄 Page 2</button>
+          
+          <div class="admin-cert-spacer"></div>
+          
+          <div class="admin-cert-page-info" id="pageInfo">Page 1</div>
+        </div>
+
+        <div style="font-size:12px; color:#666; margin-top:10px;">
+          Pratinjau ditampilkan dalam skala responsif. Tekan Page 1/2 untuk beralih halaman.
+        </div>
       </div>
+
     </div>
+
   </div>
 </div>
 
 <script>
   const API_BASE = "https://cert2.ice-institut.workers.dev";
-  const CERT_ID = new URLSearchParams(location.search).get("id") || "";
-  const TOKEN = new URLSearchParams(location.search).get("t") || "";
-  
-  let currentPage = 1;
-  let totalPages = 1;
-  let certData = null;
-  let templateData = null;
+  const $ = (id) => document.getElementById(id);
 
-  // Get Query Params
   function qs(name) {
     return new URLSearchParams(location.search).get(name) || "";
   }
 
-  // Escape HTML
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, m => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  const CERT_ID = qs("id").trim();
+  const TOKEN = qs("t").trim();
+  
+  let currentPage = 1;
+  let totalPages = 1;
+  let certData = null;
+  let previewPage1 = null;
+  let previewPage2 = null;
+  let pageDim1 = null;
+  let pageDim2 = null;
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (m) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
     }[m]));
   }
 
-  // Show State
   function showState(title, msg) {
-    const card = document.getElementById('stateCard');
-    const controlsCard = document.getElementById('controlsCard');
-    const gridView = document.getElementById('gridView');
-    const singleView = document.getElementById('singleView');
-    
-    card.classList.remove('hidden');
-    controlsCard.style.display = 'none';
-    gridView.style.display = 'none';
-    singleView.style.display = 'none';
-    
-    document.getElementById('stateTitle').textContent = title;
-    document.getElementById('stateMsg').innerHTML = msg;
+    $("stateCard").style.display = "";
+    $("mainGrid").style.display = "none";
+    $("stateTitle").textContent = title;
+    $("stateMsg").innerHTML = msg;
+    $("hdrId").textContent = "";
   }
 
-  // Render Mustache
-  function renderMustache(template, data) {
-    return String(template).replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match, key) => {
-      return data && data[key] !== undefined ? String(data[key]) : '';
-    });
+  function showMain() {
+    $("stateCard").style.display = "none";
+    $("mainGrid").style.display = "";
+    $("hdrId").innerHTML = CERT_ID ? ("ID: <b>" + escapeHtml(CERT_ID) + "</b>") : "";
   }
 
-  // Render Page
-  function renderPageHtml(layout, data, pageNum) {
-    if (!layout || !layout.elements) return '';
-    
-    const elements = layout.elements || [];
-    let html = '';
-    
-    elements.forEach(el => {
-      if (!el.key || el.type !== 'text') return;
-      
-      const x = el.x || 0;
-      const y = el.y || 0;
-      const fontSize = el.fontSize || 12;
-      const weight = el.weight || 400;
-      const color = el.color || '#111111';
-      const align = el.align || 'left';
-      const maxWidth = el.maxWidth || 200;
-      
-      const content = renderMustache(el.value || '', data);
-      const escapedContent = escapeHtml(content);
-      
-      html += `<div class="page-el" style="left:${x}mm;top:${y}mm;max-width:${maxWidth}mm;font-size:${fontSize}pt;font-weight:${weight};color:${color};text-align:${align};">${escapedContent}</div>`;
-    });
-    
-    return html;
-  }
-
-  // Render Preview
-  function renderPreview() {
-    if (!certData || !templateData) return;
-
-    let layout1 = {};
-    let layout2 = {};
-    
-    try {
-      layout1 = JSON.parse(String(templateData.layout_json || '{}'));
-      layout2 = JSON.parse(String(templateData.layout_json_page2 || '{}'));
-    } catch (e) {
-      console.error('Layout JSON parse error:', e);
-      return;
-    }
-    
-    // Page 1
-    const page1Html = renderPageHtml(layout1, certData, 1);
-    const preview1Layer = document.querySelector('#preview1 .page-layer');
-    if (preview1Layer) preview1Layer.innerHTML = page1Html;
-    
-    const previewSingleLayer = document.querySelector('#previewSingle .page-layer');
-    if (previewSingleLayer) previewSingleLayer.innerHTML = page1Html;
-    
-    // Page 2
-    const hasPage2 = certData.page2_enabled && layout2.elements && layout2.elements.length > 0;
-    totalPages = hasPage2 ? 2 : 1;
-    
-    if (hasPage2) {
-      const page2Html = renderPageHtml(layout2, certData, 2);
-      const preview2Layer = document.querySelector('#preview2 .page-layer');
-      if (preview2Layer) preview2Layer.innerHTML = page2Html;
-      
-      document.getElementById('page2Card').style.display = '';
-      document.getElementById('prevBtn').style.display = totalPages > 1 ? '' : 'none';
-      document.getElementById('nextBtn').style.display = totalPages > 1 ? '' : 'none';
-    } else {
-      document.getElementById('page2Card').style.display = 'none';
-      document.getElementById('prevBtn').style.display = 'none';
-      document.getElementById('nextBtn').style.display = 'none';
-    }
-    
-    updatePageInfo();
-  }
-
-  // API Call
   async function apiGet(path, params) {
     const u = new URL(API_BASE + path);
     Object.keys(params || {}).forEach(k => u.searchParams.set(k, params[k]));
@@ -233,145 +259,202 @@ title: Admin Preview - Sertifikat (Multi-Page)
     return await resp.json();
   }
 
-  // Load Data
-  async function init() {
-    showState("Memuat...", "Mengambil data sertifikat dan template...");
+  function autoScale(pageDim) {
+    const viewport = $("certViewport");
+    const wrap = $("certScaleWrap");
+ 
+    const mmToPx = (mm) => mm * (96 / 25.4);
+ 
+    function apply() {
+      const vw = viewport.clientWidth;
+      const pageWpx = mmToPx(pageDim.wMm);
+      const pageHpx = mmToPx(pageDim.hMm);
+ 
+      const scale = Math.min(1, vw / pageWpx);
+      wrap.style.transform = `scale(${scale})`;
+      viewport.style.height = (pageHpx * scale) + "px";
+    }
+ 
+    apply();
+    window.addEventListener("resize", apply);
+  }
+
+  function showPage(pageNum) {
+    currentPage = pageNum;
     
-    try {
-      if (!CERT_ID) throw new Error('ID Sertifikat kosong. Periksa URL Anda.');
-      if (!TOKEN) throw new Error('Token kosong. Periksa URL Anda.');
+    [$("btnPage1"), $("btnPage2")].forEach(btn => {
+      if (btn) btn.classList.remove("active");
+    });
+    if (pageNum === 1 && $("btnPage1")) {
+      $("btnPage1").classList.add("active");
+    } else if (pageNum === 2 && $("btnPage2")) {
+      $("btnPage2").classList.add("active");
+    }
+ 
+    const wrap = $("certScaleWrap");
+    if (pageNum === 1) {
+      wrap.innerHTML = previewPage1 || "";
+      if (pageDim1) autoScale(pageDim1);
+    } else {
+      wrap.innerHTML = previewPage2 || "";
+      if (pageDim2) autoScale(pageDim2);
+    }
+ 
+    $("pageInfo").textContent = `Page ${pageNum} of ${totalPages}`;
+  }
 
-      // Get verify (untuk data lengkap + page2_enabled flag)
-      const verifyRes = await apiGet("/api/verify", { id: CERT_ID, t: TOKEN });
-      if (!verifyRes || !verifyRes.ok) throw new Error(verifyRes?.message || "Gagal load verify");
-
-      certData = verifyRes.view || {};
-      
-      // IMPORTANT: Backend perlu return template data juga
-      // Opsi 1: Extend /api/verify untuk include template
-      // Opsi 2: Create new endpoint /api/template?key=...
-      // Opsi 3: Apps Script return template inline di response
-      
-      // Untuk sekarang, kita fetch template dari Apps Script exec URL langsung
-      // Dengan asumsi endpoint baru ada: /api/getTemplate?key=<template_key>
-      
-      const templateKey = certData.template_key || '';
-      if (!templateKey) {
-        throw new Error('Template key tidak ditemukan di cert data');
-      }
-
-      // Try fetch template dari API
-      let templateRes;
+  async function loadPreview() {
+    const res1 = await apiGet("/api/preview", { id: CERT_ID, t: TOKEN, page: '1' });
+ 
+    if (!res1 || !res1.ok) {
+      throw new Error(res1?.message || "Gagal load preview");
+    }
+ 
+    previewPage1 = res1.snippet || "";
+    pageDim1 = res1.pageDim || { wMm: 297, hMm: 210 };
+ 
+    // Load page 2 jika ada
+    if (certData.page2_enabled) {
       try {
-        templateRes = await apiGet("/api/getTemplate", { key: templateKey });
+        const res2 = await apiGet("/api/preview", { id: CERT_ID, t: TOKEN, page: '2' });
+        if (res2 && res2.ok) {
+          previewPage2 = res2.snippet || "";
+          pageDim2 = res2.pageDim || { wMm: 297, hMm: 210 };
+          totalPages = 2;
+        }
       } catch (e) {
-        // Fallback: jika endpoint belum ada, tampilkan pesan
-        showState(
-          "Template API Belum Tersedia",
-          `<p>Endpoint /api/getTemplate belum diimplementasikan di backend.</p>
-           <p>Untuk mengaktifkan halaman ini, tambahkan fungsi di Apps Script:</p>
-           <pre style="background:#f5f5f5;padding:10px;border-radius:4px;overflow-x:auto;font-size:11px;">
-function apiGetTemplate(templateKey) {
-  const tpl = getTemplateByKey_(templateKey);
-  if (!tpl) return { ok: false, message: 'Template tidak ditemukan' };
-  return {
-    ok: true,
-    template_key: tpl.template_key,
-    layout_json: tpl.layout_json,
-    layout_json_page2: tpl.layout_json_page2
-  };
-}
-           </pre>
-           <p style="margin-top:10px;"><b>Template Key:</b> ${escapeHtml(templateKey)}</p>`
-        );
-        return;
+        console.error('Page 2 preview error:', e);
       }
+    }
+ 
+    if (totalPages === 2) {
+      const btn2 = $("btnPage2");
+      if (btn2) btn2.style.display = "";
+    }
+ 
+    showPage(1);
+  }
 
-      if (!templateRes || !templateRes.ok) {
-        throw new Error(templateRes?.message || "Gagal load template");
+  function generatePage2Html(layout, data, template) {
+    if (!layout || !layout.elements) return '';
+
+    const elements = layout.elements || [];
+    let html = '';
+
+    elements.forEach(el => {
+      if (!el || !el.key) return;
+
+      if (el.type === 'text') {
+        const x = Number(el.x || 0);
+        const y = Number(el.y || 0);
+        const fontSize = Number(el.fontSize || 12);
+        const weight = Number(el.weight || 400);
+        const color = String(el.color || '#111111');
+        const align = String(el.align || 'left');
+        const maxWidth = Number(el.maxWidth || 200);
+
+        const rawVal = String(el.value || '');
+        const content = renderMustache(rawVal, data);
+        const escaped = escapeHtml(content);
+
+        html += `<div class="page-el" style="left:${x}mm;top:${y}mm;max-width:${maxWidth}mm;font-size:${fontSize}pt;font-weight:${weight};color:${color};text-align:${align};">${escaped}</div>`;
       }
+      else if (el.type === 'qr') {
+        const x = Number(el.x || 0);
+        const y = Number(el.y || 0);
+        const size = Number(el.size || 22);
 
-      templateData = templateRes;
-      
-      renderPreview();
+        html += `<div class="page-el" style="left:${x}mm;top:${y}mm;width:${size}mm;height:${size}mm;"><div style="width:100%;height:100%;background:#f0f0f0;border:1px dashed #ccc;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">QR</div></div>`;
+      }
+    });
 
-      document.getElementById('stateCard').classList.add('hidden');
-      document.getElementById('controlsCard').style.display = 'flex';
-      document.getElementById('gridView').style.display = '';
-      document.getElementById('singleView').style.display = 'none';
+    const pageDim = getPageDim(layout, template);
+
+    const bgCss = 'background:#ffffff;';
+    const style = `
+<style>
+  .icecert-preview-root{ display:inline-block; }
+  .icecert-preview-root *{ box-sizing:border-box; }
+  .icecert-preview-root .cert-page{
+    position:relative;
+    width:${pageDim.wMm}mm;
+    height:${pageDim.hMm}mm;
+    overflow:hidden;
+    background:#fff;
+  }
+  .icecert-preview-root .cert-bg{ position:absolute; inset:0; ${bgCss} }
+  .icecert-preview-root .cert-layer{ position:absolute; inset:0; }
+  .icecert-preview-root .cert-el{
+    position:absolute;
+    word-break:break-word;
+  }
+  .icecert-preview-root img{ display:block; }
+</style>`;
+
+    const resultHtml = `
+${style}
+<div class="icecert-preview-root">
+  <div class="cert-page">
+    <div class="cert-bg"></div>
+    <div class="cert-layer">
+      ${html}
+    </div>
+  </div>
+</div>`;
+
+    return resultHtml;
+  }
+
+  function getPageDim(layout, template) {
+    const pageSize = String((layout.page && layout.page.size) || template.page_size || 'A4').toUpperCase();
+    const orientation = String((layout.page && layout.page.orientation) || template.orientation || 'LANDSCAPE').toUpperCase();
+
+    const map = {
+      'A4': { w: 210, h: 297 },
+      'A3': { w: 297, h: 420 },
+      'LETTER': { w: 215.9, h: 279.4 }
+    };
+
+    const base = map[pageSize] || map['A4'];
+    
+    if (orientation === 'PORTRAIT') {
+      return { wMm: base.w, hMm: base.h };
+    } else {
+      return { wMm: base.h, hMm: base.w };
+    }
+  }
+
+  function renderMustache(template, data) {
+    return String(template).replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match, key) => {
+      return data && data[key] !== undefined ? String(data[key]) : '';
+    });
+  }
+
+  async function init() {
+    showState("Memuat...", "Mengambil data sertifikat...");
+ 
+    try {
+      if (!CERT_ID) {
+        throw new Error('ID Sertifikat kosong. Periksa URL Anda.');
+      }
+      if (!TOKEN) {
+        throw new Error('Token kosong. Periksa URL Anda.');
+      }
+ 
+      const verifyRes = await apiGet("/api/verify", { id: CERT_ID, t: TOKEN });
+      if (!verifyRes || !verifyRes.ok) {
+        throw new Error(verifyRes?.message || "Gagal load verify");
+      }
+ 
+      certData = verifyRes.view || {};
+ 
+      await loadPreview();
+ 
+      showMain();
     } catch (err) {
       showState("Error", escapeHtml(err?.message || String(err)));
     }
   }
 
-  // Switch View
-  function switchView(mode) {
-    const gridView = document.getElementById('gridView');
-    const singleView = document.getElementById('singleView');
-    const buttons = document.querySelectorAll('.admin-controls button');
-    
-    buttons.forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    if (mode === 'grid') {
-      gridView.style.display = '';
-      singleView.style.display = 'none';
-      document.getElementById('prevBtn').style.display = 'none';
-      document.getElementById('nextBtn').style.display = 'none';
-    } else {
-      gridView.style.display = 'none';
-      singleView.style.display = '';
-      document.getElementById('prevBtn').style.display = totalPages > 1 ? '' : 'none';
-      document.getElementById('nextBtn').style.display = totalPages > 1 ? '' : 'none';
-      renderSinglePage();
-    }
-  }
-
-  // Render Single Page
-  function renderSinglePage() {
-    if (!templateData) return;
-    
-    let layout;
-    try {
-      if (currentPage === 1) {
-        layout = JSON.parse(String(templateData.layout_json || '{}'));
-        document.getElementById('singleTitle').textContent = 'Page 1 - Sertifikat Utama';
-      } else {
-        layout = JSON.parse(String(templateData.layout_json_page2 || '{}'));
-        document.getElementById('singleTitle').textContent = 'Page 2 - Detail Tambahan';
-      }
-    } catch (e) {
-      console.error('Layout parse error:', e);
-      return;
-    }
-    
-    const html = renderPageHtml(layout, certData, currentPage);
-    const layer = document.querySelector('#previewSingle .page-layer');
-    if (layer) layer.innerHTML = html;
-    
-    updatePageInfo();
-  }
-
-  // Prev/Next Page
-  function prevPage() {
-    if (currentPage > 1) {
-      currentPage--;
-      renderSinglePage();
-    }
-  }
-
-  function nextPage() {
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderSinglePage();
-    }
-  }
-
-  // Update Page Info
-  function updatePageInfo() {
-    document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
-  }
-
-  // Initialize
   window.addEventListener('load', init);
 </script>
