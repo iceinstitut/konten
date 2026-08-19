@@ -116,31 +116,82 @@ title: Tabel Taksonomi Bloom
 <div>
 
 <div>
-    <h1>Tabel Taksonomi Bloom</h1>
-    <input class="input" type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari kata kunci di semua kategori...">
-    
-    <div class="table-container">
-        <table id="bloomTable">
-            <thead>
-                <tr>
-                    <th>C1 - Pengetahuan</th>
-                    <th>C2 - Pemahaman</th>
-                    <th>C3 - Aplikasi</th>
-                    <th>C4 - Analisis</th>
-                    <th>C5 - Evaluasi</th>
-                    <th>C6 - Kreasi</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- Data will be populated by JS -->
-            </tbody>
-        </table>
-        <div id="noResults" class="no-results">Tidak ada kata kunci yang cocok dengan pencarian Anda.</div>
+<!-- Tabel 1 (Kognitif Asli Bloom 6 Kolom) -->
+    <div class="mb-5">
+        <h2 class="section-title">Tabel Taksonomi Bloom untuk ranah Kognitif (Pengetahuan)</h2>
+        <input class="input" type="text" id="searchInput1" onkeyup="searchTable('searchInput1', 'bloomTable1', 'noResults1')" placeholder="Cari kata kunci di Tabel 1...">
+        
+        <div class="table-container">
+            <table id="bloomTable1">
+                <thead>
+                    <tr>
+                        <th>C1 - Pengetahuan</th>
+                        <th>C2 - Pemahaman</th>
+                        <th>C3 - Aplikasi</th>
+                        <th>C4 - Analisis</th>
+                        <th>C5 - Evaluasi</th>
+                        <th>C6 - Kreasi</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody1">
+                    <!-- Populated via JavaScript -->
+                </tbody>
+            </table>
+            <div id="noResults1" class="no-results">Tidak ada kata kunci yang cocok dengan pencarian Anda.</div>
+        </div>
+    </div>
+
+    <!-- Tabel 2 (4 Kolom, 14 Baris) -->
+    <div class="mb-5">
+        <h2 class="section-title">Tabel Taksonomi Bloom untuk ranah Psikomotorik (Keterampilan)</h2>
+        <input class="input" type="text" id="searchInput2" onkeyup="searchTable('searchInput2', 'bloomTable2', 'noResults2')" placeholder="Cari kata kunci di Tabel 2 (4 Kolom)...">
+        
+        <div class="table-container">
+            <table id="bloomTable2">
+                <thead>
+                    <tr>
+                        <th>P1 - Menirukan</th>
+                        <th>P2 - Memanipulasi</th>
+                        <th>P3 - Pengalamiahan</th>
+                        <th>P4 - Artikulasi</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody2">
+                    <!-- Populated via JavaScript -->
+                </tbody>
+            </table>
+            <div id="noResults2" class="no-results">Tidak ada kata kunci yang cocok dengan pencarian Anda.</div>
+        </div>
+    </div>
+
+    <!-- Tabel 3 (5 Kolom, 15 Baris) -->
+    <div class="mb-5">
+        <h2 class="section-title">Tabel Taksonomi Bloom untuk ranah Afektif (Sikap)</h2>
+        <input class="input" type="text" id="searchInput3" onkeyup="searchTable('searchInput3', 'bloomTable3', 'noResults3')" placeholder="Cari kata kunci di Tabel 3 (5 Kolom)...">
+        
+        <div class="table-container">
+            <table id="bloomTable3">
+                <thead>
+                    <tr>
+                        <th>A1 - Menerima</th>
+                        <th>A2 - Menanggapi</th>
+                        <th>A3 - Menilai</th>
+                        <th>A4 - Mengelola</th>
+                        <th>A5 - Menghayati</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody3">
+                    <!-- Populated via JavaScript -->
+                </tbody>
+            </table>
+            <div id="noResults3" class="no-results">Tidak ada kata kunci yang cocok dengan pencarian Anda.</div>
+        </div>
     </div>
 </div>
 
 <script>
-    const data = [
+    // Data untuk Tabel 1 (Original Taksonomi Bloom)
+    const data1 = [
         ["Mengutip", "Memperkirakan", "Memerlukan", "Menganalisis", "Mempertimbangkan", "Mengabstraksi"],
         ["Menyebutkan", "Menjelaskan", "Menyesuaikan", "Mengaudit/Memeriksa", "Menilai", "Menganimasi"],
         ["Menjelaskan", "Mengkategorikan", "Mengalokasikan", "Membuat Blueprint", "Membandingkan", "Mengatur"],
@@ -185,15 +236,48 @@ title: Tabel Taksonomi Bloom
         ["", "", "", "Mengedit", "", "Mereparasi"]
     ];
 
-    const tbody = document.getElementById('tableBody');
-    const noResultsEl = document.getElementById('noResults');
+    // Data untuk Tabel 2 (4 Kolom, 14 Baris)
+    const data2 = [
+        ["Mengaktifkan", "Mengoreksi", "Mengalihkan", "Mengalihkan"],
+        ["Menyesuaikan", "Mendemonstrasikan", "Menggantikan", "Mempertajam"],
+        ["Menggabungkan", "Merancang", "Memutar", "Membentuk"],
+        ["Melamar", "Memilah", "Mengirim", "Memadankan"],
+        ["Mengatur", "Melatih", "Memindahkan", "Menggunakan"],
+        ["Mengumpulkan", "Memperbaiki", "Mendorong", "Memulai"],
+        ["Menimbang", "Mengidentifikasikan", "Menarik", "Menyetir"],
+        ["Memperkecil", "Mengisi", "Memproduksi", "Menjeniskan"],
+        ["Membangun", "Menempatkan", "Mencampur", "Menempel"],
+        ["Mengubah", "Membuat", "Mengoperasikan", "Menseketsa"],
+        ["Membersihkan", "Memanipulasi", "Mengemas", "Melonggarkan"],
+        ["Memposisikan", "Mereparasi", "Membungkus", "Menimbang"],
+        ["Mengonstruksi", "Mencampur", "-", "-"]
+    ];
 
-    function renderTable(filter = "") {
+    // Data untuk Tabel 3 (5 Kolom, 15 Baris)
+    const data3 = [
+        ["Memilih", "Menjawab", "Mengasumsikan", "Menganut", "Mengubah Perilaku"],
+        ["Mempertanyakan", "Membantu", "Meyakini", "Mengubah", "Berakhlak Mulia"],
+        ["Mengikuti", "Mengajukan", "Melengkapi", "Menata", "Mempengaruhi"],
+        ["Memberi", "Mengompromikan", "Meyakinkan", "Mengklasifikasikan", "Mendengarkan"],
+        ["Menganut", "Menyenangi", "Memperjelas", "Mengombinasikan", "Mengkualifikasi"],
+        ["Mematuhi", "Menyambut", "Memprakarsai", "Mempertahankan", "Melayani"],
+        ["Meminati", "Mendukung", "Mengimani", "Membangun", "Menunjukkan"],
+        ["-", "Menyetujui", "Mengundang", "Membentuk Pendapat", "Membuktikan"],
+        ["-", "Menampilkan", "Menggabungkan", "Memadukan", "Memecahkan"],
+        ["-", "Melaporkan", "Mengusulkan", "Mengelola", "-"],
+        ["-", "Memilih", "Menekankan", "Menegosiasi", "-"],
+        ["-", "Mengatakan", "Menyumbang", "Merembuk", "-"],
+        ["-", "Memilah", "-", "-", "-"],
+        ["-", "Menolak", "-", "-", "-"]
+    ];
+
+    function renderTable(tableBodyId, dataArray, filter = "") {
+        const tbody = document.getElementById(tableBodyId);
         tbody.innerHTML = "";
         let visibleCount = 0;
         const lowerFilter = filter.toLowerCase().trim();
 
-        data.forEach(row => {
+        dataArray.forEach(row => {
             const rowMatches = lowerFilter === "" || row.some(cell => cell && cell.toLowerCase().includes(lowerFilter));
 
             if (rowMatches) {
@@ -217,6 +301,25 @@ title: Tabel Taksonomi Bloom
             }
         });
 
+        return visibleCount;
+    }
+
+    function searchTable(inputId, tableId, noResultsId) {
+        const filter = document.getElementById(inputId).value;
+        let dataMap = data1;
+        let tbodyId = 'tableBody1';
+
+        if (tableId === 'bloomTable2') {
+            dataMap = data2;
+            tbodyId = 'tableBody2';
+        } else if (tableId === 'bloomTable3') {
+            dataMap = data3;
+            tbodyId = 'tableBody3';
+        }
+
+        const visibleCount = renderTable(tbodyId, dataMap, filter);
+        const noResultsEl = document.getElementById(noResultsId);
+        
         if (visibleCount === 0) {
             noResultsEl.style.display = "block";
         } else {
@@ -224,12 +327,11 @@ title: Tabel Taksonomi Bloom
         }
     }
 
-    function searchTable() {
-        const filter = document.getElementById('searchInput').value;
-        renderTable(filter);
-    }
-
-    // Initial render
-    renderTable();
+    // Initial renders on window load
+    window.onload = function() {
+        renderTable('tableBody1', data1);
+        renderTable('tableBody2', data2);
+        renderTable('tableBody3', data3);
+    };
 </script>
 </div>
