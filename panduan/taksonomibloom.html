@@ -1,0 +1,179 @@
+---
+layout: default
+title: Taksonomi Bloom
+---
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-color: #ee1522;
+            --brand-dark: #c1121d;
+            --primary-color: #ee1522;
+            --primary-soft: rgba(238, 21, 34, 0.08);
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9fafb;
+        }
+
+        .brand-text { color: var(--brand-color); }
+        
+        /* Highlight style for matched search words */
+        .highlight {
+            background-color: #fef08a;
+            padding: 0 2px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        /* Custom scrollbar for tables and containers */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-color); }
+    </style>
+<div class="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+
+<div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-10 border border-gray-100">
+    <div class="mb-8 text-center sm:text-left flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b pb-6">
+        <div>
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight uppercase">
+                Tabel <span class="brand-text">Taksonomi Bloom</span>
+            </h1>
+            <p class="text-sm text-gray-500 mt-1">Panduan lengkap Kata Kerja Operasional (KKO) dari level C1 hingga C6.</p>
+        </div>
+        <div class="w-full sm:w-72">
+            <input 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ee1522] focus:border-transparent text-sm transition-all" 
+                type="text" 
+                id="searchInput" 
+                onkeyup="searchTable()" 
+                placeholder="Cari kata kunci di semua kategori..."
+            >
+        </div>
+    </div>
+    
+    <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+        <table id="bloomTable" class="w-full text-left border-collapse min-w-[700px]">
+            <thead>
+                <tr class="bg-gray-50 text-gray-700 text-xs font-bold uppercase tracking-wider border-b border-gray-200">
+                    <th class="py-4 px-4 border-r border-gray-200">C1 - Pengetahuan</th>
+                    <th class="py-4 px-4 border-r border-gray-200">C2 - Pemahaman</th>
+                    <th class="py-4 px-4 border-r border-gray-200">C3 - Aplikasi</th>
+                    <th class="py-4 px-4 border-r border-gray-200">C4 - Analisis</th>
+                    <th class="py-4 px-4 border-r border-gray-200">C5 - Evaluasi</th>
+                    <th class="py-4 px-4">C6 - Kreasi</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-gray-100 text-sm text-gray-700">
+                <!-- Data will be populated dynamically by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="noResults" class="hidden text-center py-8 text-gray-500 text-sm">
+        Tidak ada kata kunci yang cocok dengan pencarian Anda.
+    </div>
+</div>
+
+<script>
+    const data = [
+        ["Mengutip", "Memperkirakan", "Memerlukan", "Menganalisis", "Mempertimbangkan", "Mengabstraksi"],
+        ["Menyebutkan", "Menjelaskan", "Menyesuaikan", "Mengaudit/Memeriksa", "Menilai", "Menganimasi"],
+        ["Menjelaskan", "Mengkategorikan", "Mengalokasikan", "Membuat Blueprint", "Membandingkan", "Mengatur"],
+        ["Menggambar", "Mencirikan", "Mengurutkan", "Membuat Garis Besar", "Menyimpulkan", "Mengumpulkan"],
+        ["Membilang", "Merinci", "Menerapkan", "Memecahkan", "Mengkontraskan", "Mendanai"],
+        ["Mengidentifikasi", "Mengasosiasikan", "Menentukan", "Mengkarakteristikkan", "Mengarahkan", "Mengkategorikan"],
+        ["Mendaftar", "Membandingkan", "Menugaskan", "Membuat Dasar Pengelompokkan", "Mengkritik", "Mengkode"],
+        ["Menunjukkan", "Menghitung", "Memperoleh", "Merasionalkan", "Menimbang", "Mengkombinasikan"],
+        ["Memberi Label", "Mengkontraskan", "Mencegah", "Menegaskan", "Mempertahankan", "Menyusun"],
+        ["Memberi Indeks", "Mengubah", "Mencegah", "Membuat Dasar Pengkontras", "Memutuskan", "Mengarang"],
+        ["Memasangkan", "Mempertahankan", "Mengkalkulasi", "Mengkorelasikan", "Memisahkan", "Membangun"],
+        ["Menamai", "Menguraikan", "Menangkap", "Mendeteksi", "Memprediksi", "Menanggulangi"],
+        ["Menandai", "Menjalin", "Memodifikasi", "Mendiagnosis", "Menilai", "Menghubungkan"],
+        ["Membaca", "Membedakan", "Mengklasifikasikan", "Mendiagramkan", "Memperjelas", "Menciptakan"],
+        ["Menyadari", "Mendiskusikan", "Melengkapi", "Mendiversifikasi", "Merangking", "Mengkreasikan"],
+        ["Menghafal", "Menggali", "Menghitung", "Menyeleksi", "Menugaskan", "Mengkoreksi"],
+        ["Meniru", "Mencontohkan", "Membangun", "Memerinci Ke Bagian-Bagian", "Menafsirkan", "Memotret"],
+        ["Mencatat", "Menerangkan", "Membiasakan", "Menominasikan", "Memberi Pertimbangan", "Merancang"],
+        ["Mengulang", "Mengemukakan", "Mendemonstrasikan", "Mendokumentasikan", "Membenarkan", "Mengembangkan"],
+        ["Mereproduksi", "Mempolakan", "Menurunkan", "Menjamin", "Mengukur", "Merencanakan"],
+        ["Meninjau", "Memperluas", "Menentukan", "Menguji", "Memproyeksi", "Mendikte"],
+        ["Memilih", "Menyimpulkan", "Menemukan", "Mencerahkan", "Memerinci", "Meningkatkan"],
+        ["Menyatakan", "Meramalkan", "Menggambarkan", "Menjelajah", "Menggradasi", "Memperjelas"],
+        ["Mempelajari", "Merangkum", "Menemukan Kembali", "Membagankan", "Merentangkan", "Memfasilitasi"],
+        ["Mentabulasi", "Menjabarkan", "Menggunakan", "Memngumpulkan", "Merekomendasikan", "Membentuk"],
+        ["Memberi Kode", "", "Melatih", "Membuat Kelompok", "Melepaskan", "Merumuskan"],
+        ["Menelusuri", "", "Menggali", "Mengidentifikasi", "Memilih", "Menggeneralisasikan"],
+        ["Menulis", "", "Membuka", "Mengilustrasikan", "Merangkum", "Menumbuhkan"],
+        ["", "", "Mengemukakan", "Menyimpulkan", "Mendukung", "Menangani"],
+        ["", "", "Membuat Faktor", "Menginterupsi", "Mengetes", "Mengirim"],
+        ["", "", "Membuat Gambar", "Menemukan", "Memvalidasi", "Memperbaiki"],
+        ["", "", "Membuat Grafik", "Menelaah", "Membuktikan Kembali", "Menggabungkan"],
+        ["", "", "Menangani", "Menata", "", "Memadukan"],
+        ["", "", "Mengilustrasikan", "Mengelola", "", "Membatasi"],
+        ["", "", "Mengadaptasi", "Memaksimalkan", "", "Menggabungkan"],
+        ["", "", "Menyelidiki", "Meminimalkan", "", "Mengajar"],
+        ["", "", "Memanipulasi", "Optimalkan", "", "Membuat Model"],
+        ["", "", "Mempercantik", "Memerintahkan", "", "Mengimprovisasi"],
+        ["", "", "Mengoperasikan", "Menggarisbesarkan", "", "Membuat Jaringan"],
+        ["", "", "Mempersoalkan", "Memberi Tanda/Kode", "", "Mengorganisasikan"],
+        ["", "", "", "Mprioritaskan", "", "Mensketsa"],
+        ["", "", "", "Mengedit", "", "Mereparasi"]
+    ];
+
+    const tbody = document.getElementById('tableBody');
+    const noResultsEl = document.getElementById('noResults');
+
+    function renderTable(filter = "") {
+        tbody.innerHTML = "";
+        let visibleCount = 0;
+
+        data.forEach(row => {
+            // Check if row contains the filter string if filter is active
+            const rowMatches = filter === "" || row.some(cell => cell.toLowerCase().includes(filter.toLowerCase()));
+            
+            if (rowMatches) {
+                visibleCount++;
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-red-50/40 transition-colors";
+                
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.className = "py-3 px-4 border-b border-gray-100 border-r border-gray-100 last:border-r-0 text-gray-800";
+                    
+                    if (filter && cell && cell.toLowerCase().includes(filter.toLowerCase())) {
+                        // Highlight matched terms
+                        const regex = new RegExp(`(${filter})`, 'gi');
+                        td.innerHTML = cell.replace(regex, '<span class="highlight">$1</span>');
+                    } else {
+                        td.textContent = cell || "-";
+                        if (!cell) td.className += " text-gray-300 italic text-xs";
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            }
+        });
+
+        if (visibleCount === 0) {
+            noResultsEl.classList.remove('hidden');
+        } else {
+            noResultsEl.classList.add('hidden');
+        }
+    }
+
+    function searchTable() {
+        const filter = document.getElementById('searchInput').value.trim();
+        renderTable(filter);
+    }
+
+    // Initial render on load
+    window.onload = function() {
+        renderTable();
+    };
+</script>
+</div>
