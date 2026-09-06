@@ -1,7 +1,186 @@
----
-layout: default
-title: Interactive Video Quiz Youtube ICE Institute
----
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Konten ICE Institute</title>
+
+  <link rel="icon" href="https://iceinstitut.github.io/image/aset/favicon_icei.png" type="image/png">
+
+  <!-- SEO -->
+  <meta name="description" content="Interactive Video Quiz Youtube ICE Institute">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Interactive Video Quiz Youtube ICE Institute">
+  <meta property="og:description" content="Informasi Tim Konten ICE Institute">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iceinstitut.github.io/konten/panduan/iv_quiz_yt.html">
+  <meta property="og:site_name" content="ICE Institute">
+
+  <meta property="og:image"
+        content="https://iceinstitut.github.io/konten/image/aset/default-og.jpg">
+
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt"
+        content="Interactive Video Quiz Youtube ICE Institute">
+
+  <meta property="og:locale" content="id_ID">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title"
+        content="Interactive Video Quiz Youtube ICE Institute">
+  <meta name="twitter:description"
+        content="Informasi Tim Konten ICE Institute">
+  <meta name="twitter:image"
+        content="https://iceinstitut.github.io/konten/image/aset/default-og.jpg">
+
+  <!-- Bootstrap ICON -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+  <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+    <nav class="w-full py-2.5 px-3 lg:px-6">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between">
+            
+            <!-- Logo Brand -->
+            <a class="flex items-center flex-shrink-0 mr-4" href="https://icei.ac.id/" aria-label="ICE Institute">
+                <img src="https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png" 
+                     alt="ICE Institute" 
+                     class="h-10 lg:h-11 w-auto object-contain"
+                     onerror="this.src='https://placehold.co/180x44/004B87/FFFFFF?text=ICE+Institute'">
+            </a>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="navbarToggler" 
+                    type="button" 
+                    class="lg:hidden p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors" 
+                    aria-controls="navbarContent" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation">
+                <i class="bi bi-list text-2xl"></i>
+            </button>
+
+            <!-- Collapsible Menu Wrapper -->
+            <div id="navbarContent" class="hidden w-full lg:flex lg:w-auto lg:flex-1 lg:items-center lg:justify-between mt-3 lg:mt-0">
+                
+                <!-- Search Input Bar -->
+                <div class="flex-grow lg:max-w-md lg:mx-6 mb-3 lg:mb-0">
+                    <form id="catalogSearchForm" class="relative flex items-center w-full" role="search" method="get" action="https://lms.icei.ac.id/learn/courses/">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <i class="bi bi-search text-gray-400"></i>
+                        </div>
+                        <input type="search" 
+                               id="catalogSearch" 
+                               name="q" 
+                               class="w-full pl-10 pr-4 py-2 bg-gray-100 hover:bg-gray-50 focus:bg-white text-sm text-gray-800 rounded-full border border-transparent focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all placeholder-gray-500" 
+                               placeholder="What would you like to learn today?" 
+                               autocomplete="off">
+                    </form>
+                </div>
+
+                <!-- Navigation Links -->
+                <ul class="flex flex-col lg:flex-row space-y-1 lg:space-y-0 lg:space-x-1 mb-3 lg:mb-0 font-medium text-sm">
+                    <li>
+                        <a class="block px-4 py-2 text-gray-700 hover:text-red-600 hover:bg-gray-100 lg:hover:bg-gray-100 rounded-full transition-colors" href="https://lms.icei.ac.id/learn/courses/" data-nav="courses">Courses</a>
+                    </li>
+                    <li>
+                        <a class="block px-4 py-2 text-gray-700 hover:text-red-600 hover:bg-gray-100 lg:hover:bg-gray-100 rounded-full transition-colors" href="https://lms.icei.ac.id/learn/partner/" data-nav="partner">Partner</a>
+                    </li>
+                </ul>
+
+                <!-- Action Controls: Cart, Notification, User Avatar -->
+                <div class="flex items-center space-x-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-gray-100 justify-end">
+                    
+                    <!-- Cart Button -->
+                    <a href="https://lms.icei.ac.id/learn/cart/" class="relative p-2.5 text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors flex items-center justify-center flex-shrink-0" aria-label="Keranjang">
+                        <i class="bi bi-cart3 text-lg leading-none"></i>
+                        <span id="cartBadge" class="absolute top-0 right-0 transform translate-x-1 -translate-y-1 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">
+                            <span class="cart-count">3</span>
+                        </span>
+                    </a>
+
+                    <!-- Notification Dropdown Container -->
+                    <div class="relative flex-shrink-0">
+                        <button type="button" 
+                                class="relative p-2.5 text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors flex items-center justify-center" 
+                                id="notifBell" 
+                                aria-haspopup="true" 
+                                aria-expanded="false" 
+                                aria-label="Notifikasi">
+                            <i class="bi bi-bell text-lg leading-none"></i>
+                            <span id="notifBadge" class="absolute top-0 right-0 transform translate-x-1 -translate-y-1 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">2</span>
+                        </button>
+                        
+                        <!-- Notification Panel -->
+                        <div id="notifMenu" class="hidden absolute right-0 mt-2 w-80 max-h-[70vh] bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50 overflow-hidden flex-col">
+                            <div class="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 bg-gray-50/50">
+                                <strong class="text-xs font-semibold text-gray-800 uppercase tracking-wider">Notifications</strong>
+                                <a href="#" id="notifMarkAll" class="text-xs text-red-600 hover:text-red-700 font-medium">Mark all read</a>
+                            </div>
+                            <div id="notifList" class="overflow-y-auto divide-y divide-gray-100 max-h-64">
+                                <div class="text-center text-gray-400 py-6 text-xs">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Avatar Dropdown Container -->
+                    <div class="relative flex-shrink-0">
+                        <a href="#" id="user-menu-avatar" class="user-avatar relative flex items-center justify-center w-9 h-9 rounded-full bg-red-600 text-white font-semibold text-sm hover:ring-2 hover:ring-red-400 transition-all overflow-hidden" role="button" aria-haspopup="true" aria-expanded="false" aria-label="User menu">
+                            <span id="user-menu-initials" class="user-avatar-initials">icei</span>
+                            <img id="user-menu-photo" src="" alt="Profile" class="user-avatar-photo hidden w-full h-full object-cover">
+                            <span class="user-avatar-status absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full" aria-hidden="true"></span>
+                        </a>
+
+                        <!-- User Menu Dropdown -->
+                        <div id="userMenu" class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50 text-sm">
+                            <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors" href="https://lms.icei.ac.id/profile/">
+                                <i class="bi bi-person mr-2.5 text-gray-400"></i>Profile
+                            </a>
+                            <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors" href="https://lms.icei.ac.id/learn/payment-history/">
+                                <i class="bi bi-cart mr-2.5 text-gray-400"></i>Order History
+                            </a>
+                            <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors" href="https://lms.icei.ac.id/learn/">
+                                <i class="bi bi-book mr-2.5 text-gray-400"></i>My courses
+                            </a>
+                            <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors" href="https://lms.icei.ac.id/help/">
+                                <i class="bi bi-question-circle mr-2.5 text-gray-400"></i>Help
+                            </a>
+                            
+                            <div class="my-1 border-t border-gray-100"></div>
+                            
+                            <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors" href="#" id="themeToggle">
+                                <i class="bi bi-moon-stars mr-2.5 text-gray-400"></i>Mode
+                            </a>
+
+                            <div class="my-1 border-t border-gray-100"></div>
+
+                            <a class="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 transition-colors" href="https://lms.icei.ac.id/login">
+                                <i class="bi bi-box-arrow-in-right mr-2.5 text-red-500"></i>Login
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+
+<main class="container mx-auto">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1253,3 +1432,99 @@ STATUS
     }
     </script>
 </div>
+
+</main>
+
+<footer class="border-t border-slate-200 bg-slate-50 py-10 px-6 sm:px-10 lg:px-16 text-slate-600">
+    <div class="max-w-7xl mx-auto">
+        <!-- Main Footer Grid (4 Columns) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-8">
+            
+            <!-- Column 1: Brand & Description (lg:col-span-4) -->
+            <div class="lg:col-span-4">
+                <a href="https://lms.icei.ac.id/" class="inline-flex items-center mb-3" aria-label="ICE Institute">
+                    <img src="https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png" 
+                         alt="ICE Institute" 
+                         class="h-12 w-auto object-contain"
+                         onerror="this.src='https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png'">
+                </a>
+                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                    ICE Institute is your hub to study anywhere and anytime at the campus of your choice!
+                    Now you can learn from all the best universities around the globe.
+                </p>
+            </div>
+
+            <!-- Column 2: Quick Links (lg:col-span-2) -->
+            <div class="lg:col-span-2">
+                <h3 class="font-bold text-slate-900 text-sm mb-3.5">Quick Links</h3>
+                <ul class="space-y-2 text-xs sm:text-sm">
+                    <li><a href="https://lms.icei.ac.id/" class="hover:text-cyan-600 transition-colors">Home</a></li>
+                    <li><a href="https://lms.icei.ac.id/about" class="hover:text-cyan-600 transition-colors">About</a></li>
+                    <li><a href="https://lms.icei.ac.id/certificate" class="hover:text-cyan-600 transition-colors">Certificate</a></li>
+                    <li><a href="https://lms.icei.ac.id/faqs" class="hover:text-cyan-600 transition-colors">FAQs</a></li>
+                    <li><a href="https://lms.icei.ac.id/contact" class="hover:text-cyan-600 transition-colors">Contact</a></li>
+                    <li><a href="https://lms.icei.ac.id/help" class="hover:text-cyan-600 transition-colors">Help</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Information (lg:col-span-2) -->
+            <div class="lg:col-span-2">
+                <h3 class="font-bold text-slate-900 text-sm mb-3.5">Information</h3>
+                <ul class="space-y-2 text-xs sm:text-sm">
+                    <li><a href="https://lms.icei.ac.id/curation" class="hover:text-cyan-600 transition-colors">Curation</a></li>
+                    <li><a href="https://lms.icei.ac.id/privacy" class="hover:text-cyan-600 transition-colors">Privacy</a></li>
+                    <li><a href="https://lms.icei.ac.id/terms" class="hover:text-cyan-600 transition-colors">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Address & Contact (lg:col-span-4) -->
+            <div class="lg:col-span-4">
+                <h3 class="font-bold text-slate-900 text-sm mb-3.5">Address</h3>
+                <address class="not-italic text-xs sm:text-sm text-slate-500 leading-relaxed mb-3">
+                    <strong class="text-slate-900 font-semibold">ICE Institute</strong><br>
+                    Universitas Terbuka<br>
+                    Gedung LPPMP Lantai 2<br>
+                    Jl. Cabe Raya Pondok Cabe, Pamulang,<br>
+                    Tangerang Selatan, Banten - 15437
+                </address>
+                <div class="text-xs sm:text-sm space-y-1.5">
+                    <div>
+                        <a href="tel:+6281250504200" class="inline-flex items-center hover:text-cyan-600 transition-colors">
+                            <i class="bi bi-telephone mr-2 text-cyan-600"></i>0812 5050 4200
+                        </a>
+                    </div>
+                    <div>
+                        <a href="mailto:sekretariat@icei.ac.id" class="inline-flex items-center hover:text-cyan-600 transition-colors">
+                            <i class="bi bi-envelope mr-2 text-cyan-600"></i>sekretariat@icei.ac.id
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Section: Copyright & Social Links -->
+        <div class="flex flex-col md:flex-row items-center justify-between border-t border-slate-200 pt-6 gap-4">
+            <p class="text-xs text-slate-500 text-center md:text-left">
+                © 2026 ICE Institute — Indonesia Cyber Education Institute
+            </p>
+            <div class="flex items-center space-x-4 text-base text-slate-500">
+                <a href="#" class="hover:text-red-600 transition-colors p-1" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="hover:text-slate-900 transition-colors p-1" aria-label="X / Twitter"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" class="hover:text-pink-600 transition-colors p-1" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="hover:text-red-600 transition-colors p-1" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="hover:text-red-700 transition-colors p-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="hover:text-emerald-600 transition-colors p-1" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="/formevaluasi/assets/js/main.js"></script>
+
+</body>
+</html>
