@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-50 scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Hybrid Classroom (GHC) - ICE Institute</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#ee1522',
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            500: '#ee1522',
+                            600: '#d0101b',
+                            700: '#b00b14',
+                            800: '#900c13',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 flex flex-col min-h-screen bg-slate-50">
+
+    <!-- Header -->
+    <section class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-brand text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-brand/20">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl font-black text-slate-900 tracking-tight leading-none">
+                                ICE <span class="text-brand">INSTITUTE</span>
+                            </h1>
+                            <span class="text-[10px] bg-brand-50 text-brand-700 font-bold px-2 py-0.5 rounded-full border border-brand-100 uppercase">GHC Fall 2026</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mt-0.5">China–Indonesia Global Hybrid Classroom Program</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Quick Links -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button onclick="switchTab('program-info')" class="nav-tab-btn text-sm font-semibold text-slate-600 hover:text-brand transition" data-target="program-info">Program Info</button>
+                    <button onclick="switchTab('student-guide')" class="nav-tab-btn text-sm font-semibold text-slate-600 hover:text-brand transition" data-target="student-guide">Student Guide</button>
+                    <button onclick="switchTab('katalog')" class="nav-tab-btn text-sm font-semibold text-slate-600 hover:text-brand transition" data-target="katalog">Katalog Mata Kuliah</button>
+                    <a href="https://link.icei.ac.id/ghc-daftar" target="_blank" class="px-5 py-2.5 bg-brand hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition shadow-md shadow-brand/20 flex items-center gap-2">
+                        <span>Daftar Sekarang</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-b from-white via-brand-50/30 to-slate-50 border-b border-slate-200/60 pt-10 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-50 text-brand-600 border border-brand-100">
+                            <span class="w-2 h-2 rounded-full bg-brand animate-ping"></span>
+                            Global hybrid Classrom China–Indonesia Virtual Exchange Program — Fall 2026
+                        </div>
+                        
+                        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                            Halo teman-teman <span class="text-brand">ICE Institute!</span> 🎓
+                        </h2>
+
+                        <p class="text-base sm:text-lg font-medium text-slate-700 leading-relaxed">
+                            Ingin merasakan pengalaman belajar di <strong class="text-slate-900 font-bold">universitas top dunia</strong> tanpa harus meninggalkan negara?
+                        </p>
+
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Program pertukaran pelajar internasional secara virtual ini memberikan kesempatan unik bagi mahasiswa untuk mengikuti mata kuliah dari berbagai universitas terkemuka di China. Belajar langsung dari para ahli di bidangnya dan berinteraksi dengan mahasiswa dari berbagai negara. Program ini <span class="inline-block bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold text-xs sm:text-sm">GRATIS</span> dan siap memperluas wawasan Anda!
+                        </p>
+
+                        <!-- Tab Switch Navigation Buttons -->
+                        <div class="pt-2 flex flex-wrap gap-3 items-center">
+                            <button onclick="switchTab('katalog')" class="px-6 py-3 bg-brand hover:bg-brand-600 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-lg shadow-brand/30 flex items-center gap-2 transform hover:-translate-y-0.5">
+                                <i class="fa-solid fa-list-ul"></i>
+                                <span>Lihat Katalog Mata Kuliah</span>
+                            </button>
+                            <button onclick="switchTab('student-guide')" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-md flex items-center gap-2">
+                                <i class="fa-solid fa-book-open"></i>
+                                <span>Panduan Peserta (Student Guide)</span>
+                            </button>
+                            <a href="https://link.icei.ac.id/ghc-daftar" target="_blank" class="px-5 py-3 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs sm:text-sm rounded-xl border border-slate-300 transition flex items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-paper-plane text-brand"></i>
+                                <span>Form Pendaftaran</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Quick Stats / Banner Card -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white rounded-3xl p-6 shadow-xl border border-slate-200/80 relative">
+                            <div class="absolute -top-3 -right-3 bg-brand text-white font-extrabold text-xs px-3 py-1 rounded-full shadow-md uppercase tracking-wide">
+                                100% Virtual & Gratis
+                            </div>
+                            <h3 class="text-base font-black text-slate-900 mb-5 flex items-center gap-2">
+                                <i class="fa-solid fa-clock-rotate-left text-brand"></i>
+                                Timeline Penting Program (Fall 2026)
+                            </h3>
+                            
+                            <div class="space-y-3.5">
+                                <div class="flex items-start gap-3.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                                    <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand flex items-center justify-center shrink-0 font-bold text-sm">
+                                        <i class="fa-regular fa-calendar-xmark"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Batas Waktu Pendaftaran</span>
+                                        <p class="text-sm font-extrabold text-slate-900">15 September 2026</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-3.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                                    <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-sm">
+                                        <i class="fa-regular fa-calendar-check"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Durasi Pembelajaran</span>
+                                        <p class="text-sm font-extrabold text-slate-900">22 September 2026 – 31 Januari 2027</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                                <span class="flex items-center gap-1.5 font-medium">
+                                    <i class="fa-solid fa-certificate text-amber-500"></i> Sertifikat Resmi Disiapkan
+                                </span>
+                                <span class="font-bold text-brand">ICE Institute</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Tab Control Buttons -->
+        <div class="bg-white border-b border-slate-200 sticky top-20 z-20 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex gap-2 sm:gap-4 overflow-x-auto custom-scrollbar py-3">
+                    <button onclick="switchTab('program-info')" id="tab-btn-program-info" class="tab-button px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition bg-brand text-white shadow-md">
+                        <i class="fa-solid fa-circle-info mr-2"></i>1. Informasi Program
+                    </button>
+                    <button onclick="switchTab('student-guide')" id="tab-btn-student-guide" class="tab-button px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition text-slate-600 hover:bg-slate-100">
+                        <i class="fa-solid fa-book-reader mr-2"></i>2. Panduan Peserta (Student Guide)
+                    </button>
+                    <button onclick="switchTab('katalog')" id="tab-btn-katalog" class="tab-button px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition text-slate-600 hover:bg-slate-100">
+                        <i class="fa-solid fa-graduation-cap mr-2"></i>3. Katalog Mata Kuliah
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: PROGRAM INFORMATION -->
+        <div id="tab-content-program-info" class="tab-content">
+            <!-- Benefits Section -->
+            <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h3 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
+                        Kenapa Harus Mengikuti <span class="text-brand">Global Hybrid Classroom?</span>
+                    </h3>
+                    <p class="text-slate-600 text-xs sm:text-sm">
+                        Dapatkan berbagai keuntungan kompetitif internasional untuk memperkaya portofolio akademik Anda.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Benefit 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition duration-300">
+                        <div class="w-12 h-12 bg-brand-50 text-brand rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h4 class="text-base font-extrabold text-slate-900 mb-2">Fleksibilitas</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Belajar dari mana saja dan kapan saja secara online tanpa memerlukan mobilisasi fisik ke luar negeri.
+                        </p>
+                    </div>
+
+                    <!-- Benefit 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition duration-300">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <h4 class="text-base font-extrabold text-slate-900 mb-2">Aksesibilitas</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Dapatkan akses langsung ke berbagai mata kuliah unggulan dari universitas terkemuka di China secara gratis.
+                        </p>
+                    </div>
+
+                    <!-- Benefit 3 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition duration-300">
+                        <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-earth-americas"></i>
+                        </div>
+                        <h4 class="text-base font-extrabold text-slate-900 mb-2">Pengalaman Internasional</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Berinteraksi langsung dengan mahasiswa & pakar pengajar internasional serta melatih bahasa Inggris/Mandarin.
+                        </p>
+                    </div>
+
+                    <!-- Benefit 4 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition duration-300">
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h4 class="text-base font-extrabold text-slate-900 mb-2">Sertifikat Resmi</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Dapatkan sertifikat resmi dari universitas penyelenggara dan ICE Institute untuk pengakuan SKS.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Participant Types Section -->
+            <section class="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
+                        <i class="fa-solid fa-graduation-cap text-[250px]"></i>
+                    </div>
+
+                    <div class="relative z-10">
+                        <div class="max-w-2xl mb-8">
+                            <span class="text-xs font-bold text-brand-200 uppercase tracking-widest block mb-2">Pilihan Mode Belajar</span>
+                            <h3 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                                Tipe Peserta Yang Bisa Kamu Pilih:
+                            </h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Audit Card -->
+                            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-6 rounded-2xl flex flex-col justify-between hover:bg-white/15 transition">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h4 class="text-xl font-extrabold text-white flex items-center gap-2">
+                                            <i class="fa-solid fa-book-open text-sky-400"></i> Model AUDIT
+                                        </h4>
+                                        <span class="px-3 py-1 bg-sky-500/20 text-sky-300 border border-sky-400/30 rounded-full text-xs font-bold uppercase">Non-Kredit</span>
+                                    </div>
+                                    <p class="text-slate-200 text-sm leading-relaxed mb-4">
+                                        Dapatkan <strong>sertifikat keikutsertaan</strong> resmi dengan mengikuti minimal <strong>85% proses pembelajaran</strong> secara aktif selama periode kelas.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-white/10 text-xs text-slate-300 flex items-center gap-2">
+                                    <i class="fa-solid fa-check text-emerald-400"></i> Cocok untuk menambah wawasan & skill bebas beban ujian berat.
+                                </div>
+                            </div>
+
+                            <!-- Credit Card -->
+                            <div class="bg-white/10 backdrop-blur-md border border-brand/40 p-6 rounded-2xl flex flex-col justify-between bg-brand/10 hover:bg-brand/20 transition">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h4 class="text-xl font-extrabold text-white flex items-center gap-2">
+                                            <i class="fa-solid fa-certificate text-emerald-400"></i> Model CREDIT
+                                        </h4>
+                                        <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 rounded-full text-xs font-bold uppercase">Transfer Kredit</span>
+                                    </div>
+                                    <p class="text-slate-200 text-sm leading-relaxed mb-4">
+                                        Dapatkan <strong>sertifikat dengan nilai resmi</strong> yang bisa dikonversi ke universitas asal dengan memenuhi syarat tertentu:
+                                    </p>
+                                    <ul class="text-xs text-slate-200 space-y-1.5 list-disc pl-4 mb-4">
+                                        <li>Memiliki Nomor Paspor Aktif</li>
+                                        <li>Kehadiran minimal 85% proses pembelajaran</li>
+                                        <li>Memperoleh total nilai ujian/tugas minimal 70%</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-4 border-t border-white/10 text-xs text-slate-300 flex items-center gap-2">
+                                    <i class="fa-solid fa-star text-amber-400"></i> Dapat dikonversi langsung ke SKS kampus asal Anda.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Register Section -->
+            <section id="cara-daftar" class="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-12">
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm">
+                    <div class="text-center max-w-2xl mx-auto mb-8">
+                        <span class="text-xs font-bold text-brand uppercase tracking-wider block mb-1">Langkah Mudah</span>
+                        <h3 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                            Bagaimana Cara Daftar?
+                        </h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Step 1 -->
+                        <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                            <div class="w-10 h-10 rounded-xl bg-brand text-white flex items-center justify-center font-bold shrink-0">1</div>
+                            <div>
+                                <h4 class="text-base font-bold text-slate-900 mb-1">Cek Katalog Mata Kuliah</h4>
+                                <p class="text-xs text-slate-600 mb-2">Pilih mata kuliah yang diminati dari katalog resmi Global Hybrid Classroom.</p>
+                                <button onclick="switchTab('katalog')" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand hover:underline">
+                                    Buka Katalog Mata Kuliah <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                            <div class="w-10 h-10 rounded-xl bg-brand text-white flex items-center justify-center font-bold shrink-0">2</div>
+                            <div>
+                                <h4 class="text-base font-bold text-slate-900 mb-1">Isi Form Pendaftaran</h4>
+                                <p class="text-xs text-slate-600 mb-2">Lengkapi formulir registrasi mahasiswa sebelum batas waktu pendaftaran 15 September 2026.</p>
+                                <a href="https://link.icei.ac.id/ghc-daftar" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand hover:underline">
+                                    link.icei.ac.id/ghc-daftar <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-8 border-t border-slate-100 text-center">
+                        <p class="text-slate-700 font-semibold mb-4 text-sm">
+                            Jangan lewatkan kesempatan emas ini! Daftar sekarang dan jadilah bagian dari komunitas belajar global.
+                        </p>
+                        <a href="https://link.icei.ac.id/ghc-daftar" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 bg-brand hover:bg-brand-600 text-white font-black text-sm uppercase tracking-wider rounded-2xl transition shadow-xl shadow-brand/20 transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-rocket"></i>
+                            <span>Daftar Sekarang Juga</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 2: STUDENT PARTICIPATION GUIDE -->
+        <div id="tab-content-student-guide" class="tab-content hidden">
+            <section class="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-10">
+                    
+                    <!-- Title Banner -->
+                    <div class="border-b border-slate-100 pb-8 text-center sm:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-50 text-brand-700 border border-brand-100 rounded-full text-xs font-bold uppercase mb-3">
+                            <i class="fa-solid fa-file-contract"></i> Official Guide — Fall 2026
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-snug">
+                            China–Indonesia Global Hybrid Classroom Program<br>
+                            <span class="text-brand">Student Participation Guide</span>
+                        </h2>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed max-w-4xl">
+                            Welcome to the <strong>China–Indonesia Global Hybrid Classroom (GHC) Program</strong>! Through the support of the Global MOOC and Online Education Alliance, top Chinese universities are making real-time, hybrid courses available to Indonesian students. Using the <strong>Rain Classroom</strong> platform, Chinese university classrooms are "cloned" for online access, enabling real-time participation alongside students in China.
+                        </p>
+                    </div>
+
+                    <!-- 1. What You Can Expect -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-xl bg-brand text-white flex items-center justify-center text-sm font-bold">1</span>
+                            What You Can Expect
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1 shrink-0"></i>
+                                <span class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium"><strong>Real-time Class Experience:</strong> Join live lectures directly from top Chinese university classrooms.</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1 shrink-0"></i>
+                                <span class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium"><strong>Interactive Tools:</strong> Use Rain Classroom features like bullet comments, quizzes, and digital slide sync.</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1 shrink-0"></i>
+                                <span class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium"><strong>Flexible Learning:</strong> Access course slides, recordings (where available), and study materials anytime.</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1 shrink-0"></i>
+                                <span class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium"><strong>English Instruction:</strong> All courses offered in this program are taught in English.</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3 md:col-span-2">
+                                <i class="fa-solid fa-circle-check text-brand mt-1 shrink-0"></i>
+                                <span class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium"><strong>Certificate & Credit Support:</strong> Earn an official certificate upon meeting attendance and assessment requirements.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Before Your Course Begins -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-xl bg-brand text-white flex items-center justify-center text-sm font-bold">2</span>
+                            Before Your Course Begins (Checklist)
+                        </h3>
+                        <div class="bg-amber-50/60 border border-amber-200 rounded-2xl p-5 space-y-3">
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-lg bg-amber-500 text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                                <p class="text-xs sm:text-sm text-slate-800"><strong>Download Rain Classroom (xuetangX):</strong> Install the Rain Classroom app or access the Web version (<a href="https://www.rainclass.cn" target="_blank" class="text-brand font-bold underline">www.rainclass.cn</a>).</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-lg bg-amber-500 text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                                <p class="text-xs sm:text-sm text-slate-800"><strong>Create & Bind Account:</strong> Register your account and complete account verification using your registered email.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-lg bg-amber-500 text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                                <p class="text-xs sm:text-sm text-slate-800"><strong>Join Your Cloned Class:</strong> Enter the Class Invitation Code provided by ICE Institute prior to the course start date.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-lg bg-amber-500 text-white text-xs font-bold flex items-center justify-center shrink-0">4</span>
+                                <p class="text-xs sm:text-sm text-slate-800"><strong>Check Class Schedule & Time Differences:</strong> Pay attention to course times specified in Beijing Time (GMT+8) and convert to Western Indonesian Time (WIB / GMT+7).</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-lg bg-amber-500 text-white text-xs font-bold flex items-center justify-center shrink-0">5</span>
+                                <p class="text-xs sm:text-sm text-slate-800"><strong>Review Syllabus & Prerequisites:</strong> Ensure you understand the course expectations and possess the required basic knowledge.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. During the Course -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-xl bg-brand text-white flex items-center justify-center text-sm font-bold">3</span>
+                            During the Course Guidelines
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                                <h4 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-clock text-brand"></i> Punctuality & Attendance
+                                </h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">Log in to Rain Classroom at least 5 minutes before class starts. Attendance is automatically tracked by the system platform.</p>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                                <h4 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-comments text-brand"></i> Active Engagement
+                                </h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">Participate in pop-up quizzes, slide interactions, and discussion boards during live sessions.</p>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                                <h4 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-tasks text-brand"></i> Assignments & Quizzes
+                                </h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">Submit homework, midterm projects, and final assessments punctually via Rain Classroom.</p>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                                <h4 class="text-sm font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-halved text-brand"></i> Academic Integrity
+                                </h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">All work must be strictly your own. Plagiarism or unauthorized collusion will result in immediate disqualification.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Course Completion Requirements -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-xl bg-brand text-white flex items-center justify-center text-sm font-bold">4</span>
+                            Course Completion Requirements
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Audit Track -->
+                            <div class="border border-sky-200 bg-sky-50/50 rounded-2xl p-6 relative">
+                                <span class="bg-sky-500 text-white font-extrabold text-[10px] uppercase px-3 py-1 rounded-full absolute -top-3 left-6">Audit Track (Non-Credit)</span>
+                                <ul class="text-xs sm:text-sm text-slate-700 space-y-2 mt-2">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-sky-600 mt-1"></i>
+                                        <span>Maintain at least <strong>85% attendance rate</strong> throughout the semester.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-sky-600 mt-1"></i>
+                                        <span>Participate actively in class interactions and complete assigned survey forms.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Credit Track -->
+                            <div class="border border-emerald-300 bg-emerald-50/50 rounded-2xl p-6 relative">
+                                <span class="bg-emerald-600 text-white font-extrabold text-[10px] uppercase px-3 py-1 rounded-full absolute -top-3 left-6">Credit Track (Grade & SKS)</span>
+                                <ul class="text-xs sm:text-sm text-slate-700 space-y-2 mt-2">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                        <span>Maintain at least <strong>85% attendance rate</strong>.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                        <span>Achieve a cumulative final score of at least <strong>70% (70/100)</strong> across all exams and coursework.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                        <span>Valid active Passport Number registered in system.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Certificates and Academic Credit -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-xl bg-brand text-white flex items-center justify-center text-sm font-bold">5</span>
+                            Certificates and Academic Credit
+                        </h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                            <div class="lg:col-span-7 space-y-3">
+                                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                    Upon successfully meeting all course completion requirements, students will receive an official co-branded certificate issued by the host Chinese university and ICE Institute.
+                                </p>
+                                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                    For students on the <strong>Credit Track</strong>, the certificate will include your final numeric grade and course credit value, which can be presented to your home university in Indonesia for academic credit transfer (SKS).
+                                </p>
+                            </div>
+                            <div class="lg:col-span-5 text-center">
+                                <div class="p-2 bg-white rounded-2xl shadow-md border border-slate-200 inline-block">
+                                    <img src="https://ckbox.cloud/77b3b59c441e93a13b56/assets/JBkz0P0txhx4/images/1800.png" alt="Sample Certificate - Global Hybrid Classroom" class="rounded-xl max-h-64 mx-auto object-contain" onerror="this.src='https://placehold.co/600x400/fee2e2/dc2626?text=Sample+GHC+Certificate'">
+                                    <span class="text-[10px] text-slate-400 font-semibold block mt-2">Sample Official GHC Certificate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Important Reminders & Closing -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-xl bg-brand text-white flex items-center justify-center text-sm font-bold">6</span>
+                            Important Reminders
+                        </h3>
+                        <div class="bg-red-50/60 border border-red-200 rounded-2xl p-5 space-y-2 text-xs sm:text-sm text-slate-700">
+                            <p class="flex items-start gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-brand mt-1"></i>
+                                <span><strong>Time Zone Difference:</strong> Chinese Standard Time (CST/Beijing) is 1 hour ahead of WIB (Jakarta). Always adjust class times accordingly!</span>
+                            </p>
+                            <p class="flex items-start gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-brand mt-1"></i>
+                                <span><strong>Notification Channel:</strong> Check your registered email and WhatsApp group daily for urgent announcements.</span>
+                            </p>
+                            <p class="flex items-start gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-brand mt-1"></i>
+                                <span><strong>Helpdesk:</strong> For technical issues with Rain Classroom, contact team in WhatsApp Group</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Closing Banner -->
+                    <div class="bg-gradient-to-r from-brand to-brand-700 text-white rounded-2xl p-6 text-center shadow-lg">
+                        <h4 class="text-lg font-black tracking-tight mb-1">Ready to start your global learning journey?</h4>
+                        <p class="text-xs sm:text-sm text-white/90">
+                            We wish you a rewarding learning experience with the China–Indonesia Global Hybrid Classroom Program!
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 3: COURSE CATALOG -->
+        <div id="tab-content-katalog" class="tab-content hidden">
+            <section id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <!-- Section Header & Filter Bar -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm mb-8">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                                <span>Katalog Mata Kuliah GHC</span>
+                                <span id="courseCountBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-600 border border-brand-100">0 Mata Kuliah</span>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-1">Klik pada kartu mata kuliah untuk melihat jadwal, prasyarat, dan detail silabus lengkap.</p>
+                        </div>
+                    </div>
+
+                    <!-- Controls: Search Input & Filter Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                        <!-- Search Bar -->
+                        <div class="relative md:col-span-6">
+                            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="searchInput" placeholder="Cari mata kuliah, pengajar, universitas, atau kata kunci..." 
+                                class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent text-xs sm:text-sm transition font-medium">
+                        </div>
+
+                        <!-- University Filter -->
+                        <div class="relative md:col-span-3">
+                            <select id="universityFilter" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand cursor-pointer">
+                                <option value="ALL">Semua Universitas</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+                        </div>
+
+                        <!-- Mode Filter -->
+                        <div class="relative md:col-span-3">
+                            <select id="modeFilter" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand cursor-pointer">
+                                <option value="ALL">Semua Mode Belajar</option>
+                                <option value="Audit Model">Audit Model</option>
+                                <option value="Credit Model">Credit Model</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Course Cards Grid -->
+                <div id="courseGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Javascript dynamic injection -->
+                </div>
+
+                <!-- Empty State for Search/Filter -->
+                <div id="emptyState" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-slate-300 my-4">
+                    <div class="w-16 h-16 bg-brand-50 text-brand rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-800 mb-1">Mata Kuliah Tidak Ditemukan</h4>
+                    <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mb-6">Coba sesuaikan pencarian atau pilih filter universitas lainnya.</p>
+                    <button onclick="resetFilters()" class="px-5 py-2.5 bg-brand text-white font-bold text-xs uppercase tracking-wider rounded-xl hover:bg-brand-600 transition shadow-sm">
+                        Reset Filter
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal Popup for Course Details -->
+    <div id="courseModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div id="modalBackdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+        <div class="min-h-screen px-4 text-center flex items-center justify-center p-4">
+            <!-- Modal Container Panel -->
+            <div id="modalPanel" class="inline-block w-full max-w-3xl my-8 text-left align-middle transition-all transform bg-white rounded-3xl shadow-2xl overflow-hidden scale-95 opacity-0 duration-300 border border-slate-100">
+                
+                <!-- Modal Header Banner -->
+                <div class="bg-gradient-to-r from-brand to-brand-700 p-6 sm:p-8 text-white relative">
+                    <button id="closeModalBtn" class="absolute top-6 right-6 w-9 h-9 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition focus:outline-none">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                    <div class="flex items-center gap-2 text-white/90 text-xs font-bold uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span id="modalUniversity">University</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-black text-white pr-8 leading-snug" id="modalCourseTitle">
+                        Course Title
+                    </h3>
+                </div>
+
+                <!-- Modal Content Details -->
+                <div class="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                    
+                    <!-- Quick Specs Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Pengajar</span>
+                            <span id="modalTeacher" class="text-xs sm:text-sm font-extrabold text-slate-800 block truncate"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Target Siswa</span>
+                            <span id="modalTarget" class="text-xs sm:text-sm font-extrabold text-slate-800 block truncate"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Mode / Kredit</span>
+                            <span id="modalModeCredit" class="text-xs sm:text-sm font-extrabold text-slate-800 block truncate"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Bahasa</span>
+                            <span id="modalLanguage" class="text-xs sm:text-sm font-extrabold text-slate-800 block truncate"></span>
+                        </div>
+                    </div>
+
+                    <!-- Schedules & Holiday Info -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200">
+                            <h4 class="text-xs font-extrabold uppercase tracking-wider text-brand mb-2 flex items-center gap-2">
+                                <i class="fa-regular fa-calendar-check text-sm"></i> Periode & Hari Libur
+                            </h4>
+                            <div id="modalStartDate" class="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line font-medium"></div>
+                        </div>
+                        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200">
+                            <h4 class="text-xs font-extrabold uppercase tracking-wider text-brand mb-2 flex items-center gap-2">
+                                <i class="fa-regular fa-clock text-sm"></i> Jadwal Kelas (Waktu China)
+                            </h4>
+                            <div id="modalClassTime" class="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line font-bold text-brand-800"></div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendation Reason -->
+                    <div class="space-y-2">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-slate-400"></i> Deskripsi & Alasan Rekomendasi
+                        </h4>
+                        <div id="modalRecommendation" class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer CTA -->
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <span class="text-xs text-slate-500">Program Pertukaran Mahasiswa ICE Institute</span>
+                    <div class="flex gap-3 w-full sm:w-auto">
+                        <button id="closeModalFooterBtn" class="flex-1 sm:flex-none px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-xl transition">
+                            Tutup
+                        </button>
+                        <a href="https://link.icei.ac.id/ghc-daftar" target="_blank" class="flex-1 sm:flex-none px-6 py-2.5 bg-brand hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition shadow-md shadow-brand/20 text-center flex items-center justify-center gap-2">
+                            <span>Daftar Sekarang</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data JSON Katalog Mata Kuliah GHC
+        const coursesData = [
+          {
+            "id": 1,
+            "university": "Beijing Institute of Technology",
+            "course": "Computer Science and Artificial Intelligence",
+            "teacher": "Che Haiying",
+            "target_student": "Postgraduate",
+            "start_date": "September 23 – November 13, 2026, excluding public holidays:\nMid – Autumn Festival holiday: September 25 (Friday) to September 27 (Sunday)\nNational Day holiday: October 1 (Thursday) to October 8 (Thursday)",
+            "class_time": "Wednesday, 9:55 – 11:30\nFriday, 15:15–16:20",
+            "credit": "– –",
+            "language": "English",
+            "learning_mode": "Audit Model",
+            "recommendation_reason": "This full – English course covers AI fundamentals, history, computational foundations, data foundations, hardware foundations, machine learning, deep learning, large models, intelligent agents, and the latest autonomous agents such as OpenClaw. It enables students to systematically grasp the theoretical framework, recent developments, and ethical considerations of AI."
+          },
+          {
+            "id": 2,
+            "university": "Beijing Institute of Technology",
+            "course": "Data Structures and Algorithms Design",
+            "teacher": "Cui Lingguo",
+            "target_student": "Undergraduate",
+            "start_date": "October 9 – December 4, 2026, excluding public holidays:\nMid – Autumn Festival holiday: September 25 (Friday) to September 27 (Sunday)\nNational Day holiday: October 1 (Thursday) to October 8 (Thursday)",
+            "class_time": "Friday, 9:55–12:20",
+            "credit": "– –",
+            "language": "English",
+            "learning_mode": "Audit Model",
+            "recommendation_reason": "Beijing Institute of Technology's \"Data Structures and Algorithms Design (full – English)\" is a foundational course for information majors outside computer science. It offers comprehensive coverage of classical data structures and core algorithms, with a strong focus on complexity analysis and performance evaluation. The course features an innovative integration of AIGC tools across all teaching stages, guiding students to develop critical thinking in human – AI collaboration. All practical exercises are implemented in C++, effectively enhancing students' engineering practice capabilities."
+          },
+          {
+            "id": 3,
+            "university": "Beijing Institute of Technology",
+            "course": "Scientometrics and Data Analytics",
+            "teacher": "Gao Huiying",
+            "target_student": "Postgraduate",
+            "start_date": "September 22 – November 13, 2026, excluding public holidays:\nMid – Autumn Festival holiday: September 25 (Friday) to September 27 (Sunday)\nNational Day holiday: October 1 (Thursday) to October 8 (Thursday)",
+            "class_time": "Tuesday, 13:20 PM – 14:55\nFriday, 13:20 PM – 14:55",
+            "credit": "– –",
+            "language": "English",
+            "learning_mode": "Audit Model",
+            "recommendation_reason": "This full – English core course for the national first – class undergraduate program \"Information Management and Information Systems\" cultivates interdisciplinary talent in digital technology and digital management, aiming to develop digitally innovative talents with a global perspective. Through case – based teaching and project – based learning, it integrates information system analysis and design methods into digital management scenarios, effectively stimulating student interest and potential. AI – assisted instruction enriches classroom interaction and delivers significant learning outcomes."
+          },
+          {
+            "id": 4,
+            "university": "Northwestern Polytechnical University",
+            "course": "Artificial Intelligence：Fundamentals and Frontiers",
+            "teacher": "Xia Zhaoqiang, Hui Le",
+            "target_student": "Postgraduate",
+            "start_date": "October 14 – December, 2026",
+            "class_time": "Wednesday, 14:00–17:40",
+            "credit": "2",
+            "language": "English",
+            "learning_mode": "Credit Model",
+            "recommendation_reason": "The School of Electronics and Information at Northwestern Polytechnical University has conducted AI research and education since the early 1990s. This full – English course focuses on cutting – edge areas such as spatial intelligence and embodied intelligence, balancing foundational theory with international frontiers. It bridges graduate students' foundational AI knowledge with the university's distinctive research strengths, continuously supporting interdisciplinary AI talent development and original innovation."
+          },
+          {
+            "id": 5,
+            "university": "Harbin Institute of Technology",
+            "course": "Algorithm Design and Analysis",
+            "teacher": "Zhang Wei",
+            "target_student": "Postgraduate",
+            "start_date": "November– December,2026",
+            "class_time": "Monday, 13:45–15:30\nFriday, 18:30–20:15",
+            "credit": "2",
+            "language": "English",
+            "learning_mode": "Credit Model",
+            "recommendation_reason": "Core course for Computer Science and Technology."
+          },
+          {
+            "id": 6,
+            "university": "Harbin Engineering University",
+            "course": "Theory of Machine Learning",
+            "teacher": "Li Bo",
+            "target_student": "Postgraduate",
+            "start_date": "October– December,2026",
+            "class_time": "Monday, 18:30 – 20:05\nThursday, 18:30 – 20:05",
+            "credit": "2",
+            "language": "English",
+            "learning_mode": "Credit Model",
+            "recommendation_reason": "This course is a core theoretical course for graduate students in intelligent disciplines. Distinct from engineering – focused machine learning courses, it emphasizes underlying mathematical theory and generalization performance analysis. Leveraging the school's strengths in neuromorphic computing, intelligent recognition, and marine intelligent equipment, it builds a rigorous theoretical analysis framework."
+          },
+          {
+            "id": 7,
+            "university": "Harbin Engineering University",
+            "course": "Introduction to High Performance Computing",
+            "teacher": "Lin Dan",
+            "target_student": "Postgraduate",
+            "start_date": "September – October ,2026",
+            "class_time": "Monday, 8:00 – 9:50\nThursday, 8:00 – 9:50",
+            "credit": "2",
+            "language": "English",
+            "learning_mode": "Credit Model",
+            "recommendation_reason": "A core elective for graduate students, featuring scenario – based teaching using HEU's \"Three Seas and One Nuclear\" strengths in ship simulation, underwater acoustic big data, and marine intelligent simulation."
+          },
+          {
+            "id": 8,
+            "university": "Ningxia University",
+            "course": "Computational Thinking",
+            "teacher": "Ding Tong",
+            "target_student": "Undergraduate",
+            "start_date": "October 29,2026 – Januanry 17,2027",
+            "class_time": "Thursday,15:00 – 17:00",
+            "credit": "– –",
+            "language": "English",
+            "learning_mode": "Audit Model",
+            "recommendation_reason": "Core Computer Science Courses"
+          },
+          {
+            "id": 9,
+            "university": "Xiangtan University",
+            "course": "Intelligent Control",
+            "teacher": "Zhou Yan",
+            "target_student": "Undergraduate",
+            "start_date": "September 8 – November",
+            "class_time": "Tuesday,10:10 – 10:55\nThursday,10:10 – 10:55",
+            "credit": "– –",
+            "language": "English",
+            "learning_mode": "Audit Model",
+            "recommendation_reason": "Automation in the AI era, covering cutting – edge control theory. A long – standing bilingual course with a strong foundation in English instruction."
+          },
+          {
+            "id": 10,
+            "university": "Beijing Institute of Technology",
+            "course": "Digital Speech Signal Processing",
+            "teacher": "Wang Jing",
+            "target_student": "Postgraduate",
+            "start_date": "September 21 – November 27",
+            "class_time": "Wednesday, 9:55 – 12:20",
+            "credit": "1.5",
+            "language": "English",
+            "learning_mode": "Credit Model",
+            "recommendation_reason": "A required course that applies digital signal processing to analyze speech and audio, forming the foundation for speech recognition, synthesis, and other voice interaction applications."
+          },
+          {
+            "id": 11,
+            "university": "Beijing University of Posts and Telecommunications",
+            "course": "Cyber – Physical Systems Safety and Security",
+            "teacher": "Wang Shen",
+            "target_student": "Postgraduate",
+            "start_date": "October 9, 2026 – January 8, 2027",
+            "class_time": "Friday 9:50 – 11:25",
+            "credit": "– –",
+            "language": "English",
+            "learning_mode": "Audit Model",
+            "recommendation_reason": "Cyber – physical systems are the core of critical information infrastructure, and their security is paramount."
+          },
+          {
+            "id": 12,
+            "university": "Beijing University of Posts and Telecommunications",
+            "course": "Advanced System Modeling and Simulation",
+            "teacher": "Liu Yukun",
+            "target_student": "Postgraduate",
+            "start_date": "September 23, 2026 – January 6, 2027",
+            "class_time": "Wednesday, 9:50 – 11:25",
+            "credit": "– –",
+            "language": "English",
+            "learning_mode": "Audit Model",
+            "recommendation_reason": "A foundational theoretical methods course for the digital and intelligent era."
+          },
+          {
+            "id": 13,
+            "university": "Sichuan University",
+            "course": "Academic English Writing",
+            "teacher": "Zhang Lulu",
+            "target_student": "Postgraduate",
+            "start_date": "September 16 – December,2026",
+            "class_time": "Wednesday,Thursday,Friday\n8:15 – 11:55",
+            "credit": "2",
+            "language": "English",
+            "learning_mode": "Credit Model",
+            "recommendation_reason": "This course is designed for top – tier undergraduate researchers to meet their scientific research training and international academic communication needs. It addresses key challenges in student research writing – unclear expression, structural issues, and underemphasized research value – strengthening their ability to transform research into international academic output. Leveraging the Rain Classroom AI platform, the course has built a knowledge base, course models, AI application systems, and teaching data analytics, integrating AI support throughout pre – class preparation, in – class training, post – class revision, and research writing. Two AI agents – \"Reviewer Agent for Literature Review Writing\" and \"Dr. Write Academic Writing Mentor\" – have been designed and applied to support literature review structuring, research question formulation, paper logic optimization, and international journal writing training, extending support from linguistic accuracy to academic reasoning and research logic."
+          },
+          {
+            "id": 14,
+            "university": "Southwest Petroleum University",
+            "course": "College Mathematics Series Courses I – – Calculus",
+            "teacher": "Li Lingna",
+            "target_student": "Undergraduate",
+            "start_date": "October 12 – December,2026",
+            "class_time": "Monday,9:50 – 12:15，Wednesday,16:20 – 17:55",
+            "credit": "2",
+            "language": "English",
+            "learning_mode": "Credit Model",
+            "recommendation_reason": "Core Fundamental Courses in Mathematics"
+          }
+        ];
+
+        // DOM Elements
+        const courseGrid = document.getElementById('courseGrid');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+        const universityFilter = document.getElementById('universityFilter');
+        const modeFilter = document.getElementById('modeFilter');
+        const courseCountBadge = document.getElementById('courseCountBadge');
+
+        // Modal Elements
+        const courseModal = document.getElementById('courseModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalPanel = document.getElementById('modalPanel');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const closeModalFooterBtn = document.getElementById('closeModalFooterBtn');
+
+        // Tab Switcher
+        function switchTab(targetTab) {
+            const tabs = ['program-info', 'student-guide', 'katalog'];
+            tabs.forEach(tab => {
+                const content = document.getElementById(`tab-content-${tab}`);
+                const btn = document.getElementById(`tab-btn-${tab}`);
+                if (tab === targetTab) {
+                    content.classList.remove('hidden');
+                    if (btn) {
+                        btn.className = "tab-button px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition bg-brand text-white shadow-md";
+                    }
+                } else {
+                    content.classList.add('hidden');
+                    if (btn) {
+                        btn.className = "tab-button px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition text-slate-600 hover:bg-slate-100";
+                    }
+                }
+            });
+            window.scrollTo({ top: 380, behavior: 'smooth' });
+        }
+
+        // Populate University Filter Dropdown
+        function populateUniversityFilter() {
+            const universities = [...new Set(coursesData.map(c => c.university))];
+            universities.forEach(uni => {
+                const opt = document.createElement('option');
+                opt.value = uni;
+                opt.textContent = uni;
+                universityFilter.appendChild(opt);
+            });
+        }
+
+        // Render Course Cards
+        function renderCourses(filteredData) {
+            courseGrid.innerHTML = '';
+            courseCountBadge.textContent = `${filteredData.length} Mata Kuliah`;
+
+            if (filteredData.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filteredData.forEach(item => {
+                const isCredit = item.learning_mode.includes('Credit');
+                const badgeColor = isCredit 
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+                    : 'bg-blue-50 text-blue-700 border-blue-200';
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden";
+
+                card.innerHTML = `
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-100 group-hover:bg-brand transition duration-300"></div>
+                    
+                    <div>
+                        <!-- Header Badges -->
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="text-xs font-extrabold text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-university text-brand"></i> ${item.university}
+                            </span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full font-black border uppercase tracking-wider ${badgeColor}">
+                                ${item.learning_mode}
+                            </span>
+                        </div>
+
+                        <!-- Course Title -->
+                        <h3 class="text-lg font-black text-slate-900 group-hover:text-brand transition duration-200 mb-4 leading-snug">
+                            ${item.course}
+                        </h3>
+
+                        <!-- Attributes Grid -->
+                        <div class="space-y-2 mb-4 text-xs text-slate-600 bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+                            <p class="flex items-center gap-2">
+                                <i class="fa-regular fa-user text-slate-400 w-4 text-center"></i>
+                                <span><strong class="font-bold text-slate-700">Dosen:</strong> ${item.teacher}</span>
+                            </p>
+                            <p class="flex items-center gap-2">
+                                <i class="fa-solid fa-graduation-cap text-slate-400 w-4 text-center"></i>
+                                <span><strong class="font-bold text-slate-700">Target:</strong> ${item.target_student} (${item.language})</span>
+                            </p>
+                            <p class="flex items-start gap-2">
+                                <i class="fa-regular fa-clock text-slate-400 w-4 text-center mt-0.5"></i>
+                                <span><strong class="font-bold text-slate-700">Jadwal:</strong> ${item.class_time.replace(/\n/g, ' | ')}</span>
+                            </p>
+                        </div>
+
+                        <!-- Description Snippet -->
+                        <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-6 font-medium">
+                            ${item.recommendation_reason}
+                        </p>
+                    </div>
+
+                    <!-- Footer Callout -->
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand group-hover:translate-x-1 transition duration-200">
+                        <span>Lihat Detail Silabus & Jadwal</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => openModal(item));
+                courseGrid.appendChild(card);
+            });
+        }
+
+        // Filter Functionality
+        function filterCourses() {
+            const query = searchInput.value.toLowerCase();
+            const selectedUni = universityFilter.value;
+            const selectedMode = modeFilter.value;
+
+            const filtered = coursesData.filter(course => {
+                const matchesSearch = 
+                    course.course.toLowerCase().includes(query) ||
+                    course.teacher.toLowerCase().includes(query) ||
+                    course.university.toLowerCase().includes(query) ||
+                    course.recommendation_reason.toLowerCase().includes(query);
+                
+                const matchesUni = selectedUni === 'ALL' || course.university === selectedUni;
+                const matchesMode = selectedMode === 'ALL' || course.learning_mode === selectedMode;
+
+                return matchesSearch && matchesUni && matchesMode;
+            });
+
+            renderCourses(filtered);
+        }
+
+        function resetFilters() {
+            searchInput.value = '';
+            universityFilter.value = 'ALL';
+            modeFilter.value = 'ALL';
+            filterCourses();
+        }
+
+        // Modal Functionality
+        function openModal(item) {
+            document.getElementById('modalUniversity').textContent = item.university;
+            document.getElementById('modalCourseTitle').textContent = item.course;
+            document.getElementById('modalTeacher').textContent = item.teacher;
+            document.getElementById('modalTarget').textContent = item.target_student;
+            document.getElementById('modalModeCredit').textContent = `${item.learning_mode} (${item.credit !== '– –' ? item.credit + ' Kredit' : 'Non-Kredit'})`;
+            document.getElementById('modalLanguage').textContent = item.language;
+            
+            document.getElementById('modalStartDate').textContent = item.start_date;
+            document.getElementById('modalClassTime').textContent = item.class_time;
+            document.getElementById('modalRecommendation').textContent = item.recommendation_reason;
+
+            // Show Modal with smooth animation
+            courseModal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('scale-95', 'opacity-0');
+                modalPanel.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('scale-100', 'opacity-100');
+            modalPanel.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                courseModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // Initial Setup Event Listeners
+        window.addEventListener('DOMContentLoaded', () => {
+            populateUniversityFilter();
+            renderCourses(coursesData);
+
+            // Filter listeners
+            searchInput.addEventListener('input', filterCourses);
+            universityFilter.addEventListener('change', filterCourses);
+            modeFilter.addEventListener('change', filterCourses);
+
+            // Modal listeners
+            closeModalBtn.addEventListener('click', closeModal);
+            closeModalFooterBtn.addEventListener('click', closeModal);
+            modalBackdrop.addEventListener('click', closeModal);
+
+            // ESC Key listener
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !courseModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
