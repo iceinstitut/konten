@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ee1522">
+<title>Alur Pengembangan Course — ICE Institute</title>
+  <link rel="icon" href="https://iceinstitut.github.io/image/aset/favicon_icei.png" type="image/png">
+
+  <!-- SEO -->
+  <meta name="description" content="Informasi Tim Konten ICE Institute">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Alur Pengembangan Course — ICE Institute">
+  <meta property="og:description" content="Informasi Tim Konten ICE Institute">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iceinstitut.github.io/konten/panduan/alur_course.html">
+  <meta property="og:site_name" content="ICE Institute">
+
+  <meta property="og:image" content="https://iceinstitut.github.io/konten/assets/image/alur_course.jpg">
+
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="Alur Pengembangan Course — ICE Institute">
+
+  <meta property="og:locale" content="id_ID">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alur Pengembangan Course — ICE Institute">
+  <meta name="twitter:description" content="Informasi Tim Konten ICE Institute">
+  <meta name="twitter:image" content="https://iceinstitut.github.io/konten/assets/image/alur_course.jpg"></head>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Google Fonts: Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- LeaderLine JS -->
+<script src="https://cdn.jsdelivr.net/npm/leader-line-new@1.1.9/leader-line.min.js"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            DEFAULT: '#ee1522',
+            dark: '#c70f1a',
+            light: '#fff0f1',
+          },
+          darkNavy: '#111827',
+          cardBg: '#ffffff',
+        },
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+  body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-family: 'Inter', sans-serif;
+  }
+  /* LeaderLine SVG styling z-index fix */
+  .leader-line {
+    z-index: 10 !important;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ee1522;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c70f1a;
+  }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-between">
+
+<!-- Header Navigasi -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Brand Logo -->
+      <a href="#top" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 bg-[#ee1522] rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md shadow-red-500/20 group-hover:bg-[#c70f1a] transition-colors">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div>
+          <span class="block font-black text-xl tracking-tight text-slate-900 group-hover:text-[#ee1522] transition-colors">ICE Institute</span>
+          <span class="block text-[10px] font-bold tracking-widest text-slate-500 uppercase">Course Development Flow</span>
+        </div>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
+        <a href="#peran" class="hover:text-[#ee1522] transition-colors flex items-center gap-2"><i class="fa-solid fa-users text-xs"></i> Peran</a>
+        <a href="#tahapan" class="hover:text-[#ee1522] transition-colors flex items-center gap-2"><i class="fa-solid fa-list-check text-xs"></i> Tahapan</a>
+        <a href="#diagram" class="hover:text-[#ee1522] transition-colors flex items-center gap-2"><i class="fa-solid fa-diagram-project text-xs"></i> Diagram Alur</a>
+        <a href="#komponen" class="hover:text-[#ee1522] transition-colors flex items-center gap-2"><i class="fa-solid fa-folder-tree text-xs"></i> Komponen</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="#ringkasan" class="inline-flex items-center gap-2 bg-[#ee1522] hover:bg-[#c70f1a] text-white px-5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all shadow-md shadow-red-500/20 hover:scale-105 active:scale-95">
+          <i class="fa-solid fa-[#ee1522] fa-paper-plane"></i>
+          <span>Ringkasan Alur</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-b from-red-50/60 via-slate-50 to-slate-50 py-16 sm:py-24 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100/80 border border-red-200 text-[#ee1522] text-xs font-extrabold uppercase tracking-wider mb-6">
+          <i class="fa-solid fa-compass text-sm"></i> Panduan Resmi Prosedur
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-none tracking-tight mb-6">
+          Dari Kerangka Course Hingga <span class="text-[#ee1522] underline decoration-red-200 underline-offset-8">Publish Katalog</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 font-medium leading-relaxed mb-8">
+          Alur kerja standar dalam pengembangan mata kuliah ICE Institute. Kolaborasi terintegrasi antara Dosen & Tim Pengembang, Admin Mitra, dan Kurator ICE Institute untuk menjamin kualitas course akademik terbaik.
+        </p>
+
+        <!-- Dynamic Stat Pills -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-8 h-8 rounded-lg bg-red-50 text-[#ee1522] flex items-center justify-center font-bold">
+              <i class="fa-solid fa-user-group"></i>
+            </div>
+            <div>
+              <span class="block text-xs font-bold text-slate-400 uppercase">Aktor Utama</span>
+              <span class="text-sm font-extrabold text-slate-800">3 Pihak Terlibat</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-[#ee1522] fa-clipboard-check"></i>
+            </div>
+            <div>
+              <span class="block text-xs font-bold text-slate-400 uppercase">Quality Control</span>
+              <span class="text-sm font-extrabold text-slate-800">2 Tahap Kurasi</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <div>
+              <span class="block text-xs font-bold text-slate-400 uppercase">Target Akhir</span>
+              <span class="text-sm font-extrabold text-slate-800">Katalog Nasional</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Peran (Actors) -->
+  <section id="peran" class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div>
+          <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-users-gears"></i> Pembagian Tugas</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Tiga Pihak, Satu Tujuan</h2>
+        </div>
+        <p class="text-slate-500 max-w-md text-sm font-medium">Setiap entitas memiliki tanggung jawab spesifik untuk memastikan materi sesuai standar kualitas nasional.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Actor 1 -->
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-[#ee1522] transition-all shadow-sm hover:shadow-xl group">
+          <div class="flex items-center gap-4 mb-5">
+            <div class="w-20 h-20 rounded-xl bg-[#ee1522] text-white flex items-center justify-center text-4xl shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-user-pen"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-black uppercase text-[#ee1522] tracking-wider block">Tim Kreatif</span>
+              <h3 class="text-lg font-extrabold text-slate-900">Dosen dan Tim</h3>
+            </div>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Pengembang konten pembelajaran utama. Bertanggung jawab menyusun struktur topik, video trailer, materi bacaan, kuis, dan melakukan revisi jika ada rekomendasi kurator.
+          </p>
+        </div>
+
+        <!-- Actor 2 -->
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-600 transition-all shadow-sm hover:shadow-xl group">
+          <div class="flex items-center gap-4 mb-5">
+            <div class="w-20 h-20 rounded-xl bg-blue-600 text-white flex items-center justify-center text-4xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-building-user"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-black uppercase text-blue-600 tracking-wider block">Validasi Internal</span>
+              <h3 class="text-lg font-extrabold text-slate-900">Admin Mitra</h3>
+            </div>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Menerima penugasan resmi, membuat kerangka course di sistem, menugaskan dosen, memvalidasi kelayakan internal universitas, serta menentukan skema harga course.
+          </p>
+        </div>
+
+        <!-- Actor 3 -->
+        <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-emerald-600 transition-all shadow-sm hover:shadow-xl group">
+          <div class="flex items-center gap-4 mb-5">
+            <div class="w-20 h-20 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-4xl shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-[#ee1522] fa-user-secret"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-black uppercase text-emerald-600 tracking-wider block">Verifikasi Akhir</span>
+              <h3 class="text-lg font-extrabold text-slate-900">ICE Institute</h3>
+            </div>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Melakukan kurasi akhir menyeluruh terhadap aksesibilitas media, kelengkapan silabus, integritas grading, dan memberikan lisensi publikasi di katalog platform.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Tahapan Utama -->
+  <section id="tahapan" class="py-16 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-timeline"></i> Framework Kerja</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">4 Tahap Utama Pengajuan</h2>
+        <p class="text-slate-500 text-sm font-medium mt-2">Gambaran ringkas alur pengerjaan dari inisiasi hingga submission</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Step 1 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+          <div>
+            <!-- Header: Angka & Ring Ikon Menonjol -->
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                Langkah <span class="text-[#ee1522] text-sm">01</span>
+              </span>
+              <!-- Wadah Ikon Besar -->
+              <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                <i class="fa-solid fa-file-signature text-2xl"></i>
+              </div>
+            </div>
+
+            <!-- Judul & Deskripsi -->
+            <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+              Penugasan & Kerangka
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Admin Mitra menerima instruksi, membuat slot kerangka course, dan menautkan akun dosen pengampu.
+            </p>
+          </div>
+
+          <!-- Footer -->
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 uppercase tracking-wider">
+              Admin Mitra
+            </span>
+            <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-[#ee1522] transition-colors">
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+          <div>
+            <!-- Header: Nomor & Ikon Menonjol -->
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                Langkah <span class="text-[#ee1522] text-sm">02</span>
+              </span>
+              <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                <i class="fa-solid fa-box-archive text-2xl"></i>
+              </div>
+            </div>
+
+            <!-- Judul & Deskripsi -->
+            <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+              Pengisian Komponen
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Dosen melengkapi Informasi Course, profil pengembang, video pengantar, materi, serta modul asesmen.
+            </p>
+          </div>
+
+          <!-- Footer -->
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-red-50 text-[#ee1522] uppercase tracking-wider">
+              Dosen & Tim
+            </span>
+            <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-[#ee1522] transition-colors">
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+          <div>
+            <!-- Header: Nomor & Ikon Menonjol -->
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                Langkah <span class="text-[#ee1522] text-sm">03</span>
+              </span>
+              <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                <i class="fa-solid fa-sliders text-2xl"></i>
+              </div>
+            </div>
+
+            <!-- Judul & Deskripsi -->
+            <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+              Layout di Platform
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Mengunggah & menata struktur ke area Schedule & Detail, Outline Topik, dan Bobot Penilaian (Grading).
+            </p>
+          </div>
+
+          <!-- Footer -->
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 uppercase tracking-wider">
+              LMS Platform
+            </span>
+            <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-[#ee1522] transition-colors">
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+          <div>
+            <!-- Header: Nomor & Ikon Menonjol -->
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                Langkah <span class="text-[#ee1522] text-sm">04</span>
+              </span>
+              <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                <i class="fa-solid fa-paper-plane text-2xl"></i>
+              </div>
+            </div>
+
+            <!-- Judul & Deskripsi -->
+            <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+              Pengajuan Kurasi
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Mengklik tombol submit untuk memasukkan course ke pipeline pengujian Admin Mitra dan ICE Institute.
+            </p>
+          </div>
+
+          <!-- Footer -->
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-red-50 text-[#ee1522] uppercase tracking-wider">
+              Dosen & Tim
+            </span>
+            <div class="w-7 h-7 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 transition-colors">
+              <i class="fa-solid fa-check text-xs"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Diagram Alur Interaktif -->
+  <section id="diagram" class="py-16 bg-white border-b border-slate-200 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div>
+          <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-diagram-project"></i> Interactive Visual Flow</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Diagram Proses & Keputusan</h2>
+        </div>
+        
+        <!-- Legend Indicator -->
+        <div class="flex flex-wrap items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-bold">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-slate-400 inline-block"></span>
+            <span class="text-slate-600">Prosedur Normal</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+            <span class="text-slate-600">Titik Evaluasi</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+            <span class="text-slate-600">Disetujui</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-[#ee1522] inline-block"></span>
+            <span class="text-slate-600">Revisi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flow Container Canvas -->
+      <div class="bg-slate-50 rounded-3xl p-6 lg:p-10 border border-slate-200 shadow-inner relative">
+        <div id="flow-canvas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-32 relative z-20">
+          
+          <!-- Node 1 -->
+          <div id="n-start" class="bg-white rounded-2xl p-5 border-2 border-slate-200 shadow-sm relative transition-all hover:border-slate-400">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-black uppercase text-[#ee1522] tracking-wider bg-red-50 px-2 py-0.5 rounded">01 · Penugasan</span>
+              <i class="fa-solid fa-envelope text-slate-400 text-3xl"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-1">Email Penugasan</h3>
+            <p class="text-xs text-slate-500">Admin Mitra menerima atau menugaskan dosen pengampu via email.</p>
+          </div>
+
+          <!-- Node 2 -->
+          <div id="n-framework" class="bg-white rounded-2xl p-5 border-2 border-slate-200 shadow-sm relative transition-all hover:border-slate-400">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-black uppercase text-[#ee1522] tracking-wider bg-red-50 px-2 py-0.5 rounded">02 · Inisiasi</span>
+              <i class="fa-solid fa-[#ee1522] fa-sitemap text-slate-400 text-3xl"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-1">Kerangka Course</h3>
+            <p class="text-xs text-slate-500">Admin membuat shell kerangka course & menetapkan hak akses Dosen.</p>
+          </div>
+
+          <!-- Node 3 -->
+          <div id="n-build" class="bg-white rounded-2xl p-5 border-2 border-slate-200 shadow-sm relative transition-all hover:border-slate-400">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-black uppercase text-[#ee1522] tracking-wider bg-red-50 px-2 py-0.5 rounded">03 · Isi Konten</span>
+              <i class="fa-solid fa-[#ee1522] fa-pen-ruler text-slate-400 text-3xl"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-1">Melengkapi Komponen</h3>
+            <p class="text-xs text-slate-500">Dosen menyusun deskripsi, bio, materi bacaan, video, dan kuis.</p>
+          </div>
+
+          <!-- Node 4 -->
+          <div id="n-platform" class="bg-white rounded-2xl p-5 border-2 border-slate-200 shadow-sm relative transition-all hover:border-slate-400">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-black uppercase text-[#ee1522] tracking-wider bg-red-50 px-2 py-0.5 rounded">04 · Entri LMS</span>
+              <i class="fa-solid fa-laptop-code text-slate-400 text-3xl"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-1">Penyusunan LMS</h3>
+            <p class="text-xs text-slate-500">Input data ke Schedule, Detail, Outline, dan Pengaturan Grading.</p>
+          </div>
+
+          <!-- Node 5 -->
+          <div id="n-submit" class="bg-white rounded-2xl p-5 border-2 border-slate-200 shadow-sm relative transition-all hover:border-slate-400">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-black uppercase text-[#ee1522] tracking-wider bg-red-50 px-2 py-0.5 rounded">05 · Finalisasi</span>
+              <i class="fa-solid fa-paper-plane text-slate-400 text-3xl"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-1">Pengajuan Kurasi</h3>
+            <p class="text-xs text-slate-500">Dosen mengajukan course secara resmi untuk ditinjau.</p>
+          </div>
+
+          <!-- Node 6 (Decision 1) -->
+          <div id="n-partner-review" class="bg-amber-50 rounded-2xl p-5 border-2 border-amber-400 shadow-sm relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-black uppercase text-amber-700 bg-amber-100 px-2 py-0.5 rounded flex items-center gap-1">
+                <i class="fa-solid fa-scale-balanced"></i> 06 · Kurasi 1
+              </span>
+              <i class="fa-solid fa-building-circle-check text-amber-600 text-3xl"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-1">Review Admin Mitra</h3>
+            <p class="text-xs text-slate-600 mb-3">Pemeriksaan kesesuaian standar internal mitra & penentuan harga.</p>
+            <div class="grid grid-cols-2 gap-2 text-[11px] font-bold">
+              <div id="n-tidak-lolos-kurasi-1"class="bg-red-100 text-red-800 p-2 rounded-lg">
+                <i class="fa-solid fa-[#ee1522] fa-xmark text-[#ee1522]"></i> Belum: Minta Revisi
+              </div>
+              <div id="n-lolos-kurasi-1" class="bg-emerald-100 text-emerald-800 p-2 rounded-lg">
+                <i class="fa-solid fa-check text-emerald-600"></i> Lolos: Input Harga
+              </div>
+            </div>
+          </div>
+
+          <!-- Node Return (Revisi) -->
+          <div id="n-return" class="lg:col-span-2 bg-red-50 rounded-2xl p-5 border-2 border-red-300 shadow-sm relative flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-[#ee1522] text-white flex-shrink-0 flex items-center justify-center text-3xl">
+              <i class="fa-solid fa-[#ee1522] fa-rotate-left"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-black uppercase text-[#ee1522] tracking-wider">Jalur Revisi / Penyesuaian</span>
+              <h3 class="text-sm font-extrabold text-slate-900">Pengembalian Course ke Dosen</h3>
+              <p class="text-xs text-slate-600">Jika catatan rekomendasi kurator diterbitkan, course kembali ke Dosen & Tim untuk disempurnakan sebelum diajukan ulang.</p>
+            </div>
+          </div>
+
+          <!-- Node 7 (Decision 2) -->
+          <div id="n-ice-review" class="bg-amber-50 rounded-2xl p-5 border-2 border-amber-400 shadow-sm relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-black uppercase text-amber-700 bg-amber-100 px-2 py-0.5 rounded flex items-center gap-1">
+                <i class="fa-solid fa-scale-balanced"></i> 07 · Kurasi 2
+              </span>
+              <i class="fa-solid fa-[#ee1522] fa-user-shield text-amber-600 text-3xl"></i>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-1">Review ICE Institute</h3>
+            <p class="text-xs text-slate-600 mb-3">Uji kelengkapan media, hak cipta, dan aksesibilitas platform.</p>
+            <div class="grid grid-cols-2 gap-2 text-[11px] font-bold">
+              <div id="n-tidak-lolos-kurasi-2"class="bg-red-100 text-red-800 p-2 rounded-lg">
+                <i class="fa-solid fa-[#ee1522] fa-xmark text-[#ee1522]"></i> Tolak: Minta Revisi
+              </div>
+              <div id="n-lolos-kurasi-2"class="bg-emerald-100 text-emerald-800 p-2 rounded-lg">
+                <i class="fa-solid fa-check text-emerald-600"></i> Lolos: Ke Katalog
+              </div>
+            </div>
+          </div>
+
+          <!-- Node 8 (Success End) -->
+          <div id="n-publish" class="lg:col-span-3 bg-emerald-50 rounded-2xl p-5 border-2 border-emerald-500 shadow-md relative flex items-center gap-4">
+            <div class="w-16 h-16 rounded-xl bg-emerald-500 text-white flex-shrink-0 flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/30">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-black uppercase text-emerald-700 tracking-wider">08 · Finish Line</span>
+              <h3 class="text-base font-extrabold text-slate-900">Publish di Katalog ICE Institute</h3>
+              <p class="text-xs text-slate-600">Course resmi aktif dan dapat diakses oleh mahasiswa serta masyarakat umum secara nasional.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-8 bg-white/80 backdrop-blur rounded-xl p-4 border border-slate-200 text-xs text-slate-500 flex items-center gap-3">
+          <i class="fa-solid fa-circle-info text-[#ee1522] text-base"></i>
+          <span><strong>Catatan Penting:</strong> Garis penghubung dinamis di atas menyesuaikan secara otomatis. Tampilan garis otomatis tersembunyi pada layar smartphone agar tampilan tetap rapi.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Komponen Detail -->
+  <section id="komponen" class="py-16 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div>
+          <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-list-check"></i> Checklist Berkas</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Komponen Yang Harus Disiapkan</h2>
+        </div>
+        <p class="text-slate-500 max-w-md text-sm font-medium">Pastikan seluruh materi berikut lengkap sebelum menekan tombol pengajuan kurasi.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Accordion 1 -->
+        <details class="group bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden transition-all duration-300 open:border-red-400" open>
+          <summary class="flex items-center justify-between p-5 cursor-pointer select-none bg-white group-open:bg-red-50/50 transition-colors">
+            <div class="flex items-center gap-3">
+              <div class="w-20 h-20 text-4xl rounded-xl bg-red-100 text-[#ee1522] flex items-center justify-center font-bold">
+                <i class="fa-solid fa-book-bookmark"></i>
+              </div>
+              <h3 class="font-extrabold text-slate-900 text-base">Informasi Course</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <div class="p-5 pt-2 border-t border-slate-100">
+            <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Video Trailer Pengantar</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Deskripsi & Short Description</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran (CPL)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Estimasi Total Waktu Belajar</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Silabus, Peta Konsep, & Alur</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Daftar Pustaka / Referensi</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Skema & Informasi Penilaian</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nilai Minimum Kelulusan</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Tanggal Mulai & Berakhir</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Bahasa Pengantar & Card Image</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Accordion 2 -->
+        <details class="group bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden transition-all duration-300 open:border-blue-400" open>
+          <summary class="flex items-center justify-between p-5 cursor-pointer select-none bg-white group-open:bg-blue-50/50 transition-colors">
+            <div class="flex items-center gap-3">
+              <div class="w-20 h-20 text-4xl rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                <i class="fa-solid fa-id-card"></i>
+              </div>
+              <h3 class="font-extrabold text-slate-900 text-base">Profil Pengembang</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <div class="p-5 pt-2 border-t border-slate-100">
+            <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nama Lengkap & Gelar</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Foto Profil Resmi (Pasfoto)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Alamat Email Perguruan Tinggi</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Short Bio (Maks. 150 kata)</li>
+            </ul>
+            <div class="mt-4 p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-800">
+              <i class="fa-solid fa-[#ee1522] fa-triangle-exclamation text-amber-600"></i> <strong>Catatan Tim:</strong> Jika tim terdiri dari beberapa Dosen, seluruh profil anggota wajib diisi lengkap.
+            </div>
+          </div>
+        </details>
+
+        <!-- Accordion 3 -->
+        <details class="group bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden transition-all duration-300 open:border-emerald-400" open>
+          <summary class="flex items-center justify-between p-5 cursor-pointer select-none bg-white group-open:bg-emerald-50/50 transition-colors">
+            <div class="flex items-center gap-3">
+              <div class="w-20 h-20 text-4xl rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+              <h3 class="font-extrabold text-slate-900 text-base">Struktur Materi/Topik</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <div class="p-5 pt-2 border-t border-slate-100">
+            <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Pendahuluan Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran Spesifik Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Peta Konsep Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Teks Kalimat Instruksi</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Bacaan Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Multimedia / Video Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Assessment / Kuis Interaktif Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Ruang Forum Diskusi Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Rangkuman / Kesimpulan Sub-Topik</li>
+            </ul>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Area Platform LMS -->
+  <section class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-desktop"></i> Implementasi Sistem</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Area Pengaturan Platform</h2>
+        <p class="text-slate-500 text-sm font-medium mt-2">Penempatan komponen pada menu LMS ICE Institute</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg bg-[#ee1522] text-white flex items-center justify-center font-black text-xs">01</span>
+              <h3 class="font-extrabold text-slate-900 text-base">Schedule and Detail</h3>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">
+              Mengatur identitas umum course, durasi waktu, jadwal pelaksanaan, bahasa, banner course card, serta biodata profil pengembang.
+            </p>
+          </div>
+          <div class="bg-white p-3 rounded-xl border border-slate-200 text-sm text-slate-600 font-bold">
+            <i class="fa-solid fa-[#ee1522] fa-gear text-[#ee1522] mr-1"></i> Pengaturan Metadata Utama Seperti:
+            <ul class="space-y-2.5 text-sm text-slate-600 font-medium mt-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Tanggal Mulai & Berakhir</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Bentuk Pembelajaran</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Bahasa Pengantar</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Deskripsi & Short Description</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran (CPL)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Syarat</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Informasi Promosi yang lain</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nama, Foto, Email & Short Bio Pengembang</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Card Image</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Video Trailer Pengantar</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Estimasi Total Waktu Belajar</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg bg-[#ee1522] text-white flex items-center justify-center font-black text-xs">02</span>
+              <h3 class="font-extrabold text-slate-900 text-base">Outline Course</h3>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">
+              Menata hierarki modul, video trailer pengantar, silabus, bab/topik, materi bacaan, video multimedia, hingga forum diskusi.
+            </p>
+          </div>
+          <div class="bg-white p-3 rounded-xl border border-slate-200 text-sm text-slate-600 font-bold">
+            <i class="fa-solid fa-[#ee1522] fa-[#ee1522] fa-list-ol text-[#ee1522] mr-1"></i> Pengenalan Course
+            <ul class="space-y-2.5 text-sm text-slate-600 font-medium mt-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Video Trailer Pengantar</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Deskripsi & Short Description</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran (CPL)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Estimasi Total Waktu Belajar</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Silabus, Peta Konsep, & Alur</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Syarat</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Daftar Pustaka / Referensi</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Skema & Informasi Penilaian</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nilai Minimum Kelulusan</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nama, Foto, Email & Short Bio Pengembang</li>
+            </ul>
+            <i class="fa-solid fa-[#ee1522] fa-[#ee1522] fa-list-ol text-[#ee1522] mr-1 mt-8 mb-2"></i> Topik Pembelajaran
+            <ul class="space-y-2.5 text-sm text-slate-600 font-medium">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Pendahuluan Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran Spesifik Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Peta Konsep Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Teks Kalimat Instruksi</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Bacaan Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Multimedia / Video Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Assessment / Kuis Interaktif Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Ruang Forum Diskusi Sub-Topik</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Rangkuman / Kesimpulan Sub-Topik</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg bg-[#ee1522] text-white flex items-center justify-center font-black text-xs">03</span>
+              <h3 class="font-extrabold text-slate-900 text-base">Grading / Penilaian</h3>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">
+              Menentukan ambang nilai batas lulus (passing grade), pembobotan kuis/tugas, serta mengaitkan modul assessment ke nilai akhir.
+            </p>
+          </div>
+          <div class="bg-white p-3 rounded-xl border border-slate-200 text-sm text-slate-600 font-bold">
+            <i class="fa-solid fa-[#ee1522] fa-calculator text-[#ee1522] mr-1"></i> Bobot Nilai & Kelulusan
+            <ul class="space-y-2.5 text-sm text-slate-600 font-medium mt-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Atur nilai minimum lulus</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Atur komponen penilaian untuk nilai akhir</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Hubungkan assessment dengan komponen penilaian</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Call To Action -->
+  <section id="ringkasan" class="py-16 bg-[#111827] text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div>
+          <span class="inline-flex items-center gap-2 text-xs font-black text-red-400 uppercase tracking-widest mb-3">
+            <i class="fa-solid fa-flag-checkered"></i> Siap Memulai Pengembangan?
+          </span>
+          <h2 class="text-2xl sm:text-4xl font-black tracking-tight mb-3">Course Lengkap, Tersusun, Lalu Dikurasi.</h2>
+          <p class="text-slate-400 text-sm max-w-2xl">
+            Pastikan seluruh komponen dari awal hingga akhir telah sesuai panduan agar proses verifikasi di Admin Mitra maupun ICE Institute berjalan cepat dan lancar.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-4 flex-shrink-0">
+          <a href="#diagram" class="bg-[#ee1522] hover:bg-[#c70f1a] text-white px-6 py-3.5 rounded-full text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-red-600/30 flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up"></i>
+            <span>Kembali Ke Diagram Alur</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-slate-400 py-8 text-xs border-t border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-6 h-6 rounded bg-[#ee1522] text-white flex items-center justify-center font-bold text-xs">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <span class="font-bold text-slate-200">ICE Institute</span>
+      <span class="text-slate-600">|</span>
+      <span>Sistem Alur Pengembangan Course Akademik</span>
+    </div>
+    <div>
+      <span>&copy; 2026 ICE Institute. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  // Opsi Tema Garis Hubung Visual
+  const LINE_THEMES = {
+    DEFAULT: {
+      color: '#94a3b8',
+      size: 2.5,
+      path: 'fluid',
+      endPlug: 'arrow3',
+      endPlugSize: 2
+    },
+    RETURN: {
+      color: '#ee1522',
+      size: 2.5,
+      path: 'grid',
+      startPlug: 'disc',
+      startPlugSize: 2,
+      endPlug: 'arrow3',
+      endPlugSize: 2,
+      dash: { len: 8, gap: 8 }
+    },
+    SUCCESS: {
+      color: '#10b981',
+      size: 3,
+      path: 'fluid',
+      endPlug: 'arrow3',
+      endPlugSize: 3
+    }
+  };
+
+  // Batas minimum lebar layar desktop untuk memuat garis hubung
+  const MIN_DESKTOP_WIDTH = 1024;
+
+  // Definisi Jalur Koneksi Antar Node Diagram
+  const lineDefinitions = [
+    { from: 'n-start',          to: 'n-framework',      fromSide: 'right',  toSide: 'left'   },
+    { from: 'n-framework',      to: 'n-build',          fromSide: 'right',  toSide: 'left'   },
+    { from: 'n-build',          to: 'n-platform',       fromSide: 'bottom', toSide: 'top'    },
+    { from: 'n-platform',       to: 'n-submit',         fromSide: 'right',  toSide: 'left'   },
+    { from: 'n-submit',         to: 'n-partner-review', fromSide: 'right', toSide: 'left'    },
+    { from: 'n-lolos-kurasi-1', to: 'n-ice-review',     fromSide: 'bottom',  toSide: 'top'   },
+    { from: 'n-tidak-lolos-kurasi-1', to: 'n-return',     fromSide: 'bottom',  toSide: 'top', type: 'RETURN'  },
+    { from: 'n-lolos-kurasi-2',     to: 'n-publish',        fromSide: 'bottom', toSide: 'top', type: 'SUCCESS' },
+    { from: 'n-tidak-lolos-kurasi-2', to: 'n-return',     fromSide: 'left',  toSide: 'right', type: 'RETURN'  },
+    { from: 'n-return',         to: 'n-build',          fromSide: 'bottom',    toSide: 'right', type: 'RETURN'  }
+  ];
+
+  let activeLines = [];
+  let resizeAnimationFrame = null;
+
+  function clearLines() {
+    activeLines.forEach((line) => {
+      try {
+        line.remove();
+      } catch (_) {}
+    });
+    activeLines = [];
+  }
+
+  function getAnchorPoint(element, socketSide) {
+    if (!window.LeaderLine || !element) return element;
+    const width = element.offsetWidth;
+    const height = element.offsetHeight;
+
+    const anchors = {
+      left:   LeaderLine.pointAnchor(element, { x: 0, y: height / 2 }),
+      right:  LeaderLine.pointAnchor(element, { x: width, y: height / 2 }),
+      top:    LeaderLine.pointAnchor(element, { x: width / 2, y: 0 }),
+      bottom: LeaderLine.pointAnchor(element, { x: width / 2, y: height })
+    };
+
+    return anchors[socketSide] || element;
+  }
+
+  function getLineConfig(def) {
+    let baseTheme = LINE_THEMES.DEFAULT;
+    if (def.type && LINE_THEMES[def.type]) {
+      baseTheme = LINE_THEMES[def.type];
+    }
+
+    return {
+      ...baseTheme,
+      startSocket: def.fromSide,
+      endSocket: def.toSide,
+      startPlug: 'behind',
+      dropShadow: false
+    };
+  }
+
+  function initLines() {
+    clearLines();
+
+    // Jangan menggambar garis jika di layar HP/Tablet (agar tidak berantakan)
+    if (!window.LeaderLine || window.innerWidth < MIN_DESKTOP_WIDTH) return;
+
+    lineDefinitions.forEach((def) => {
+      const fromEl = document.getElementById(def.from);
+      const toEl = document.getElementById(def.to);
+
+      if (!fromEl || !toEl) return;
+
+      try {
+        const startAnchor = getAnchorPoint(fromEl, def.fromSide);
+        const endAnchor = getAnchorPoint(toEl, def.toSide);
+        const options = getLineConfig(def);
+
+        const line = new LeaderLine(startAnchor, endAnchor, options);
+        activeLines.push(line);
+      } catch (error) {
+        console.warn(`[LeaderLine] Tidak dapat menyambungkan ${def.from} ke ${def.to}:`, error);
+      }
+    });
+  }
+
+  function updatePositions() {
+    cancelAnimationFrame(resizeAnimationFrame);
+    resizeAnimationFrame = requestAnimationFrame(() => {
+      if (!window.LeaderLine) return;
+
+      if (window.innerWidth < MIN_DESKTOP_WIDTH) {
+        if (activeLines.length > 0) clearLines();
+        return;
+      }
+
+      if (activeLines.length === 0) {
+        initLines();
+        return;
+      }
+
+      activeLines.forEach((line) => {
+        try {
+          line.position();
+        } catch (_) {}
+      });
+    });
+  }
+
+  window.addEventListener('load', () => setTimeout(initLines, 300));
+  window.addEventListener('resize', updatePositions, { passive: true });
+  window.addEventListener('orientationchange', () => setTimeout(updatePositions, 300), { passive: true });
+
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(updatePositions);
+    window.addEventListener('load', () => {
+      const flowCanvas = document.getElementById('flow-canvas');
+      if (flowCanvas) observer.observe(flowCanvas);
+    });
+  }
+})();
+</script>
+</body>
+</html>
