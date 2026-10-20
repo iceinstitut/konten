@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-50">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alur Pengembangan Course — ICE Institute</title>
+  <link rel="icon" href="https://iceinstitut.github.io/image/aset/favicon_icei.png" type="image/png">
+
+  <!-- SEO -->
+  <meta name="description" content="Informasi Tim Konten ICE Institute">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Alur Pengembangan Course — ICE Institute">
+  <meta property="og:description" content="Informasi Tim Konten ICE Institute">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iceinstitut.github.io/konten/panduan/alur_course.html">
+  <meta property="og:site_name" content="ICE Institute">
+
+  <meta property="og:image" content="https://iceinstitut.github.io/konten/assets/image/alur_course.jpg">
+
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="Alur Pengembangan Course — ICE Institute">
+
+  <meta property="og:locale" content="id_ID">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alur Pengembangan Course — ICE Institute">
+  <meta name="twitter:description" content="Informasi Tim Konten ICE Institute">
+  <meta name="twitter:image" content="https://iceinstitut.github.io/konten/assets/image/alur_course.jpg">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap ICON -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- jsPlumb Community Edition CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
+    <script>
+        tailwind.config = {
+theme: {
+extend: {
+colors: {
+ice: {
+50: '#fff1f2',
+100: '#ffe4e6',
+500: '#ee1522',
+600: '#d90f1b',
+700: '#b90c17',
+900: '#7e0810',
+}
+},
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+}
+}
+}
+}
+</script>
+    <style>
+        html,
+body {
+font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+height: 8px;
+width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+background: #f1f5f9;
+border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+background: #cbd5e1;
+border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+background: #94a3b8;
+}
+
+.node-card {
+transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+z-index: 2;
+}
+
+.node-card:hover {
+transform: translateY(-2px);
+}
+
+/* Pan & Zoom Canvas Styles */
+.viewport-container {
+cursor: grab;
+user-select: none;
+touch-action: none;
+}
+
+.viewport-container:active {
+cursor: grabbing;
+}
+
+.bg-grid-pattern {
+background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+background-size: 24px 24px;
+}
+
+/* Styling Overlay Label jsPlumb */
+.jsplumb-custom-label {
+font-size: 10px;
+font-weight: 700;
+padding: 3px 8px;
+border-radius: 6px;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+z-index: 10;
+}
+
+.label-revisi-mitra {
+background-color: #fef3c7;
+color: #b45309;
+border: 1px solid #f59e0b;
+}
+
+.label-revisi-ice {
+background-color: #ffe4e6;
+color: #b90c17;
+border: 1px solid #ee1522;
+}
+
+/* Styling jsPlumb Connections Container */
+.jtk-connector {
+z-index: 1;
+}
+
+.jtk-overlay {
+z-index: 5;
+}
+</style>
+</head>
+
+<body class="min-h-screen text-slate-800 flex flex-col antialiased bg-slate-50 select-none">
+    <!-- Header Navigasi -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+        <nav class="w-full py-2.5 px-3 lg:px-6">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between">
+                <!-- Logo Brand -->
+                <a class="flex items-center flex-shrink-0 mr-4" href="https://icei.ac.id/" aria-label="ICE Institute">
+                    <img src="https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png" alt="ICE Institute" class="h-10 lg:h-11 w-auto object-contain" onerror="this.src='https://placehold.co/180x44/004B87/FFFFFF?text=ICE+Institute'">
+                </a>
+                <!-- Mobile Hamburger Button -->
+                <button id="navbarToggler" type="button" class="lg:hidden p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-list text-2xl"></i>
+                </button>
+                <!-- Collapsible Menu Wrapper -->
+                <div id="navbarContent" class="hidden w-full lg:flex lg:w-auto lg:flex-1 lg:items-center lg:justify-between mt-3 lg:mt-0">
+                    <!-- Search Input Bar -->
+                    <div class="flex-grow mb-3 lg:mb-0">
+                        <form id="catalogSearchForm" class="relative flex items-center w-full" role="search" method="get" action="https://lms.icei.ac.id/learn/courses/">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                <i class="bi bi-search text-gray-400"></i>
+                            </div>
+                            <input type="search" id="catalogSearch" name="q" class="w-full pl-10 pr-4 py-2 bg-gray-100 hover:bg-gray-50 focus:bg-white text-sm text-gray-800 rounded-full border border-transparent focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all placeholder-gray-500" placeholder="What would you like to learn today?" autocomplete="off">
+                        </form>
+                    </div>
+                    <!-- Navigation Links -->
+                    <ul class="flex flex-col lg:flex-row space-y-1 lg:space-y-0 lg:space-x-1 mb-3 lg:mb-0 font-medium text-sm">
+                        <li>
+                            <a class="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-100 lg:hover:bg-gray-100 rounded-full transition-colors" href="https://lms.icei.ac.id/learn/courses/" data-nav="courses">Courses</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-100 lg:hover:bg-gray-100 rounded-full transition-colors" href="https://lms.icei.ac.id/learn/partner/" data-nav="partner">Partner</a>
+                        </li>
+                    </ul>
+                    <!-- Action Controls: Cart, Notification, User Avatar -->
+                    <div class="flex items-center space-x-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-gray-100 justify-end">
+                        <!-- Cart Button -->
+                        <a href="https://lms.icei.ac.id/learn/cart/" class="relative p-2.5 text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors flex items-center justify-center flex-shrink-0" aria-label="Keranjang">
+                            <i class="bi bi-cart3 text-lg leading-none"></i>
+                            <span id="cartBadge" class="absolute top-0 right-0 transform translate-x-1 -translate-y-1 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">
+                                <span class="cart-count">3</span>
+                            </span>
+                        </a>
+                        <!-- Notification Dropdown Container -->
+                        <div class="relative flex-shrink-0">
+                            <button type="button" class="relative p-2.5 text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors flex items-center justify-center" id="notifBell" aria-haspopup="true" aria-expanded="false" aria-label="Notifikasi">
+                                <i class="bi bi-bell text-lg leading-none"></i>
+                                <span id="notifBadge" class="absolute top-0 right-0 transform translate-x-1 -translate-y-1 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">2</span>
+                            </button>
+                            <!-- Notification Panel -->
+                            <div id="notifMenu" class="hidden absolute right-0 mt-2 w-80 max-h-[70vh] bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50 overflow-hidden flex-col">
+                                <div class="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 bg-gray-50/50">
+                                    <strong class="text-xs font-semibold text-gray-800 uppercase tracking-wider">Notifications</strong>
+                                    <a href="#" id="notifMarkAll" class="text-xs text-red-600 hover:text-red-700 font-medium">Mark all read</a>
+                                </div>
+                                <div id="notifList" class="overflow-y-auto divide-y divide-gray-100 max-h-64">
+                                    <div class="text-center text-gray-400 py-6 text-xs">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- User Avatar Dropdown Container -->
+                        <div class="relative flex-shrink-0">
+                            <a href="#" id="user-menu-avatar" class="user-avatar relative flex items-center justify-center w-9 h-9 rounded-full bg-red-600 text-white font-semibold text-sm hover:ring-2 hover:ring-blue-400 transition-all overflow-hidden" role="button" aria-haspopup="true" aria-expanded="false" aria-label="User menu">
+                                <span id="user-menu-initials" class="user-avatar-initials">icei</span>
+                                <img id="user-menu-photo" src="" alt="Profile" class="user-avatar-photo hidden w-full h-full object-cover">
+                                <span class="user-avatar-status absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full" aria-hidden="true"></span>
+                            </a>
+                            <!-- User Menu Dropdown -->
+                            <div id="userMenu" class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50 text-sm">
+                                <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors" href="https://lms.icei.ac.id/profile/">
+                                    <i class="bi bi-person mr-2.5 text-gray-400"></i>Profile
+                                </a>
+                                <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors" href="https://lms.icei.ac.id/learn/payment-history/">
+                                    <i class="bi bi-cart mr-2.5 text-gray-400"></i>Order History
+                                </a>
+                                <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors" href="https://lms.icei.ac.id/learn/">
+                                    <i class="bi bi-book mr-2.5 text-gray-400"></i>My courses
+                                </a>
+                                <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors" href="https://lms.icei.ac.id/help/">
+                                    <i class="bi bi-question-circle mr-2.5 text-gray-400"></i>Help
+                                </a>
+                                <div class="my-1 border-t border-gray-100"></div>
+                                <a class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors" href="#" id="themeToggle">
+                                    <i class="bi bi-moon-stars mr-2.5 text-gray-400"></i>Mode
+                                </a>
+                                <div class="my-1 border-t border-gray-100"></div>
+                                <a class="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 transition-colors" href="https://lms.icei.ac.id/login">
+                                    <i class="bi bi-box-arrow-in-right mr-2.5 text-red-500"></i>Login
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section class="relative bg-gradient-to-b from-red-50/60 via-slate-50 to-slate-50 py-16 sm:py-24 border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100/80 border border-red-200 text-[#ee1522] text-xs font-extrabold uppercase tracking-wider mb-6">
+                    <i class="fa-solid fa-compass text-sm"></i> Panduan Resmi Prosedur
+                </div>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-none tracking-tight mb-6">
+                    Dari Kerangka Course Hingga <span class="text-[#ee1522] underline decoration-red-200 underline-offset-8">Publish Katalog</span>
+                </h1>
+                <p class="text-base sm:text-lg text-slate-600 font-medium leading-relaxed mb-8">
+                    Alur kerja standar dalam pengembangan mata kuliah ICE Institute. Kolaborasi terintegrasi antara Dosen & Tim Pengembang, Admin Mitra, dan Kurator ICE Institute untuk menjamin kualitas course akademik terbaik.
+                </p>
+                <!-- Dynamic Stat Pills -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="w-8 h-8 rounded-lg bg-red-50 text-[#ee1522] flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-user-group"></i>
+                        </div>
+                        <div>
+                            <span class="block text-xs font-bold text-slate-400 uppercase">Aktor Utama</span>
+                            <span class="text-sm font-extrabold text-slate-800">3 Pihak Terlibat</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-[#ee1522] fa-clipboard-check"></i>
+                        </div>
+                        <div>
+                            <span class="block text-xs font-bold text-slate-400 uppercase">Quality Control</span>
+                            <span class="text-sm font-extrabold text-slate-800">2 Tahap Kurasi</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <div>
+                            <span class="block text-xs font-bold text-slate-400 uppercase">Target Akhir</span>
+                            <span class="text-sm font-extrabold text-slate-800">Katalog Nasional</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Peran (Actors) -->
+    <section id="peran" class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+                <div>
+                    <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-users-gears"></i> Pembagian Tugas</span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Tiga Pihak, Satu Tujuan</h2>
+                </div>
+                <p class="text-slate-500 max-w-md text-sm font-medium">Setiap entitas memiliki tanggung jawab spesifik untuk memastikan materi sesuai standar kualitas nasional.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Actor 1 -->
+                <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-[#ee1522] transition-all shadow-sm hover:shadow-xl group">
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-20 h-20 rounded-xl bg-[#ee1522] text-white flex items-center justify-center text-4xl shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-user-pen"></i>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-black uppercase text-[#ee1522] tracking-wider block">Tim Kreatif</span>
+                            <h3 class="text-lg font-extrabold text-slate-900">Dosen dan Tim</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Pengembang konten pembelajaran utama. Bertanggung jawab menyusun struktur topik, video trailer, materi bacaan, kuis, dan melakukan revisi jika ada rekomendasi kurator.
+                    </p>
+                </div>
+                <!-- Actor 2 -->
+                <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-600 transition-all shadow-sm hover:shadow-xl group">
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-20 h-20 rounded-xl bg-blue-600 text-white flex items-center justify-center text-4xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-building-user"></i>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-black uppercase text-blue-600 tracking-wider block">Validasi Internal</span>
+                            <h3 class="text-lg font-extrabold text-slate-900">Admin Mitra</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Menerima penugasan resmi, membuat kerangka course di sistem, menugaskan dosen, memvalidasi kelayakan internal universitas, serta menentukan skema harga course.
+                    </p>
+                </div>
+                <!-- Actor 3 -->
+                <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-emerald-600 transition-all shadow-sm hover:shadow-xl group">
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-20 h-20 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-4xl shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-[#ee1522] fa-user-secret"></i>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-black uppercase text-emerald-600 tracking-wider block">Verifikasi Akhir</span>
+                            <h3 class="text-lg font-extrabold text-slate-900">ICE Institute</h3>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Melakukan kurasi akhir menyeluruh terhadap aksesibilitas media, kelengkapan silabus, integritas grading, dan memberikan lisensi publikasi di katalog platform.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Tahapan Utama -->
+    <section id="tahapan" class="py-16 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-timeline"></i> Framework Kerja</span>
+                <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">4 Tahap Utama Pengajuan</h2>
+                <p class="text-slate-500 text-sm font-medium mt-2">Gambaran ringkas alur pengerjaan dari inisiasi hingga submission</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+                    <div>
+                        <!-- Header: Angka & Ring Ikon Menonjol -->
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                                Langkah <span class="text-[#ee1522] text-sm">01</span>
+                            </span>
+                            <!-- Wadah Ikon Besar -->
+                            <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                                <i class="fa-solid fa-file-signature text-2xl"></i>
+                            </div>
+                        </div>
+                        <!-- Judul & Deskripsi -->
+                        <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+                            Penugasan & Kerangka
+                        </h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Admin Mitra menerima instruksi, membuat slot kerangka course, dan menautkan akun dosen pengampu.
+                        </p>
+                    </div>
+                    <!-- Footer -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 uppercase tracking-wider">
+                            Admin Mitra
+                        </span>
+                        <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-[#ee1522] transition-colors">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+                    <div>
+                        <!-- Header: Nomor & Ikon Menonjol -->
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                                Langkah <span class="text-[#ee1522] text-sm">02</span>
+                            </span>
+                            <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                                <i class="fa-solid fa-box-archive text-2xl"></i>
+                            </div>
+                        </div>
+                        <!-- Judul & Deskripsi -->
+                        <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+                            Pengisian Komponen
+                        </h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Dosen melengkapi Informasi Course, profil pengembang, video pengantar, materi, serta modul asesmen.
+                        </p>
+                    </div>
+                    <!-- Footer -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-red-50 text-[#ee1522] uppercase tracking-wider">
+                            Dosen & Tim
+                        </span>
+                        <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-[#ee1522] transition-colors">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+                    <div>
+                        <!-- Header: Nomor & Ikon Menonjol -->
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                                Langkah <span class="text-[#ee1522] text-sm">03</span>
+                            </span>
+                            <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                                <i class="fa-solid fa-sliders text-2xl"></i>
+                            </div>
+                        </div>
+                        <!-- Judul & Deskripsi -->
+                        <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+                            Layout di Platform
+                        </h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Mengunggah & menata struktur ke area Schedule & Detail, Outline Topik, dan Bobot Penilaian (Grading).
+                        </p>
+                    </div>
+                    <!-- Footer -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 uppercase tracking-wider">
+                            LMS Platform
+                        </span>
+                        <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-[#ee1522] transition-colors">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative flex flex-col justify-between hover:border-red-300 transition-all duration-300 group">
+                    <div>
+                        <!-- Header: Nomor & Ikon Menonjol -->
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-black tracking-widest text-slate-400 uppercase">
+                                Langkah <span class="text-[#ee1522] text-sm">04</span>
+                            </span>
+                            <div class="w-14 h-14 rounded-2xl bg-red-50 text-[#ee1522] flex items-center justify-center border-2 border-red-100 group-hover:scale-110 group-hover:bg-[#ee1522] group-hover:text-white transition-all duration-300 shadow-sm">
+                                <i class="fa-solid fa-paper-plane text-2xl"></i>
+                            </div>
+                        </div>
+                        <!-- Judul & Deskripsi -->
+                        <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+                            Pengajuan Kurasi
+                        </h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Mengklik tombol submit untuk memasukkan course ke pipeline pengujian Admin Mitra dan ICE Institute.
+                        </p>
+                    </div>
+                    <!-- Footer -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-red-50 text-[#ee1522] uppercase tracking-wider">
+                            Dosen & Tim
+                        </span>
+                        <div class="w-7 h-7 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 transition-colors">
+                            <i class="fa-solid fa-check text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Diagram Alur Interaktif -->
+    <section id="diagram" class="py-16 bg-white border-b border-slate-200 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+                <div>
+                    <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-diagram-project"></i> Interactive Visual Flow</span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Diagram Proses & Keputusan</h2>
+                </div>
+                <!-- Legend Indicator -->
+                <div class="flex flex-wrap items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs font-bold">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-slate-400 inline-block"></span>
+                        <span class="text-slate-600">Prosedur Normal</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                        <span class="text-slate-600">Titik Evaluasi</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                        <span class="text-slate-600">Disetujui</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-[#ee1522] inline-block"></span>
+                        <span class="text-slate-600">Revisi</span>
+                    </div>
+                </div>
+            </div>
+            <!-- MAIN CONTENT AREA ALUR-->
+            <div class="flex-1 flex flex-col overflow-hidden max-w-7xl w-full mx-auto p-2 sm:p-4 gap-2.5 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                    </div>
+                    <!-- Path Filters & View Switcher -->
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <!-- Path Filter Dropdown -->
+                        <div class="hidden md:flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
+                            <button onclick="setPathHighlight('all')" id="filter-all" class="px-2.5 py-1.5 rounded-lg bg-white text-slate-800 shadow-xs font-bold">Semua Alur</button>
+                            <button onclick="setPathHighlight('success')" id="filter-success" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-emerald-700">Alur Sukses</button>
+                            <button onclick="setPathHighlight('mitra-revisi')" id="filter-mitra-revisi" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-amber-700">Revisi Mitra</button>
+                            <button onclick="setPathHighlight('ice-revisi')" id="filter-ice-revisi" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-ice-600">Revisi ICE</button>
+                        </div>
+                        <!-- View Switcher -->
+                        <div class="bg-slate-100 p-1 rounded-xl border border-slate-200 flex text-xs font-semibold">
+                            <button id="btn-view-swimlane" onclick="switchView('swimlane')" class="px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition-all flex items-center gap-1.5">
+                                <i class="fa-solid fa-diagram-project text-ice-500"></i>
+                                <span class="hidden sm:inline">Swimlane Diagram</span>
+                            </button>
+                            <button id="btn-view-step" onclick="switchView('step')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all flex items-center gap-1.5">
+                                <i class="fa-solid fa-list-check"></i>
+                                <span class="hidden sm:inline">Daftar Langkah</span>
+                            </button>
+                        </div>
+                        <button onclick="resetView()" class="p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200 transition" title="Center / Reset View">
+                            <i class="fa-solid fa-arrows-to-dot text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- VIEW 1: SWIMLANE FLOWCHART VIEW (PAN & ZOOM ENABLED) -->
+                <div id="view-swimlane" class="h-[1150px] w-full bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative bg-grid-pattern">
+                    <div class="p-2.5 bg-slate-100/90 border-b border-slate-200 flex items-center justify-between text-xs font-semibold text-slate-600 z-20 backdrop-blur-xs">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-bezier-curve text-ice-500"></i> ALUR DIAGRAM SWIMLANE (AUTOROUTED VIA JSPLUMB)</span>
+                        <span class="text-slate-500 font-normal hidden sm:inline"><i class="fa-solid fa-up-down-left-right mr-1"></i> Drag / Wheel untuk Pan & Zoom</span>
+                    </div>
+                    <!-- INTERACTIVE PAN & ZOOM VIEWPORT CONTAINER -->
+                    <div id="diagram-viewport" class="viewport-container flex-1 w-full h-full relative overflow-hidden">
+                        <!-- TRANSFORMABLE CANVAS WRAPPER -->
+                        <div id="canvas-transform-layer" class="absolute origin-top-left transition-transform ease-out duration-75">
+                            <div id="canvas-wrapper" class="w-[1100px] flex flex-col gap-6 relative p-8">
+                                <!-- VERTICAL SWIMLANES CONTAINER (3 EQUAL COLUMNS) -->
+                                <div class="grid grid-cols-3 gap-9 relative min-h-[700px]">
+                                    <!-- COLUMN 1: ADMIN MITRA -->
+                                    <div class="bg-blue-50/40 rounded-2xl p-4 border border-blue-100/80 flex flex-col justify-between backdrop-blur-xs">
+                                        <div class="mb-4">
+                                            <span class="px-3 py-1.5 bg-blue-600 text-white rounded-xl text-xs font-bold uppercase shadow-xs flex items-center justify-center gap-1.5 w-full">
+                                                <i class="fa-solid fa-user-gear text-2xl"></i> Admin Mitra
+                                            </span>
+                                        </div>
+                                        <div class="flex flex-col gap-10 justify-around flex-1">
+                                            <!-- Step 1 -->
+                                            <div id="node-step-1" onclick="openModal(1)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-blue-200 hover:border-blue-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-blue-100 text-blue-800">Langkah 1</span>
+                                                    <i class="fa-solid fa-envelope-open-text text-blue-500 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Penugasan Dosen via Email</h4>
+                                                <p class="text-[11px] text-slate-500 line-clamp-2">Verifikasi email resmi & penugasan awal Dosen.
+                                                </p>
+                                            </div>
+                                            <!-- Step 2 -->
+                                            <div id="node-step-2" onclick="openModal(2)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-blue-200 hover:border-blue-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-blue-100 text-blue-800">Langkah 2</span>
+                                                    <i class="fa-solid fa-sitemap text-blue-500 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Membuat Kerangka Course</h4>
+                                                <p class="text-[11px] text-slate-500 line-clamp-2">Buat struktur course & daftarkan Tim Dosen.</p>
+                                            </div>
+                                            <!-- Step 6 (Decision 1) -->
+                                            <div id="node-step-6" onclick="openModal(6)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-amber-300 hover:border-amber-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-1.5">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Langkah 6: Kurasi Mitra</span>
+                                                    <i class="fa-solid fa-clipboard-check text-amber-500 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Kurasi Internal Mitra</h4>
+                                                <p class="text-[11px] text-slate-500 mb-2">Evaluasi kesesuaian course oleh Mitra.</p>
+                                                <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-semibold">
+                                                    <span class="text-emerald-600"><i class="fa-solid fa-check"></i> 7.2 Sesuai</span>
+                                                    <span class="text-amber-600"><i class="fa-solid fa-xmark"></i> 7.1 Revisi</span>
+                                                </div>
+                                            </div>
+                                            <!-- Step 7.2 (Input Harga) -->
+                                            <div id="node-step-7" onclick="openModal(7)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-emerald-300 hover:border-emerald-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Langkah 7.2</span>
+                                                    <i class="fa-solid fa-tags text-emerald-600 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Input Harga Course</h4>
+                                                <p class="text-[11px] text-slate-500 line-clamp-2">Atur harga (Gratis/Berbayar) -> Kirim ke ICE.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- COLUMN 2: DOSEN & TIM PENGEMBANG -->
+                                    <div class="bg-purple-50/40 rounded-2xl p-4 border border-purple-100/80 flex flex-col justify-between backdrop-blur-xs">
+                                        <div class="mb-4">
+                                            <span class="px-3 py-1.5 bg-purple-600 text-white rounded-xl text-xs font-bold uppercase shadow-xs flex items-center justify-center gap-1.5 w-full">
+                                                <i class="fa-solid fa-user-graduate text-2xl"></i> Dosen & Tim Pengembang
+                                            </span>
+                                        </div>
+                                        <div class="flex flex-col gap-10 justify-around flex-1">
+                                            <!-- Step 3 -->
+                                            <div id="node-step-3" onclick="openModal(3)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-purple-200 hover:border-purple-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-100 text-purple-800">Langkah 3</span>
+                                                    <i class="fa-solid fa-pen-ruler text-purple-500 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Mengembangkan Course</h4>
+                                                <p class="text-[11px] text-slate-500 line-clamp-2">Info Course, Pengembang, & Materi/Topik.</p>
+                                            </div>
+                                            <!-- Step 4 -->
+                                            <div id="node-step-4" onclick="openModal(4)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-purple-200 hover:border-purple-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-100 text-purple-800">Langkah 4</span>
+                                                    <i class="fa-solid fa-laptop-code text-purple-500 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Penyusunan di Platform ICE</h4>
+                                                <p class="text-[11px] text-slate-500 line-clamp-2">Schedule, Outline, & Grading System.</p>
+                                            </div>
+                                            <!-- Step 5 -->
+                                            <div id="node-step-5" onclick="openModal(5)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-purple-200 hover:border-purple-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-100 text-purple-800">Langkah 5</span>
+                                                    <i class="fa-solid fa-paper-plane text-purple-500 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Pengajuan Kurasi Course</h4>
+                                                <p class="text-[11px] text-slate-500 line-clamp-2">Kirimkan course untuk dikurasi Admin Mitra.</p>
+                                            </div>
+                                            <div class="h-16 hidden sm:block"></div>
+                                        </div>
+                                    </div>
+                                    <!-- COLUMN 3: ICE INSTITUTE -->
+                                    <div class="bg-red-50/40 rounded-2xl p-4 border border-red-100/80 flex flex-col justify-between backdrop-blur-xs">
+                                        <div class="mb-72">
+                                            <span class="px-3 py-1.5 bg-ice-500 text-white rounded-xl text-xs font-bold uppercase shadow-xs flex items-center justify-center gap-1.5 w-full">
+                                                <i class="fa-solid fa-building-columns text-2xl"></i> ICE Institute
+                                            </span>
+                                        </div>
+                                        <div class="flex flex-col gap-10 justify-around flex-1">
+                                            <div class="h-48 hidden sm:block"></div>
+                                            <!-- Step 8 (Decision 2) -->
+                                            <div id="node-step-8" onclick="openModal(8)" class="node-card cursor-pointer bg-white rounded-xl p-3.5 border-2 border-amber-300 hover:border-amber-500 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-1.5">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Langkah 8: Kurasi ICE</span>
+                                                    <i class="fa-solid fa-shield-halved text-amber-500 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-slate-800 mb-1">Kurasi ICE Institute</h4>
+                                                <p class="text-[11px] text-slate-500 mb-2">Evaluasi kelengkapan & aksesibilitas media.</p>
+                                                <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-semibold">
+                                                    <span class="text-emerald-600"><i class="fa-solid fa-check"></i> 9.2 Lolos</span>
+                                                    <span class="text-amber-600"><i class="fa-solid fa-xmark"></i> 9.1 Tidak Lolos</span>
+                                                </div>
+                                            </div>
+                                            <!-- Step 9.2 (Publish) -->
+                                            <div id="node-step-9" onclick="openModal(9)" class="node-card cursor-pointer bg-emerald-50 rounded-xl p-3.5 border-2 border-emerald-400 hover:border-emerald-600 shadow-xs hover:shadow-md relative">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">Langkah 9.2: PUBLISH 🎉</span>
+                                                    <i class="fa-solid fa-rocket text-emerald-600 text-4xl"></i>
+                                                </div>
+                                                <h4 class="text-xs font-bold text-emerald-950 mb-1">Terbit di Katalog Utama</h4>
+                                                <p class="text-[11px] text-emerald-800 line-clamp-2">Course resmi tayang di Katalog ICE Institute.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FLOATING MOBILE & DESKTOP PAN / ZOOM TOOLBAR -->
+                        <div class="absolute bottom-5 right-5 z-30 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 p-1.5 flex items-center gap-1">
+                            <button onclick="adjustZoom(-0.15)" class="w-9 h-9 rounded-xl hover:bg-slate-100 flex items-center justify-center text-slate-700 active:scale-95 transition" title="Zoom Out (-)">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <button onclick="resetView()" class="px-2.5 h-9 rounded-xl hover:bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-700 active:scale-95 transition min-w-[50px]">
+                                <span id="zoom-indicator">100%</span>
+                            </button>
+                            <button onclick="adjustZoom(0.15)" class="w-9 h-9 rounded-xl hover:bg-slate-100 flex items-center justify-center text-slate-700 active:scale-95 transition" title="Zoom In (+)">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                            <div class="h-5 w-px bg-slate-200 mx-0.5"></div>
+                            <button onclick="fitToScreen()" class="w-9 h-9 rounded-xl bg-ice-500 text-white flex items-center justify-center shadow-xs hover:bg-ice-600 active:scale-95 transition" title="Auto-Fit Screen">
+                                <i class="fa-solid fa-expand text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- VIEW 2: STEP-BY-STEP DETAILED LIST VIEW -->
+                <div id="view-step" class="hidden flex-1 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-auto p-6">
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <!-- Step Item 1 -->
+                        <div onclick="openModal(1)" class="flex gap-4 p-4 rounded-xl border border-slate-200 hover:border-blue-400 bg-white shadow-xs transition cursor-pointer">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 font-bold flex items-center justify-center shrink-0">1
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold text-blue-600 uppercase">Admin Mitra</span>
+                                    <span class="text-slate-300">•</span>
+                                    <h3 class="font-bold text-slate-900 text-sm">Penugasan Dosen Berdasarkan Email</h3>
+                                </div>
+                                <p class="text-xs text-slate-600">Admin Mitra menerima atau menugaskan Dosen berdasarkan verifikasi email
+                                    resmi institusi.</p>
+                            </div>
+                        </div>
+                        <!-- Step Item 2 -->
+                        <div onclick="openModal(2)" class="flex gap-4 p-4 rounded-xl border border-slate-200 hover:border-blue-400 bg-white shadow-xs transition cursor-pointer">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 font-bold flex items-center justify-center shrink-0">2
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold text-blue-600 uppercase">Admin Mitra</span>
+                                    <span class="text-slate-300">•</span>
+                                    <h3 class="font-bold text-slate-900 text-sm">Membuat Kerangka Course</h3>
+                                </div>
+                                <p class="text-xs text-slate-600">Admin membuat kerangka awal course di platform dan menugaskan Dosen
+                                    beserta tim pengembang ke dalam mata kuliah tersebut.</p>
+                            </div>
+                        </div>
+                        <!-- Step Item 3 -->
+                        <div onclick="openModal(3)" class="flex gap-4 p-4 rounded-xl border border-slate-200 hover:border-purple-400 bg-white shadow-xs transition cursor-pointer">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 font-bold flex items-center justify-center shrink-0">
+                                3</div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold text-purple-600 uppercase">Dosen & Tim</span>
+                                    <span class="text-slate-300">•</span>
+                                    <h3 class="font-bold text-slate-900 text-sm">Pengembangan Komponen Course</h3>
+                                </div>
+                                <p class="text-xs text-slate-600">Dosen & Tim menyusun dan mengembangkan komponen utama:
+                                    <strong>Informasi Course</strong>, <strong>Informasi Pengembang</strong>, dan
+                                    <strong>Informasi Materi/Topik</strong>.</p>
+                            </div>
+                        </div>
+                        <!-- Step Item 4 -->
+                        <div onclick="openModal(4)" class="flex gap-4 p-4 rounded-xl border border-slate-200 hover:border-purple-400 bg-white shadow-xs transition cursor-pointer">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 font-bold flex items-center justify-center shrink-0">
+                                4</div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold text-purple-600 uppercase">Dosen & Tim</span>
+                                    <span class="text-slate-300">•</span>
+                                    <h3 class="font-bold text-slate-900 text-sm">Penyusunan di Platform ICE Institute</h3>
+                                </div>
+                                <p class="text-xs text-slate-600">Penginputan ke platform mencakup: Schedule and Detail (Jadwal & Detail),
+                                    Outline (Pengenalan & Topik), dan Grading (Informasi Penilaian).</p>
+                            </div>
+                        </div>
+                        <!-- Step Item 5 -->
+                        <div onclick="openModal(5)" class="flex gap-4 p-4 rounded-xl border border-slate-200 hover:border-purple-400 bg-white shadow-xs transition cursor-pointer">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 font-bold flex items-center justify-center shrink-0">
+                                5</div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold text-purple-600 uppercase">Dosen & Tim</span>
+                                    <span class="text-slate-300">•</span>
+                                    <h3 class="font-bold text-slate-900 text-sm">Pengajuan Kurasi</h3>
+                                </div>
+                                <p class="text-xs text-slate-600">Setelah komponen lengkap, Dosen mengajukan course secara resmi untuk
+                                    diproses kurasi oleh Admin Mitra.</p>
+                            </div>
+                        </div>
+                        <!-- Step Item 6 & 7 -->
+                        <div onclick="openModal(6)" class="flex gap-4 p-4 rounded-xl border border-amber-300 bg-amber-50/20 shadow-xs transition cursor-pointer">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0">
+                                6-7</div>
+                            <div class="space-y-2 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-blue-600 uppercase">Admin Mitra (Percabangan)</span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Evaluasi 1</span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-sm">Review Mitra & Penetapan Harga</h3>
+                                <p class="text-xs text-slate-600">Admin Mitra memeriksa kesesuaian course sesuai ketentuan internal mitra.
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                    <div class="p-2 rounded bg-red-50 border border-red-100 text-xs">
+                                        <span class="font-bold text-red-700"><i class="fa-solid fa-xmark mr-1"></i> Langkah 7.1 (Belum Sesuai):</span>
+                                        <p class="text-slate-600">Revisi kembali ke Dosen & Tim (Loop back ke Langkah 3).</p>
+                                    </div>
+                                    <div class="p-2 rounded bg-emerald-50 border border-emerald-100 text-xs">
+                                        <span class="font-bold text-emerald-700"><i class="fa-solid fa-check mr-1"></i> Langkah 7.2 (Sesuai):</span>
+                                        <p class="text-slate-600">Input harga (Gratis/Berbayar) & diteruskan ke ICE Institute.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step Item 8 & 9 -->
+                        <div onclick="openModal(8)" class="flex gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl border border-amber-300 bg-amber-50/20 shadow-xs transition cursor-pointer">
+                            <div class="w-10 h-10 rounded-xl bg-ice-100 text-ice-800 font-bold flex items-center justify-center shrink-0">
+                                8-9</div>
+                            <div class="space-y-2 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[11px] font-bold text-ice-600 uppercase">ICE Institute (Percabangan)</span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Evaluasi Final</span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-xs sm:text-sm">Kurasi & Aksesibilitas Media ICE Institute</h3>
+                                <p class="text-xs text-slate-600">ICE Institute mengecek kelengkapan serta ketersediaan/aksesibilitas media
+                                    pembelajaran.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                    <div class="p-2 rounded bg-red-50 border border-red-100 text-xs">
+                                        <span class="font-bold text-red-700"><i class="fa-solid fa-rotate-left mr-1"></i> Langkah 9.1 (Tidak Lolos):</span>
+                                        <p class="text-slate-600">Revisi kembali ke Dosen & Tim (Loop back ke Langkah 3).</p>
+                                    </div>
+                                    <div class="p-2 rounded bg-emerald-100 border border-emerald-300 text-xs">
+                                        <span class="font-bold text-emerald-800"><i class="fa-solid fa-rocket mr-1"></i> Langkah 9.2 (Lolos Kurasi):</span>
+                                        <p class="text-emerald-900">Course Published 🎉 di Katalog Utama ICE Institute.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL POPUP DETAIL -->
+            <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+                <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 relative animate-in fade-in zoom-in-95 duration-150">
+                    <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                    <div id="modal-content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Komponen Detail -->
+    <section id="komponen" class="py-16 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+                <div>
+                    <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-list-check"></i> Checklist Berkas</span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Komponen Yang Harus Disiapkan</h2>
+                </div>
+                <p class="text-slate-500 max-w-md text-sm font-medium">Pastikan seluruh materi berikut lengkap sebelum menekan tombol pengajuan kurasi.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Accordion 1 -->
+                <details class="group bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden transition-all duration-300 open:border-red-400" open>
+                    <summary class="flex items-center justify-between p-5 cursor-pointer select-none bg-white group-open:bg-red-50/50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-20 h-20 text-4xl rounded-xl bg-red-100 text-[#ee1522] flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-book-bookmark"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-base">Informasi Course</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="p-5 pt-2 border-t border-slate-100">
+                        <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Video Trailer Pengantar</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Deskripsi & Short Description</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran (CPL)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Estimasi Total Waktu Belajar</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Silabus, Peta Konsep, & Alur</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Daftar Pustaka / Referensi</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Skema & Informasi Penilaian</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nilai Minimum Kelulusan</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Tanggal Mulai & Berakhir</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Bahasa Pengantar & Card Image</li>
+                        </ul>
+                    </div>
+                </details>
+                <!-- Accordion 2 -->
+                <details class="group bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden transition-all duration-300 open:border-blue-400" open>
+                    <summary class="flex items-center justify-between p-5 cursor-pointer select-none bg-white group-open:bg-blue-50/50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-20 h-20 text-4xl rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-id-card"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-base">Profil Pengembang</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="p-5 pt-2 border-t border-slate-100">
+                        <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nama Lengkap & Gelar</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Foto Profil Resmi (Pasfoto)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Alamat Email Perguruan Tinggi</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Short Bio (Maks. 150 kata)</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-800">
+                            <i class="fa-solid fa-[#ee1522] fa-triangle-exclamation text-amber-600"></i> <strong>Catatan Tim:</strong> Jika tim terdiri dari beberapa Dosen, seluruh profil anggota wajib diisi lengkap.
+                        </div>
+                    </div>
+                </details>
+                <!-- Accordion 3 -->
+                <details class="group bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden transition-all duration-300 open:border-emerald-400" open>
+                    <summary class="flex items-center justify-between p-5 cursor-pointer select-none bg-white group-open:bg-emerald-50/50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-20 h-20 text-4xl rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-base">Struktur Materi/Topik</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="p-5 pt-2 border-t border-slate-100">
+                        <ul class="space-y-2.5 text-xs text-slate-600 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Pendahuluan Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran Spesifik Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Peta Konsep Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Teks Kalimat Instruksi</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Bacaan Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Multimedia / Video Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Assessment / Kuis Interaktif Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Ruang Forum Diskusi Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Rangkuman / Kesimpulan Sub-Topik</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+    <!-- Section Area Platform LMS -->
+    <section class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-extrabold text-[#ee1522] uppercase tracking-widest block mb-2"><i class="fa-solid fa-desktop"></i> Implementasi Sistem</span>
+                <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Area Pengaturan Platform</h2>
+                <p class="text-slate-500 text-sm font-medium mt-2">Penempatan komponen pada menu LMS ICE Institute</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-lg bg-[#ee1522] text-white flex items-center justify-center font-black text-xs">01</span>
+                            <h3 class="font-extrabold text-slate-900 text-base">Schedule and Detail</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Mengatur identitas umum course, durasi waktu, jadwal pelaksanaan, bahasa, banner course card, serta biodata profil pengembang.
+                        </p>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 text-sm text-slate-600 font-bold">
+                        <i class="fa-solid fa-[#ee1522] fa-gear text-[#ee1522] mr-1"></i> Pengaturan Metadata Utama Seperti:
+                        <ul class="space-y-2.5 text-sm text-slate-600 font-medium mt-2">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Tanggal Mulai & Berakhir</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Bentuk Pembelajaran</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Bahasa Pengantar</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Deskripsi & Short Description</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran (CPL)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Syarat</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Informasi Promosi yang lain</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nama, Foto, Email & Short Bio Pengembang</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Card Image</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Video Trailer Pengantar</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Estimasi Total Waktu Belajar</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-lg bg-[#ee1522] text-white flex items-center justify-center font-black text-xs">02</span>
+                            <h3 class="font-extrabold text-slate-900 text-base">Outline Course</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Menata hierarki modul, video trailer pengantar, silabus, bab/topik, materi bacaan, video multimedia, hingga forum diskusi.
+                        </p>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 text-sm text-slate-600 font-bold">
+                        <i class="fa-solid fa-[#ee1522] fa-[#ee1522] fa-list-ol text-[#ee1522] mr-1"></i> Pengenalan Course
+                        <ul class="space-y-2.5 text-sm text-slate-600 font-medium mt-2">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Video Trailer Pengantar</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Deskripsi & Short Description</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran (CPL)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Estimasi Total Waktu Belajar</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Silabus, Peta Konsep, & Alur</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Syarat</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Daftar Pustaka / Referensi</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Skema & Informasi Penilaian</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nilai Minimum Kelulusan</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Nama, Foto, Email & Short Bio Pengembang</li>
+                        </ul>
+                        <i class="fa-solid fa-[#ee1522] fa-[#ee1522] fa-list-ol text-[#ee1522] mr-1 mt-8 mb-2"></i> Topik Pembelajaran
+                        <ul class="space-y-2.5 text-sm text-slate-600 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Pendahuluan Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Capaian Pembelajaran Spesifik Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Peta Konsep Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Teks Kalimat Instruksi</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Bacaan Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Materi Multimedia / Video Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Assessment / Kuis Interaktif Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Ruang Forum Diskusi Sub-Topik</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Rangkuman / Kesimpulan Sub-Topik</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-lg bg-[#ee1522] text-white flex items-center justify-center font-black text-xs">03</span>
+                            <h3 class="font-extrabold text-slate-900 text-base">Grading / Penilaian</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Menentukan ambang nilai batas lulus (passing grade), pembobotan kuis/tugas, serta mengaitkan modul assessment ke nilai akhir.
+                        </p>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 text-sm text-slate-600 font-bold">
+                        <i class="fa-solid fa-[#ee1522] fa-calculator text-[#ee1522] mr-1"></i> Bobot Nilai & Kelulusan
+                        <ul class="space-y-2.5 text-sm text-slate-600 font-medium mt-2">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Atur nilai minimum lulus</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Atur komponen penilaian untuk nilai akhir</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-[#ee1522] fa-circle-check text-emerald-500"></i> Hubungkan assessment dengan komponen penilaian</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call To Action -->
+    <section id="ringkasan" class="py-16 bg-[#111827] text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div>
+                    <span class="inline-flex items-center gap-2 text-xs font-black text-red-400 uppercase tracking-widest mb-3">
+                        <i class="fa-solid fa-flag-checkered"></i> Siap Memulai Pengembangan?
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tight mb-3">Course Lengkap, Tersusun, Lalu Dikurasi.</h2>
+                    <p class="text-slate-400 text-sm max-w-2xl">
+                        Pastikan seluruh komponen dari awal hingga akhir telah sesuai panduan agar proses verifikasi di Admin Mitra maupun ICE Institute berjalan cepat dan lancar.
+                    </p>
+                </div>
+                <div class="flex items-center gap-4 flex-shrink-0">
+                    <a href="#diagram" class="bg-[#ee1522] hover:bg-[#c70f1a] text-white px-6 py-3.5 rounded-full text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-red-600/30 flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <span>Kembali Ke Diagram Alur</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="border-t border-slate-200 bg-slate-50 py-10 px-6 sm:px-10 lg:px-16 text-slate-600">
+        <div class="max-w-7xl mx-auto">
+            <!-- Main Footer Grid (4 Columns) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-8">
+                <!-- Column 1: Brand & Description (lg:col-span-4) -->
+                <div class="lg:col-span-4">
+                    <a href="https://lms.icei.ac.id/" class="inline-flex items-center mb-3" aria-label="ICE Institute">
+                        <img src="https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png" alt="ICE Institute" class="h-12 w-auto object-contain" onerror="this.src='https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png'">
+                    </a>
+                    <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                        ICE Institute is your hub to study anywhere and anytime at the campus of your choice!
+                        Now you can learn from all the best universities around the globe.
+                    </p>
+                </div>
+                <!-- Column 2: Quick Links (lg:col-span-2) -->
+                <div class="lg:col-span-2">
+                    <h3 class="font-bold text-slate-900 text-sm mb-3.5">Quick Links</h3>
+                    <ul class="space-y-2 text-xs sm:text-sm">
+                        <li><a href="https://lms.icei.ac.id/" class="hover:text-cyan-600 transition-colors">Home</a></li>
+                        <li><a href="https://lms.icei.ac.id/about" class="hover:text-cyan-600 transition-colors">About</a></li>
+                        <li><a href="https://lms.icei.ac.id/certificate" class="hover:text-cyan-600 transition-colors">Certificate</a></li>
+                        <li><a href="https://lms.icei.ac.id/faqs" class="hover:text-cyan-600 transition-colors">FAQs</a></li>
+                        <li><a href="https://lms.icei.ac.id/contact" class="hover:text-cyan-600 transition-colors">Contact</a></li>
+                        <li><a href="https://lms.icei.ac.id/help" class="hover:text-cyan-600 transition-colors">Help</a></li>
+                    </ul>
+                </div>
+                <!-- Column 3: Information (lg:col-span-2) -->
+                <div class="lg:col-span-2">
+                    <h3 class="font-bold text-slate-900 text-sm mb-3.5">Information</h3>
+                    <ul class="space-y-2 text-xs sm:text-sm">
+                        <li><a href="https://lms.icei.ac.id/curation" class="hover:text-cyan-600 transition-colors">Curation</a></li>
+                        <li><a href="https://lms.icei.ac.id/privacy" class="hover:text-cyan-600 transition-colors">Privacy</a></li>
+                        <li><a href="https://lms.icei.ac.id/terms" class="hover:text-cyan-600 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <!-- Column 4: Address & Contact (lg:col-span-4) -->
+                <div class="lg:col-span-4">
+                    <h3 class="font-bold text-slate-900 text-sm mb-3.5">Address</h3>
+                    <address class="not-italic text-xs sm:text-sm text-slate-500 leading-relaxed mb-3">
+                        <strong class="text-slate-900 font-semibold">ICE Institute</strong><br>
+                        Universitas Terbuka<br>
+                        Gedung LPPMP Lantai 2<br>
+                        Jl. Cabe Raya Pondok Cabe, Pamulang,<br>
+                        Tangerang Selatan, Banten - 15437
+                    </address>
+                    <div class="text-xs sm:text-sm space-y-1.5">
+                        <div>
+                            <a href="tel:+6281250504200" class="inline-flex items-center hover:text-cyan-600 transition-colors">
+                                <i class="bi bi-telephone mr-2 text-cyan-600"></i>0812 5050 4200
+                            </a>
+                        </div>
+                        <div>
+                            <a href="mailto:sekretariat@icei.ac.id" class="inline-flex items-center hover:text-cyan-600 transition-colors">
+                                <i class="bi bi-envelope mr-2 text-cyan-600"></i>sekretariat@icei.ac.id
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom Section: Copyright & Social Links -->
+            <div class="flex flex-col md:flex-row items-center justify-between border-t border-slate-200 pt-6 gap-4">
+                <p class="text-xs text-slate-500 text-center md:text-left">
+                    © 2026 ICE Institute — Indonesia Cyber Education Institute
+                </p>
+                <div class="flex items-center space-x-4 text-base text-slate-500">
+                    <a href="#" class="hover:text-blue-600 transition-colors p-1" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="hover:text-slate-900 transition-colors p-1" aria-label="X / Twitter"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="hover:text-pink-600 transition-colors p-1" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="hover:text-red-600 transition-colors p-1" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                    <a href="#" class="hover:text-blue-700 transition-colors p-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="hover:text-emerald-600 transition-colors p-1" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    // DATA POPUP MODAL
+    const stepDetails = {
+        1: {
+            role: 'Admin Mitra',
+            badgeBg: 'bg-blue-100 text-blue-800',
+            title: 'Langkah 1: Penugasan Dosen via Email',
+            desc: 'Admin Mitra menginisiasi proses pengembangan course dengan menerima dan menugaskan Dosen pengembang berdasarkan email resmi institusi.',
+            items: [
+                'Penerimaan atau pengajuan usulan nama Dosen',
+                'Verifikasi alamat email institusi resmi Dosen',
+                'Pemberian akses awal peran pengembang course'
+            ]
+        },
+        2: {
+            role: 'Admin Mitra',
+            badgeBg: 'bg-blue-100 text-blue-800',
+            title: 'Langkah 2: Membuat Kerangka Course',
+            desc: 'Admin Mitra membuat struktur awal ruang mata kuliah di platform dan mendaftarkan Dosen beserta tim pengembang.',
+            items: [
+                'Pembuatan kerangka course baru di platform',
+                'Penambahan Dosen Pengampu & Tim Pengembang',
+                'Pengaturan wewenang modul dan jadwal kerja'
+            ]
+        },
+        3: {
+            role: 'Dosen & Tim Pengembang',
+            badgeBg: 'bg-purple-100 text-purple-800',
+            title: 'Langkah 3: Mengembangkan Course',
+            desc: 'Dosen beserta tim pengembang menyusun konten materi utama sesuai standar mutu.',
+            items: [
+                '<strong>Informasi Course:</strong> Deskripsi, CPL, syarat mata kuliah',
+                '<strong>Informasi Pengembang:</strong> Profil, biodata, & foto tim pengajar',
+                '<strong>Informasi Materi/Topik:</strong> Modul, bahan ajar, video, & tugas'
+            ]
+        },
+        4: {
+            role: 'Dosen & Tim Pengembang',
+            badgeBg: 'bg-purple-100 text-purple-800',
+            title: 'Langkah 4: Penyusunan di Platform ICE Institute',
+            desc: 'Dosen mengonfigurasi seluruh elemen pembelajaran langsung di platform LMS.',
+            items: [
+                '<strong>Schedule & Detail:</strong> Jadwal rilis, durasi, & informasi course',
+                '<strong>Outline:</strong> Pengenalan course & tata urutan topik perkuliahan',
+                '<strong>Grading:</strong> Bobot penilaian, asesmen, & syarat kelulusan'
+            ]
+        },
+        5: {
+            role: 'Dosen & Tim Pengembang',
+            badgeBg: 'bg-purple-100 text-purple-800',
+            title: 'Langkah 5: Pengajuan Kurasi Course',
+            desc: 'Setelah seluruh komponen lengkap, Dosen mengajukan course untuk diproses kurasi oleh Admin Mitra.',
+            items: [
+                'Verifikasi mandiri kelengkapan komponen',
+                'Penguncian draf untuk peninjauan',
+                'Mengirim notifikasi pengajuan ke Admin Mitra'
+            ]
+        },
+        6: {
+            role: 'Admin Mitra',
+            badgeBg: 'bg-amber-100 text-amber-800',
+            title: 'Langkah 6: Kurasi Internal Mitra',
+            desc: 'Admin Mitra melakukan peninjauan kesesuaian course sesuai ketentuan internal.',
+            items: [
+                '<strong>7.1 Belum Sesuai (Revisi):</strong> Dikembalikan ke Dosen & Tim (Langkah 3) untuk perbaikan.',
+                '<strong>7.2 Sesuai:</strong> Lanjut ke penetapan/input harga course.'
+            ]
+        },
+        7: {
+            role: 'Admin Mitra',
+            badgeBg: 'bg-emerald-100 text-emerald-800',
+            title: 'Langkah 7.2: Input Harga Course',
+            desc: 'Admin Mitra mengonfigurasi skema biaya course sebelum diteruskan ke ICE Institute.',
+            items: [
+                'Input penetapan harga (Gratis / Berbayar)',
+                'Konfirmasi ketersediaan kuota pembelajar',
+                'Meneruskan status course ke ICE Institute'
+            ]
+        },
+        8: {
+            role: 'ICE Institute',
+            badgeBg: 'bg-ice-100 text-ice-800',
+            title: 'Langkah 8: Kurasi ICE Institute',
+            desc: 'Pengecekan standar mutu dan kelengkapan media oleh Tim Kurator ICE Institute.',
+            items: [
+                'Pengecekan kelengkapan komponen & format media',
+                'Pengujian ketersediaan & aksesibilitas link/materi',
+                '<strong>9.1 Tidak Lolos:</strong> Dikembalikan ke Dosen & Tim (Langkah 3) untuk perbaikan',
+                '<strong>9.2 Lolos Kurasi:</strong> Meluncur ke tahap publikasi'
+            ]
+        },
+        9: {
+            role: 'ICE Institute',
+            badgeBg: 'bg-emerald-100 text-emerald-800',
+            title: 'Langkah 9.2: Course Publish 🎉',
+            desc: 'Course resmi terbit dan aktif di Katalog Utama ICE Institute.',
+            items: [
+                'Tampil di pencarian Katalog Nasional ICE Institute',
+                'Pendaftaran mahasiswa/pembelajar resmi dibuka',
+                'Sistem penerbitan sertifikat otomatis aktif'
+            ]
+        }
+    };
+
+    // GLOBAL PAN & ZOOM STATE VARIABLES
+    let scale = 1;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let currentHighlight = 'all';
+
+    // JSPLUMB INSTANCE REFERENCE
+    let jsPlumbInstance = null;
+    let createdConnections = [];
+
+    const viewport = document.getElementById('diagram-viewport');
+    const transformLayer = document.getElementById('canvas-transform-layer');
+    const canvasWrapper = document.getElementById('canvas-wrapper');
+
+    function initJsPlumb() {
+        jsPlumb.ready(function() {
+            jsPlumbInstance = jsPlumb.getInstance({
+                Container: canvasWrapper,
+                // Menggunakan connector Flowchart dengan autorouting pintar (hindari tabrakan)
+                Connector: ["Flowchart", {
+                    stub: [20, 30],
+                    gap: 8,
+                    cornerRadius: 8,
+                    alwaysRespectStubs: true
+                }],
+                // 1. Ubah Endpoint menjadi Dot (Lingkaran)
+                Endpoints: [
+                    ["Dot", { radius: 6 }], // [0] = Pangkal (Awal) -> Lingkaran
+                    ["Blank", {}] // [1] = Ujung (Akhir) -> Kosong (karena ujungnya sudah pakai marker Arrow)
+                ],
+                EndpointStyle: {
+                    fill: "#10b981", // Warna isi lingkaran
+                    stroke: "#ffffff", // Warna garis tepi lingkaran
+                    strokeWidth: 2
+                },
+                PaintStyle: { stroke: "#64748b", strokeWidth: 2.5 },
+                HoverPaintStyle: { stroke: "#3b82f6", strokeWidth: 3.5 }
+            });
+
+            // DEFINISI ALUR KONEKSI DENGAN AUTOROUTING
+            const connectionsConfig = [
+                // 1 -> 2
+                {
+                    source: "node-step-1",
+                    target: "node-step-2",
+                    anchors: ["Bottom", "Top"],
+                    paintStyle: { stroke: "#64748b", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 2 -> 3
+                {
+                    source: "node-step-2",
+                    target: "node-step-3",
+                    anchors: ["Right", "Left"],
+                    paintStyle: { stroke: "#64748b", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 3 -> 4
+                {
+                    source: "node-step-3",
+                    target: "node-step-4",
+                    anchors: ["Bottom", "Top"],
+                    paintStyle: { stroke: "#64748b", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 4 -> 5
+                {
+                    source: "node-step-4",
+                    target: "node-step-5",
+                    anchors: ["Bottom", "Top"],
+                    paintStyle: { stroke: "#64748b", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 5 -> 6
+                {
+                    source: "node-step-5",
+                    target: "node-step-6",
+                    anchors: ["Left", "Right"],
+                    paintStyle: { stroke: "#64748b", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 6 -> 7.2 (Sesuai)
+                {
+                    source: "node-step-6",
+                    target: "node-step-7",
+                    anchors: ["Bottom", "Top"],
+                    paintStyle: { stroke: "#10b981", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 6 -> 3 (7.1 Belum Sesuai - REVISI MITRA LOOPBACK)
+                {
+                    source: "node-step-6",
+                    target: "node-step-3",
+
+                    // GANTI BAGIAN INI:
+                    anchors: [
+                        // Source Anchor (start) di sisi Right, digeser ke atas 20px (offsetY: -20)
+                        [1, 0.5, 1, 0, 0, -20],
+
+                        // Target Anchor (end) di sisi Left, digeser ke bawah 15px (offsetY: 15)
+                        [0, 0.5, -1, 0, 0, 15]
+                    ],
+
+                    paintStyle: { stroke: "#f59e0b", strokeWidth: 2.5, dashstyle: "4 3" },
+                    overlays: [
+                        ["Custom", {
+                            create: function() {
+                                const d = document.createElement("div");
+                                d.className = "jsplumb-custom-label label-revisi-mitra";
+                                d.innerHTML = "<i class='fa-solid fa-rotate-left mr-1 text-base'></i> 7.1 Belum Sesuai (Revisi)";
+                                return d;
+                            },
+                            location: 0.30
+                        }]
+                    ],
+                    group: "mitra-revisi"
+                },
+                // 7.2 -> 8
+                {
+                    source: "node-step-7",
+                    target: "node-step-8",
+                    anchors: ["Right", "Left"],
+                    paintStyle: { stroke: "#10b981", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 8 -> 9.2 (Publish)
+                {
+                    source: "node-step-8",
+                    target: "node-step-9",
+                    anchors: ["Bottom", "Top"],
+                    paintStyle: { stroke: "#10b981", strokeWidth: 2.5 },
+                    group: "success"
+                },
+                // 8 -> 3 (9.1 Tidak Lolos - REVISI ICE LOOPBACK MEMUTAR TINGGI MELEWATI ELEMEN LAIN)
+                {
+                    source: "node-step-8",
+                    target: "node-step-3",
+                    anchors: ["Top", "Right"],
+                    // Menentukan Stub khusus agar garis memutar secara aman tanpa menabrak card
+                    connector: ["Flowchart", { stub: [50, 40], gap: 8, cornerRadius: 10 }],
+                    paintStyle: { stroke: "#ee1522", strokeWidth: 2.5, dashstyle: "4 3" },
+                    overlays: [
+                        ["Custom", {
+                            create: function() {
+                                const d = document.createElement("div");
+                                d.className = "jsplumb-custom-label label-revisi-ice";
+                                d.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-1 text-base'></i> 9.1 Tidak Lolos (Revisi ICE)";
+                                return d;
+                            },
+                            location: 0.5
+                        }]
+                    ],
+                    group: "ice-revisi"
+                }
+            ];
+
+            // Render koneksi ke dalam instance
+            connectionsConfig.forEach(cfg => {
+                const conn = jsPlumbInstance.connect({
+                    source: cfg.source,
+                    target: cfg.target,
+                    anchors: cfg.anchors,
+                    connector: cfg.connector || ["Flowchart", { stub: [20, 20], gap: 8, cornerRadius: 8 }],
+                    paintStyle: cfg.paintStyle,
+                    overlays: [
+                        ["Arrow", { width: 12, length: 12, location: 1 }],
+                        ...(cfg.overlays || [])
+                    ]
+                });
+
+                conn._customGroup = cfg.group;
+                conn._defaultPaint = cfg.paintStyle;
+                createdConnections.push(conn);
+            });
+
+            // Update ulang posisi saat zoom atau render pertama
+            updateTransform();
+        });
+    }
+
+    // UPDATE TRANSFORM LAYER & INDICATOR
+    function updateTransform() {
+        transformLayer.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+        const indicator = document.getElementById('zoom-indicator');
+        if (indicator) indicator.textContent = `${Math.round(scale * 100)}%`;
+
+        // Repaint jsPlumb agar memperhitungkan koordinat baru
+        if (jsPlumbInstance) {
+            jsPlumbInstance.setZoom(scale);
+            jsPlumbInstance.repaintEverything();
+        }
+    }
+
+    // ADJUST ZOOM STEP
+    function adjustZoom(delta) {
+        const oldScale = scale;
+        scale = Math.min(Math.max(0.4, scale + delta), 2.0);
+
+        const rect = viewport.getBoundingClientRect();
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        panX = cx - (cx - panX) * (scale / oldScale);
+        panY = cy - (cy - panY) * (scale / oldScale);
+
+        updateTransform();
+    }
+
+    // RESET VIEW TO INITIAL
+    function resetView() {
+        scale = 1;
+        panX = 20;
+        panY = 20;
+        updateTransform();
+    }
+
+    // AUTO-FIT CANVAS TO SCREEN VIEWPORT
+    function fitToScreen() {
+        if (!viewport || !canvasWrapper) return;
+        const vpRect = viewport.getBoundingClientRect();
+        const cw = 1100; // Native wrapper width
+        const ch = 720; // Native wrapper height
+
+        const scaleX = (vpRect.width - 40) / cw;
+        const scaleY = (vpRect.height - 40) / ch;
+        scale = Math.min(Math.max(0.4, Math.min(scaleX, scaleY)), 1.2);
+
+        panX = (vpRect.width - cw * scale) / 2;
+        panY = (vpRect.height - ch * scale) / 21;
+
+        updateTransform();
+    }
+
+    // MOUSE & TOUCH EVENT LISTENERS FOR PANNING
+    viewport.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.node-card') || e.target.closest('button')) return;
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        updateTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    // WHEEL MOUSE ZOOMING
+    viewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const zoomFactor = e.deltaY < 0 ? 1.08 : 0.92;
+        const oldScale = scale;
+        const newScale = Math.min(Math.max(0.4, scale * zoomFactor), 2.0);
+
+        const rect = viewport.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        panX = mouseX - (mouseX - panX) * (newScale / oldScale);
+        panY = mouseY - (mouseY - panY) * (newScale / oldScale);
+        scale = newScale;
+
+        updateTransform();
+    }, { passive: false });
+
+    // HIGHLIGHT PATH FILTERS VIA JSPLUMB
+    function setPathHighlight(mode) {
+        currentHighlight = mode;
+        ['all', 'success', 'mitra-revisi', 'ice-revisi'].forEach(btn => {
+            const el = document.getElementById(`filter-${btn}`);
+            if (el) {
+                if (btn === mode) {
+                    el.className = "px-2.5 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs font-bold";
+                } else {
+                    el.className = "px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900";
+                }
+            }
+        });
+
+        // Update Opacity Koneksi jsPlumb
+        createdConnections.forEach(conn => {
+            const isMatch = (mode === 'all' || conn._customGroup === mode);
+            if (isMatch) {
+                conn.setPaintStyle({
+                    ...conn._defaultPaint,
+                    strokeWidth: (mode === 'all') ? 2.5 : 3.5
+                });
+                conn.setVisible(true);
+            } else {
+                conn.setPaintStyle({
+                    ...conn._defaultPaint,
+                    stroke: "#cbd5e1",
+                    strokeWidth: 1.5
+                });
+            }
+        });
+
+        if (jsPlumbInstance) jsPlumbInstance.repaintEverything();
+    }
+
+    // VIEW SWITCHER
+    function switchView(mode) {
+        const swimlaneView = document.getElementById('view-swimlane');
+        const stepView = document.getElementById('view-step');
+        const btnSwimlane = document.getElementById('btn-view-swimlane');
+        const btnStep = document.getElementById('btn-view-step');
+
+        if (mode === 'swimlane') {
+            swimlaneView.classList.remove('hidden');
+            stepView.classList.add('hidden');
+            btnSwimlane.className = "px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition-all flex items-center gap-1.5";
+            btnStep.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all flex items-center gap-1.5";
+            setTimeout(() => {
+                fitToScreen();
+            }, 50);
+        } else {
+            swimlaneView.classList.add('hidden');
+            stepView.classList.remove('hidden');
+            btnStep.className = "px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition-all flex items-center gap-1.5";
+            btnSwimlane.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all flex items-center gap-1.5";
+        }
+    }
+
+    // MODAL HANDLERS
+    function openModal(stepId) {
+        const data = stepDetails[stepId];
+        if (!data) return;
+
+        const modalContent = document.getElementById('modal-content');
+        modalContent.innerHTML = `
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md ${data.badgeBg}">${data.role}</span>
+        </div>
+        <h3 class="text-base font-bold text-slate-900 mb-2">${data.title}</h3>
+        <p class="text-xs text-slate-600 mb-4 leading-relaxed">${data.desc}</p>
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+          <h4 class="text-xs font-bold text-slate-700 mb-2">Rincian Aktivitas:</h4>
+          <ul class="space-y-1.5 text-xs text-slate-600">
+          ${data.items.map(item => `<li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-ice-500 text-xs mt-0.5"></i> <span>${item}</span></li>`).join('')}
+          </ul>
+        </div>
+        `;
+
+        document.getElementById('modal-backdrop').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('modal-backdrop').classList.add('hidden');
+    }
+
+    // INITIAL LOAD & RESIZE EVENTS
+    window.addEventListener('load', () => {
+        initJsPlumb();
+        setTimeout(() => {
+            fitToScreen();
+        }, 150);
+    });
+
+    window.addEventListener('resize', () => {
+        fitToScreen();
+    });
+
+    document.getElementById('modal-backdrop').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+    </script>
+</body>
+
+</html>
