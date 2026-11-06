@@ -66,11 +66,11 @@
 
   // Cek apakah certId benar-benar ada dan tidak kosong
   if (certId && certId.trim() !== "") {
-    const customImageURL = `https://iceinstitut.github.io/konten/image/aset/${certId}.jpg`;
+    const customImageURL = `https://iceinstitut.github.io/image/aset/${certId}.jpg`;
     document.getElementById('og-image').setAttribute('content', customImageURL);
   } else {
     // Jika tidak ada ID, pastikan tetap pakai default (opsional karena sudah default di HTML)
-    document.getElementById('og-image').setAttribute('content', 'https://iceinstitut.github.io/konten/image/aset/default-og.jpg');
+    document.getElementById('og-image').setAttribute('content', 'https://iceinstitut.github.io/image/aset/default-og.jpg');
   }
 </script>
   <script src="https://cdn.tailwindcss.com"></script>
