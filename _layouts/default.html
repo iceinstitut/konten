@@ -17,8 +17,8 @@
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:site_name" content="ICE Institute">
 
-  <meta property="og:image"
-        content="{{ page.image | default: '/image/aset/default-og.jpg' | absolute_url }}">
+  <!-- Tag meta dengan nilai default -->
+  <meta property="og:image" id="og-image" content="{{ page.image | default: '/image/aset/default-og.jpg' | absolute_url }}">
 
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -34,8 +34,7 @@
         content="{{ page.og_title | default: page.title }}">
   <meta name="twitter:description"
         content="{{ page.description | default: site.description }}">
-  <meta name="twitter:image"
-        content="{{ page.image | default: '/image/aset/default-og.jpg' | absolute_url }}">
+  <meta name="twitter:image" content="{{ page.image | default: '/image/aset/default-og.jpg' | absolute_url }}">
 
   <!-- Bootstrap ICON -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -61,7 +60,20 @@
 
 {% include footer.html %}
 
-<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const certId = urlParams.get('id');
+
+  // Cek apakah certId benar-benar ada dan tidak kosong
+  if (certId && certId.trim() !== "") {
+    const customImageURL = `https://iceinstitut.github.io/konten/image/aset/${certId}.jpg`;
+    document.getElementById('og-image').setAttribute('content', customImageURL);
+  } else {
+    // Jika tidak ada ID, pastikan tetap pakai default (opsional karena sudah default di HTML)
+    document.getElementById('og-image').setAttribute('content', 'https://iceinstitut.github.io/konten/image/aset/default-og.jpg');
+  }
+</script>
+  <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
